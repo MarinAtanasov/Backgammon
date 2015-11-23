@@ -96,7 +96,7 @@ namespace AppBrix.Backgammon.Core.Impl
         private ITurn UseDie(IDie usedDie)
         {
             if (this.Turn.Dice.Count(x => x.IsUsed) < this.Turn.Dice.Count - 1)
-                return new DefaultTurn(this.Turn.Player, this.Turn.Dice.Select(x => new DefaultDie(x.IsUsed || x == usedDie, x.Value)).ToArray());
+                return new DefaultTurn(this.Turn.Player, this.Turn.Dice.Select(x => x == usedDie ? new DefaultDie(true, x.Value) : x).ToArray());
             else if (this.Turn.Dice.Count == 4)
                 return this.CreateNewTurn(this.Turn.Player);
             else
