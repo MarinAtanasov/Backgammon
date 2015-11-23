@@ -2,10 +2,11 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
+using AppBrix.Backgammon.Core;
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core
+namespace AppBrix
 {
     public static class BackgammonCoreExtensions
     {
