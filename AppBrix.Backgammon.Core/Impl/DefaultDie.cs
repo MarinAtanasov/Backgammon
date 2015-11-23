@@ -14,7 +14,7 @@ namespace AppBrix.Backgammon.Core.Impl
             if (value < 1 || value > 6)
                 throw new ArgumentException("Invalid die value: " + value);
 
-            this.IsUsed = IsUsed;
+            this.IsUsed = isUsed;
             this.Value = value;
         }
         #endregion
