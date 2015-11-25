@@ -9,6 +9,8 @@ namespace AppBrix.Backgammon.Core
 {
     public interface IGameFactory
     {
-        IGame CreateGame(IReadOnlyList<string> playerNames);
+        IPlayer CreatePlayer(string name);
+
+        IGame CreateGame(IReadOnlyList<IPlayer> players);
     }
 }

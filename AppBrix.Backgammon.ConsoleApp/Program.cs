@@ -20,21 +20,27 @@ namespace AppBrix.Backgammon.ConsoleApp
             app.Start();
             try
             {
-                var game = app.Get<IGameFactory>().CreateGame(new string[] { "Player1", "Player2" });
+                var players = new []
+                {
+                    app.Get<IGameFactory>().CreatePlayer("Player 1"),
+                    app.Get<IGameFactory>().CreatePlayer("Player 2")
+                };
+                var game = app.Get<IGameFactory>().CreateGame(players);
 
-                Program.PrintBoard(game);
+                Program.PrintBoard(game, players[0]);
                 System.Threading.Thread.Sleep(2000);
                 while (true)
                 {
+                    var currentPlayer = players.First(x => x.Name == game.Turn.Player);
+                    game.RollDice(currentPlayer);
+                    Program.PrintBoard(game, players[0]);
+                    System.Threading.Thread.Sleep(2000);
                     while (game.Turn.Dice.Any(x => !x.IsUsed))
                     {
-                        game.PlayDie(game.Turn.Player, game.Turn.Player.Board.Lanes.First(), game.Turn.Dice.First(x => !x.IsUsed));
-                        Program.PrintBoard(game);
+                        game.PlayDie(currentPlayer, game.GetBoard(currentPlayer).Lanes.First(), game.Turn.Dice.First(x => !x.IsUsed));
+                        Program.PrintBoard(game, players[0]);
                         System.Threading.Thread.Sleep(2000);
                     }
-                    game.RollDice(game.Turn.Player);
-                    Program.PrintBoard(game);
-                    System.Threading.Thread.Sleep(2000);
                 }
             }
             catch (Exception ex)
@@ -48,10 +54,9 @@ namespace AppBrix.Backgammon.ConsoleApp
             }
         }
 
-        private static void PrintBoard(IGame game)
+        private static void PrintBoard(IGame game, IPlayer player1)
         {
-            var player1 = game.Players.First();
-            var board = player1.Board;
+            var board = game.GetBoard(player1);
             var lanes = board.Lanes;
 
             Console.WriteLine("-----------------------------");

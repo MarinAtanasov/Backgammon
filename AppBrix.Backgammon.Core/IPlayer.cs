@@ -10,9 +10,7 @@ namespace AppBrix.Backgammon.Core
     {
         #region Properties
         Guid Id { get; }
-
-        IBoard Board { get; }
-
+        
         string Name { get; }
         #endregion
     }

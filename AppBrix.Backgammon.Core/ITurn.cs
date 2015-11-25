@@ -14,7 +14,7 @@ namespace AppBrix.Backgammon.Core
 
         IReadOnlyList<IDie> Dice { get; }
 
-        IPlayer Player { get; }
+        string Player { get; }
         #endregion
     }
 }

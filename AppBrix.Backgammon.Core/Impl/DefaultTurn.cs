@@ -17,7 +17,7 @@ namespace AppBrix.Backgammon.Core.Impl
             if (dice == null)
                 throw new ArgumentNullException("dice");
 
-            this.Player = player;
+            this.Player = player.Name;
             this.Dice = dice;
             this.AreDiceRolled = this.Dice.Any();
         }
@@ -28,7 +28,7 @@ namespace AppBrix.Backgammon.Core.Impl
 
         public IReadOnlyList<IDie> Dice { get; private set; }
 
-        public IPlayer Player { get; private set; }
+        public string Player { get; private set; }
         #endregion
     }
 }
