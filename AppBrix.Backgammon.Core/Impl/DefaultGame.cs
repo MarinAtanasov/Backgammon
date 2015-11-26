@@ -2,6 +2,7 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
+using AppBrix.Backgammon.Core.Impl.Rules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +27,14 @@ namespace AppBrix.Backgammon.Core.Impl
 
             this.app = app;
             this.Players = new IPlayer[] { player1, player2 };
+
             var board = this.CreateBoard();
             this.SetBoard(board, this.Players);
             var reversedBoard = new DefaultBoard(new ReversedLanes(board.Lanes));
             this.Boards = new IBoard[] { board, reversedBoard };
+
             this.Turn = this.CreateNewTurn(this.Players.First());
+            this.Rules = new BasicMoveRule();
         }
         #endregion
 
@@ -38,6 +42,8 @@ namespace AppBrix.Backgammon.Core.Impl
         public IList<IBoard> Boards { get; private set; }
 
         public IList<IPlayer> Players { get; private set; }
+
+        public MoveRuleBase Rules { get; private set; }
 
         public ITurn Turn { get; private set; }
         #endregion
@@ -65,7 +71,8 @@ namespace AppBrix.Backgammon.Core.Impl
                 throw new ArgumentException("This player's turn has not come yet: " + player);
             if (lane == null)
                 throw new ArgumentNullException("lane");
-            if (!this.GetBoard(player).Lanes.Contains(lane))
+            var board = this.GetBoard(player);
+            if (!board.Lanes.Contains(lane))
                 throw new ArgumentException("Lane not found: " + lane);
             if (die == null)
                 throw new ArgumentNullException("die");
@@ -74,7 +81,16 @@ namespace AppBrix.Backgammon.Core.Impl
             if (die.IsUsed)
                 throw new ArgumentException("This die has already been used: " + die);
 
-            this.Turn = this.UseDie(die);
+            var context = this.Rules.CalculatePossibleMoves(board, this.Turn, player);
+            
+            if (context.CanMove(lane, die))
+            {
+                this.Turn = this.UseDie(die);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid move.");
+            }
             return this.Turn;
         }
 

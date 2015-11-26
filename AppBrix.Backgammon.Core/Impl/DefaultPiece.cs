@@ -9,17 +9,17 @@ namespace AppBrix.Backgammon.Core.Impl
     internal class DefaultPiece : IPiece
     {
         #region Construction
-        public DefaultPiece(IPlayer owner)
+        public DefaultPiece(IPlayer player)
         {
-            if (owner == null)
-                throw new ArgumentNullException("owner");
+            if (player == null)
+                throw new ArgumentNullException("player");
 
-            this.Owner = owner;
+            this.Player = player.Name;
         }
         #endregion
 
         #region Properties
-        public IPlayer Owner { get; private set; }
+        public string Player { get; private set; }
         #endregion
     }
 }

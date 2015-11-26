@@ -58,6 +58,7 @@ namespace AppBrix.Backgammon.ConsoleApp
         {
             var board = game.GetBoard(player1);
             var lanes = board.Lanes;
+            var player1Name = player1.Name;
 
             Console.WriteLine("-----------------------------");
             
@@ -66,13 +67,13 @@ namespace AppBrix.Backgammon.ConsoleApp
                 for (int column = 0; column < lanes.Count / 4; column++)
                 {
                     var pieces = lanes[column].Pieces;
-                    Console.Write("|{0,1}", pieces.Count > row ? (pieces[row].Owner == player1 ? "W" : "B") : string.Empty);
+                    Console.Write("|{0,1}", pieces.Count > row ? (pieces[row].Player == player1Name ? "W" : "B") : string.Empty);
                 }
                 Console.Write("| - |");
                 for (int column = lanes.Count / 4; column < lanes.Count / 2; column++)
                 {
                     var pieces = lanes[column].Pieces;
-                    Console.Write("{0,1}|", pieces.Count > row ? (pieces[row].Owner == player1 ? "W" : "B") : string.Empty);
+                    Console.Write("{0,1}|", pieces.Count > row ? (pieces[row].Player == player1Name ? "W" : "B") : string.Empty);
                 }
                 Console.WriteLine();
             }
@@ -96,13 +97,13 @@ namespace AppBrix.Backgammon.ConsoleApp
                 for (int column = lanes.Count - 1; column >= (lanes.Count * 3) / 4; column--)
                 {
                     var pieces = lanes[column].Pieces;
-                    Console.Write("|{0,1}", pieces.Count > row ? (pieces[row].Owner == player1 ? "W" : "B") : string.Empty);
+                    Console.Write("|{0,1}", pieces.Count > row ? (pieces[row].Player == player1Name ? "W" : "B") : string.Empty);
                 }
                 Console.Write("| - |");
                 for (int column = ((lanes.Count * 3) / 4) - 1; column >= lanes.Count / 2; column--)
                 {
                     var pieces = lanes[column].Pieces;
-                    Console.Write("{0,1}|", pieces.Count > row ? (pieces[row].Owner == player1 ? "W" : "B") : string.Empty);
+                    Console.Write("{0,1}|", pieces.Count > row ? (pieces[row].Player == player1Name ? "W" : "B") : string.Empty);
                 }
                 Console.WriteLine();
             }

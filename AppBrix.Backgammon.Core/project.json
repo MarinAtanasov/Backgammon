@@ -15,6 +15,7 @@
 
   "dependencies": {
     "AppBrix": "0.1.0-*",
+    "AppBrix.Factory": "0.1.0-*",
     "AppBrix.Resolver": "0.1.0-*"
   },
 

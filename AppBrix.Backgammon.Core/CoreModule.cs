@@ -19,7 +19,7 @@ namespace AppBrix.Backgammon.Core
         {
             this.App.GetResolver().Register(this);
             this.App.GetResolver().Register(new DefaultGameFactory(this.App));
-            this.App.GetResolver().Register(new DefaultDiceRoller(new Random()));
+            this.App.GetResolver().Register(new DefaultDiceRoller(this.App));
         }
 
         protected override void UninitializeModule()

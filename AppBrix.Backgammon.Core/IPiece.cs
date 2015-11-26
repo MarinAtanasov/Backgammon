@@ -9,7 +9,7 @@ namespace AppBrix.Backgammon.Core
     public interface IPiece
     {
         #region Properties
-        IPlayer Owner { get; }
+        string Player { get; }
         #endregion
     }
 }

@@ -32,7 +32,7 @@ namespace AppBrix.Backgammon.Core.Impl
         {
             get
             {
-                return this.pieces.Count > 0 ? this.pieces[this.pieces.Count] : null;
+                return this.pieces.Count > 0 ? this.pieces[this.pieces.Count - 1] : null;
             }
         }
         #endregion

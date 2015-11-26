@@ -1,6 +1,7 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
+using AppBrix.Application;
 using System;
 using System.Linq;
 
@@ -9,24 +10,24 @@ namespace AppBrix.Backgammon.Core.Impl
     internal class DefaultDiceRoller : IDiceRoller
     {
         #region Construction
-        public DefaultDiceRoller(Random random)
+        public DefaultDiceRoller(IApp app)
         {
-            if (random == null)
-                throw new ArgumentNullException("random");
+            if (app == null)
+                throw new ArgumentNullException("app");
 
-            this.random = random;
+            this.app = app;
         }
         #endregion
 
         #region Public and overriden metheods
         public int RollDie()
         {
-            return this.random.Next(1, 7);
+            return this.app.GetFactory().Get<Random>().Next(1, 7);
         }
         #endregion
 
         #region Private fields and constants
-        private readonly Random random;
+        private readonly IApp app;
         #endregion
     }
 }
