@@ -18,7 +18,9 @@ namespace AppBrix.Backgammon.Core.Impl.Rules
                 {
                     var lane = board.Lanes[i];
                     if ((lane.TopPiece != null && lane.TopPiece.Player == playerName) &&
-                        (lanes[i + die.Value].TopPiece == null || lanes[i + die.Value].TopPiece.Player == playerName))
+                        (lanes[i + die.Value].TopPiece == null ||
+                         lanes[i + die.Value].TopPiece.Player == playerName ||
+                         lanes[i + die.Value].Pieces.Count == 1))
                     {
                         context.AddMove(lane, die);
                     }

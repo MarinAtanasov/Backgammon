@@ -8,10 +8,10 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Impl
 {
-    public class ReversedLanes : IReadOnlyList<IBoardLane>
+    internal class ReversedLanes : IReadOnlyList<IGameBoardLane>
     {
         #region Construction
-        public ReversedLanes(IReadOnlyList<IBoardLane> original)
+        public ReversedLanes(IReadOnlyList<IGameBoardLane> original)
         {
             this.original = original;
         }
@@ -26,7 +26,7 @@ namespace AppBrix.Backgammon.Core.Impl
             }
         }
 
-        public IBoardLane this[int index]
+        public IGameBoardLane this[int index]
         {
             get
             {
@@ -36,7 +36,7 @@ namespace AppBrix.Backgammon.Core.Impl
         #endregion
 
         #region Public and overriden methods
-        public IEnumerator<IBoardLane> GetEnumerator()
+        public IEnumerator<IGameBoardLane> GetEnumerator()
         {
             for (int i = this.original.Count - 1; i >= 0; i--)
             {
@@ -51,7 +51,7 @@ namespace AppBrix.Backgammon.Core.Impl
         #endregion
 
         #region Private fields and constants
-        private readonly IReadOnlyList<IBoardLane> original;
+        private readonly IReadOnlyList<IGameBoardLane> original;
         #endregion
     }
 }

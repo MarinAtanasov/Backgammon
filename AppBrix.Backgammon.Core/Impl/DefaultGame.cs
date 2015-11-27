@@ -30,8 +30,8 @@ namespace AppBrix.Backgammon.Core.Impl
 
             var board = this.CreateBoard();
             this.SetBoard(board, this.Players);
-            var reversedBoard = new DefaultBoard(new ReversedLanes(board.Lanes));
-            this.Boards = new IBoard[] { board, reversedBoard };
+            var reversedBoard = new DefaultBoard(new ReversedLanes(board.GameLanes));
+            this.Boards = new IGameBoard[] { board, reversedBoard };
 
             this.Turn = this.CreateNewTurn(this.Players.First());
             this.Rules = new BasicMoveRule();
@@ -39,7 +39,7 @@ namespace AppBrix.Backgammon.Core.Impl
         #endregion
 
         #region Properties
-        public IList<IBoard> Boards { get; private set; }
+        public IList<IGameBoard> Boards { get; private set; }
 
         public IList<IPlayer> Players { get; private set; }
 
@@ -112,9 +112,9 @@ namespace AppBrix.Backgammon.Core.Impl
         #endregion
 
         #region Board initialization
-        private IBoard CreateBoard()
+        private IGameBoard CreateBoard()
         {
-            var lanes = new List<IBoardLane>(24);
+            var lanes = new List<IGameBoardLane>(24);
 
             for (int i = 0; i < 24; i++)
             {
@@ -124,9 +124,9 @@ namespace AppBrix.Backgammon.Core.Impl
             return new DefaultBoard(lanes);
         }
 
-        private void SetBoard(IBoard board, IList<IPlayer> players)
+        private void SetBoard(IGameBoard board, IList<IPlayer> players)
         {
-            var lanes = (IList<IBoardLane>)board.Lanes;
+            var lanes = (IList<IGameBoardLane>)board.GameLanes;
             lanes[0] = new DefaultBoardLane(this.CreatePieces(2, players[0]));
             lanes[5] = new DefaultBoardLane(this.CreatePieces(5, players[1]));
             lanes[7] = new DefaultBoardLane(this.CreatePieces(3, players[1]));

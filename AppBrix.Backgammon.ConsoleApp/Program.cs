@@ -27,19 +27,20 @@ namespace AppBrix.Backgammon.ConsoleApp
                 };
                 var game = app.Get<IGameFactory>().CreateGame(players);
 
+                Action sleep = () => System.Threading.Thread.Sleep(1000);
                 Program.PrintBoard(game, players[0]);
-                System.Threading.Thread.Sleep(2000);
+                sleep();
                 while (true)
                 {
                     var currentPlayer = players.First(x => x.Name == game.Turn.Player);
                     game.RollDice(currentPlayer);
                     Program.PrintBoard(game, players[0]);
-                    System.Threading.Thread.Sleep(2000);
+                    sleep();
                     while (game.Turn.Dice.Any(x => !x.IsUsed))
                     {
                         game.PlayDie(currentPlayer, game.GetBoard(currentPlayer).Lanes.First(), game.Turn.Dice.First(x => !x.IsUsed));
                         Program.PrintBoard(game, players[0]);
-                        System.Threading.Thread.Sleep(2000);
+                        sleep();
                     }
                 }
             }

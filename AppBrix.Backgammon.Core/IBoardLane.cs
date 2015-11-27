@@ -14,11 +14,5 @@ namespace AppBrix.Backgammon.Core
 
         IPiece TopPiece { get; }
         #endregion
-
-        #region Methods
-        void AddPiece(IPiece piece);
-
-        void RemovePiece(IPiece piece);
-        #endregion
     }
 }

@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core
+namespace AppBrix.Backgammon.Core.Impl
 {
-    public interface IGameFactory
+    internal interface IGameBoard : IBoard
     {
-        IPlayer CreatePlayer(string name, Guid id);
-
-        IGame CreateGame(IReadOnlyList<IPlayer> players);
+        #region Properties
+        IReadOnlyList<IGameBoardLane> GameLanes { get; }
+        #endregion
     }
 }

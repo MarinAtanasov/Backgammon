@@ -2,15 +2,16 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core
+namespace AppBrix.Backgammon.Core.Impl
 {
-    public interface IGameFactory
+    internal interface IGameBoardLane : IBoardLane
     {
-        IPlayer CreatePlayer(string name, Guid id);
+        #region Methods
+        void AddPiece(IPiece piece);
 
-        IGame CreateGame(IReadOnlyList<IPlayer> players);
+        void RemovePiece(IPiece piece);
+        #endregion
     }
 }

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Impl
 {
-    public class DefaultGameFactory : IGameFactory
+    internal class DefaultGameFactory : IGameFactory
     {
         #region Construction
         public DefaultGameFactory(IApp app)
@@ -18,9 +18,9 @@ namespace AppBrix.Backgammon.Core.Impl
         #endregion
 
         #region Public and overriden methods
-        public IPlayer CreatePlayer(string name)
+        public IPlayer CreatePlayer(string name, Guid id)
         {
-            return new DefaultPlayer(name, Guid.NewGuid());
+            return new DefaultPlayer(name, id);
         }
 
         public IGame CreateGame(IReadOnlyList<IPlayer> players)
@@ -31,7 +31,7 @@ namespace AppBrix.Backgammon.Core.Impl
             return new DefaultGame(this.app, players[0], players[1]);
         }
         #endregion
-        
+
         #region Private fields and constants
         private readonly IApp app;
         #endregion

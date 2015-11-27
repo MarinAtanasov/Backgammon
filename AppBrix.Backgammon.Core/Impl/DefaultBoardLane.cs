@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Impl
 {
-    internal class DefaultBoardLane : IBoardLane
+    internal class DefaultBoardLane : IGameBoardLane
     {
         #region Construction
         public DefaultBoardLane(params IPiece[] pieces)

@@ -7,20 +7,23 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Impl
 {
-    internal class DefaultBoard : IBoard
+    internal class DefaultBoard : IGameBoard
     {
         #region Construction
-        public DefaultBoard(IReadOnlyList<IBoardLane> lanes)
+        public DefaultBoard(IReadOnlyList<IGameBoardLane> lanes)
         {
             if (lanes == null)
                 throw new ArgumentNullException("lanes");
 
-            this.Lanes = lanes;
+            this.GameLanes = lanes;
         }
+
         #endregion
 
         #region Properties
-        public IReadOnlyList<IBoardLane> Lanes { get; private set; }
+        public IReadOnlyList<IGameBoardLane> GameLanes { get; private set; }
+
+        public IReadOnlyList<IBoardLane> Lanes { get { return this.GameLanes; } }
         #endregion
     }
 }
