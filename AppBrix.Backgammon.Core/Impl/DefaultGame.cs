@@ -30,7 +30,7 @@ namespace AppBrix.Backgammon.Core.Impl
 
             var board = this.CreateBoard();
             this.SetBoard(board, this.Players);
-            var reversedBoard = new DefaultBoard(new ReversedLanes(board.GameLanes));
+            var reversedBoard = new DefaultBoard(new ReversedLanes(board.GameLanes), board.GameBar, board.GameBearedOff);
             this.Boards = new IGameBoard[] { board, reversedBoard };
 
             this.Turn = this.CreateNewTurn(this.Players.First());
@@ -72,7 +72,7 @@ namespace AppBrix.Backgammon.Core.Impl
             if (lane == null)
                 throw new ArgumentNullException("lane");
             var board = this.GetBoard(player);
-            if (!board.Lanes.Contains(lane))
+            if (board.Bar != lane && !board.Lanes.Contains(lane))
                 throw new ArgumentException("Lane not found: " + lane);
             if (die == null)
                 throw new ArgumentNullException("die");
@@ -121,7 +121,7 @@ namespace AppBrix.Backgammon.Core.Impl
                 lanes.Add(new DefaultBoardLane(new IPiece[0]));
             }
 
-            return new DefaultBoard(lanes);
+            return new DefaultBoard(lanes, new DefaultBoardLane(), new DefaultBoardLane());
         }
 
         private void SetBoard(IGameBoard board, IList<IPlayer> players)

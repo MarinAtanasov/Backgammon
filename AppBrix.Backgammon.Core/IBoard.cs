@@ -10,6 +10,10 @@ namespace AppBrix.Backgammon.Core
     public interface IBoard
     {
         #region Properties
+        IBoardLane Bar { get; }
+
+        IBoardLane BearedOff { get; }
+
         IReadOnlyList<IBoardLane> Lanes { get; }
         #endregion
     }
