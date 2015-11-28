@@ -34,7 +34,7 @@ namespace AppBrix.Backgammon.Core.Impl
             this.Boards = new IGameBoard[] { board, reversedBoard };
 
             this.Turn = this.CreateNewTurn(this.Players.First());
-            this.Rules = new BasicMoveRule();
+            this.Rules = new BasicGameRules();
         }
         #endregion
 
@@ -43,7 +43,7 @@ namespace AppBrix.Backgammon.Core.Impl
 
         public IList<IPlayer> Players { get; private set; }
 
-        public MoveRuleBase Rules { get; private set; }
+        public IGameRules Rules { get; private set; }
 
         public ITurn Turn { get; private set; }
         #endregion
@@ -53,12 +53,8 @@ namespace AppBrix.Backgammon.Core.Impl
         {
             if (player == null)
                 throw new ArgumentNullException("player");
-
-            var index = this.Players.IndexOf(player);
-            if (index < 0)
-                throw new ArgumentException("Player not found: " + player);
-
-            return this.Boards[index];
+            
+            return this.GetBoardInternal(player);
         }
 
         public ITurn PlayDie(IPlayer player, IBoardLane lane, IDie die)
@@ -71,7 +67,7 @@ namespace AppBrix.Backgammon.Core.Impl
                 throw new ArgumentException("This player's turn has not come yet: " + player);
             if (lane == null)
                 throw new ArgumentNullException("lane");
-            var board = this.GetBoard(player);
+            var board = this.GetBoardInternal(player);
             if (board.Bar != lane && !board.Lanes.Contains(lane))
                 throw new ArgumentException("Lane not found: " + lane);
             if (die == null)
@@ -81,16 +77,9 @@ namespace AppBrix.Backgammon.Core.Impl
             if (die.IsUsed)
                 throw new ArgumentException("This die has already been used: " + die);
 
-            var context = this.Rules.CalculatePossibleMoves(board, this.Turn, player);
-            
-            if (context.CanMove(lane, die))
-            {
-                this.Turn = this.UseDie(die);
-            }
-            else
-            {
-                throw new ArgumentException("Invalid move.");
-            }
+            this.Rules.MovePiece(player, board, (IGameBoardLane)lane, die);
+            this.Turn = this.UseDie(die);
+
             return this.Turn;
         }
 
@@ -154,6 +143,15 @@ namespace AppBrix.Backgammon.Core.Impl
             return this.Players[0].Name == this.Turn.Player ? this.Players[0] : this.Players[1];
         }
 
+        private IGameBoard GetBoardInternal(IPlayer player)
+        {
+            var index = this.Players.IndexOf(player);
+            if (index < 0)
+                throw new ArgumentException("Player not found: " + player);
+
+            return this.Boards[index];
+        }
+
         private ITurn CreateNewTurn(IPlayer player)
         {
             return new DefaultTurn(player, new IDie[0]);
@@ -189,9 +187,7 @@ namespace AppBrix.Backgammon.Core.Impl
             }
             
             if (this.Turn.Dice.Count(x => x.IsUsed) < this.Turn.Dice.Count - 1)
-                return new DefaultTurn(currentPlayer, this.Turn.Dice.Select(x => x == usedDie ? new DefaultDie(true, x.Value) : x).ToArray());
-            else if (this.Turn.Dice.Count == 4)
-                return this.CreateNewTurn(currentPlayer);
+                return new DefaultTurn(currentPlayer, this.Turn.Dice.Select(x => x == usedDie ? new DefaultDie(true, x.Value) : x).ToArray()); 
             else
                 return this.CreateNewTurn(otherPlayer);
         }

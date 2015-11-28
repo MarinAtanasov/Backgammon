@@ -22,12 +22,16 @@ namespace AppBrix.Backgammon.Core.Impl
         #region Public and overriden metheods
         public int RollDie()
         {
-            return this.app.GetFactory().Get<Random>().Next(1, 7);
+            if (this.random == null)
+                this.random = this.app.GetFactory().Get<Random>();
+
+            return this.random.Next(1, 7);
         }
         #endregion
 
         #region Private fields and constants
         private readonly IApp app;
+        private Random random;
         #endregion
     }
 }
