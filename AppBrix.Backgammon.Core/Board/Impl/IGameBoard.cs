@@ -5,16 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core
+namespace AppBrix.Backgammon.Core.Board.Impl
 {
-    public interface ITurn
+    internal interface IGameBoard : IBoard
     {
         #region Properties
-        bool AreDiceRolled { get; }
+        IGameBoardLane GameBar { get; }
 
-        IReadOnlyList<IDie> Dice { get; }
+        IGameBoardLane GameBearedOff { get; }
 
-        string Player { get; }
+        IReadOnlyList<IGameBoardLane> GameLanes { get; }
         #endregion
     }
 }

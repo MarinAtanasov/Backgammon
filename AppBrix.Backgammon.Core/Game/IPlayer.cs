@@ -4,7 +4,7 @@
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core
+namespace AppBrix.Backgammon.Core.Game
 {
     public interface IPlayer
     {

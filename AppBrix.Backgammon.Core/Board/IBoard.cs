@@ -4,12 +4,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace AppBrix.Backgammon.Core
+namespace AppBrix.Backgammon.Core.Board
 {
-    public interface IDiceRoller
+    public interface IBoard
     {
-        int RollDie();
+        #region Properties
+        IBoardLane Bar { get; }
+
+        IBoardLane BearedOff { get; }
+
+        IReadOnlyList<IBoardLane> Lanes { get; }
+        #endregion
     }
 }

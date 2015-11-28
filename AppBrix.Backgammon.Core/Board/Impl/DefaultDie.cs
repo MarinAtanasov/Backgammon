@@ -4,7 +4,7 @@
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Impl
+namespace AppBrix.Backgammon.Core.Board.Impl
 {
     internal class DefaultDie : IDie
     {

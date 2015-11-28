@@ -5,7 +5,7 @@ using AppBrix.Application;
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Impl
+namespace AppBrix.Backgammon.Core.Game.Impl
 {
     internal class DefaultDiceRoller : IDiceRoller
     {

@@ -1,11 +1,12 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
+using AppBrix.Backgammon.Core.Board;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Impl
+namespace AppBrix.Backgammon.Core.Game.Impl
 {
     internal class DefaultTurn : ITurn
     {

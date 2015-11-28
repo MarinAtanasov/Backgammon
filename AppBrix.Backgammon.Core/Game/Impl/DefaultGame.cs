@@ -2,12 +2,14 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
-using AppBrix.Backgammon.Core.Impl.Rules;
+using AppBrix.Backgammon.Core.Board;
+using AppBrix.Backgammon.Core.Board.Impl;
+using AppBrix.Backgammon.Core.Game.Impl.Rules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Impl
+namespace AppBrix.Backgammon.Core.Game.Impl
 {
     internal class DefaultGame : IGame
     {

@@ -2,15 +2,16 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core
+namespace AppBrix.Backgammon.Core.Board
 {
-    public interface IGameFactory
+    public interface IDie
     {
-        IPlayer CreatePlayer(string name, Guid id);
+        #region Properties
+        bool IsUsed { get; }
 
-        IGame CreateGame(IReadOnlyList<IPlayer> players);
+        int Value { get; }
+        #endregion
     }
 }

@@ -1,10 +1,11 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
+using AppBrix.Backgammon.Core.Game;
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Impl
+namespace AppBrix.Backgammon.Core.Board.Impl
 {
     internal class DefaultPiece : IPiece
     {

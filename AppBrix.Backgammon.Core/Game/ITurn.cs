@@ -1,20 +1,21 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
+using AppBrix.Backgammon.Core.Board;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Impl
+namespace AppBrix.Backgammon.Core.Game
 {
-    internal interface IGameBoard : IBoard
+    public interface ITurn
     {
         #region Properties
-        IGameBoardLane GameBar { get; }
+        bool AreDiceRolled { get; }
 
-        IGameBoardLane GameBearedOff { get; }
+        IReadOnlyList<IDie> Dice { get; }
 
-        IReadOnlyList<IGameBoardLane> GameLanes { get; }
+        string Player { get; }
         #endregion
     }
 }

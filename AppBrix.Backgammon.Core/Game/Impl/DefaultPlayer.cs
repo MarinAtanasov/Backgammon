@@ -4,7 +4,7 @@
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Impl
+namespace AppBrix.Backgammon.Core.Game.Impl
 {
     internal class DefaultPlayer : IPlayer
     {

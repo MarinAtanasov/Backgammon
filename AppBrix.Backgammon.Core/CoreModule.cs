@@ -5,7 +5,7 @@ using AppBrix.Modules;
 using System;
 using System.Linq;
 using AppBrix.Lifecycle;
-using AppBrix.Backgammon.Core.Impl;
+using AppBrix.Backgammon.Core.Game.Impl;
 
 namespace AppBrix.Backgammon.Core
 {

@@ -4,14 +4,12 @@
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Impl
+namespace AppBrix.Backgammon.Core.Board
 {
-    internal interface IGameBoardLane : IBoardLane
+    public interface IPiece
     {
-        #region Methods
-        void AddPiece(IPiece piece);
-
-        void RemovePiece(IPiece piece);
+        #region Properties
+        string Player { get; }
         #endregion
     }
 }
