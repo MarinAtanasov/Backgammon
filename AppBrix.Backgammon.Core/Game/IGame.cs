@@ -9,7 +9,7 @@ namespace AppBrix.Backgammon.Core.Game
 {
     /// <summary>
     /// A game of Backgammon.
-    /// You need to subscribe to <see cref="ITurnChanged"/> and <see cref="IGameEnded"/>.
+    /// You can subscribe to <see cref="ITurnChanged"/> and <see cref="IGameEnded"/>.
     /// </summary>
     public interface IGame
     {
