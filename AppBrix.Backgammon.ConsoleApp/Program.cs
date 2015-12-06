@@ -87,7 +87,7 @@ namespace AppBrix.Backgammon.ConsoleApp
                 }
             };
 
-            game.GameFinished += x => { Console.WriteLine("Game ended! Winner: {0}", x.Winner); };
+            game.GameFinished += x => Console.WriteLine("Game ended! Winner: {0}", x.Winner);
             game.TurnChanged += onTurnChanged;
 
             onTurnChanged(game.Turn);
