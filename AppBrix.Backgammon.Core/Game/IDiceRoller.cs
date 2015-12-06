@@ -6,8 +6,16 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Game
 {
+    /// <summary>
+    /// Generator used for rolling dice.
+    /// </summary>
     public interface IDiceRoller
     {
+        /// <summary>
+        /// Rolls a die and returns its value.
+        /// Value is between 1 and 6.
+        /// </summary>
+        /// <returns>The rolled value.</returns>
         int RollDie();
     }
 }

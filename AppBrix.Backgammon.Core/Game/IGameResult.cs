@@ -6,8 +6,14 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Game
 {
+    /// <summary>
+    /// Used by the <see cref="IGame.GameFinished"/> event.
+    /// </summary>
     public interface IGameResult
     {
+        /// <summary>
+        /// Gets the name of the player who has won the game.
+        /// </summary>
         string Winner { get; }
     }
 }

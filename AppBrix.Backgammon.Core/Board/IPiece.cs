@@ -6,9 +6,15 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Board
 {
+    /// <summary>
+    /// A piece which is used while playing Backgammon.
+    /// </summary>
     public interface IPiece
     {
         #region Properties
+        /// <summary>
+        /// Gets the player who owns the piece.
+        /// </summary>
         string Player { get; }
         #endregion
     }

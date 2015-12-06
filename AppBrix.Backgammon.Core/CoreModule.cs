@@ -11,6 +11,7 @@ namespace AppBrix.Backgammon.Core
 {
     /// <summary>
     /// A module used for registering commonly used Backgammon functionality.
+    /// Registers <see cref="Game.IGameFactory"/> and <see cref="Game.IDiceRoller"/>.
     /// </summary>
     public class CoreModule : ModuleBase
     {
