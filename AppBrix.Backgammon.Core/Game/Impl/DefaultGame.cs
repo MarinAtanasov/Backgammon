@@ -40,6 +40,8 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         #region Properties
         public IList<IGameBoard> Boards { get; private set; }
 
+        public bool IsRunning { get; private set; }
+
         public IList<IPlayer> Players { get; private set; }
 
         public IGameRules Rules { get; private set; }
@@ -53,23 +55,11 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             private set
             {
                 this.turn = value;
-                this.app.GetEventHub().Raise(new DefaultTurnChanged(this, this.Turn));
+                this.app.GetEventHub().Raise(new DefaultTurnChanged(this));
             }
         }
 
-        public bool IsGameFinished { get; private set; }
-        #endregion
-
-        #region Events
-        public void OnGameEnded(Action<IGameEnded> handler)
-        {
-            this.app.GetEventHub().Subscribe<IGameEnded>(x => { if (x.Game == this) handler(x); });
-        }
-
-        public void OnTurnChanged(Action<ITurnChanged> handler)
-        {
-            this.app.GetEventHub().Subscribe<ITurnChanged>(x => { if (x.Game == this) handler(x); });
-        }
+        public string Winner { get; private set; }
         #endregion
 
         #region Public and overriden methods
@@ -118,7 +108,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             if (die.IsUsed)
                 throw new ArgumentException("This die has already been used: " + die);
 
-            if (this.IsGameFinished)
+            if (!this.IsRunning)
                 throw new InvalidOperationException("The game is already finished.");
 
             this.Rules.MovePiece(player, board, (IGameBoardLane)lane, die);
@@ -126,11 +116,11 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             // TODO: Handle if unable to use dice.
 
             var winner = this.Rules.TryGetWinner(board, this.Players);
-            this.IsGameFinished = winner != null;
+            this.IsRunning = winner == null;
             this.Turn = turn;
 
-            if (this.IsGameFinished)
-                this.app.GetEventHub().Raise(new DefaultGameEnded(this, winner));
+            if (!this.IsRunning)
+                this.app.GetEventHub().Raise(new DefaultGameEnded(this));
         }
 
         public void RollDice(IPlayer player)
@@ -144,7 +134,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
             if (this.Turn.AreDiceRolled)
                 throw new InvalidOperationException("Dice have already been rolled this turn.");
-            if (this.IsGameFinished)
+            if (!this.IsRunning)
                 throw new InvalidOperationException("The game is already finished.");
 
             this.Turn = this.RollDice();
@@ -162,6 +152,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
                 throw new InvalidOperationException("Game already started.");
 
             this.isStarted = true;
+            this.IsRunning = true;
             this.Turn = this.CreateNewTurn(player);
         }
         #endregion

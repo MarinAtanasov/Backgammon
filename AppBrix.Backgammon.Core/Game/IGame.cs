@@ -15,26 +15,22 @@ namespace AppBrix.Backgammon.Core.Game
     {
         #region Properties
         /// <summary>
+        /// Gets whether the game is still running or has ended.
+        /// </summary>
+        bool IsRunning { get; }
+
+        /// <summary>
         /// Gets the current turn.
         /// It can be used to check which player must play next.
         /// </summary>
         ITurn Turn { get; }
-        #endregion
-
-        #region Events
-        /// <summary>
-        /// Subscribes to the <see cref="IGameEnded"/> event for the current game.
-        /// </summary>
-        /// <param name="handler">The event handler.</param>
-        void OnGameEnded(Action<IGameEnded> handler);
 
         /// <summary>
-        /// Subscribes to the <see cref="ITurnChanged"/> event for the current game.
+        /// Gets the name of player who has won the game.
         /// </summary>
-        /// <param name="handler">The event handler.</param>
-        void OnTurnChanged(Action<ITurnChanged> handler);
+        string Winner { get; }
         #endregion
-
+        
         #region Methods
         /// <summary>
         /// Ends the current turn, allowing the other player to roll the dice.

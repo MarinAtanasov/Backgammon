@@ -9,17 +9,14 @@ namespace AppBrix.Backgammon.Core.Game.Impl
     internal class DefaultGameEnded : IGameEnded
     {
         #region Construction
-        public DefaultGameEnded(IGame game, IPlayer winner)
+        public DefaultGameEnded(IGame game)
         {
             this.Game = game;
-            this.Winner = winner.Name;
         }
         #endregion
 
         #region Properties
         public IGame Game { get; private set; }
-
-        public string Winner { get; private set; }
         #endregion
     }
 }

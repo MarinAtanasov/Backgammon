@@ -9,17 +9,14 @@ namespace AppBrix.Backgammon.Core.Game.Impl
     internal class DefaultTurnChanged : ITurnChanged
     {
         #region Construction
-        public DefaultTurnChanged(IGame game, ITurn turn)
+        public DefaultTurnChanged(IGame game)
         {
             this.Game = game;
-            this.Turn = turn;
         }
         #endregion
 
         #region Properties
         public IGame Game { get; private set; }
-
-        public ITurn Turn { get; private set; }
         #endregion
     }
 }

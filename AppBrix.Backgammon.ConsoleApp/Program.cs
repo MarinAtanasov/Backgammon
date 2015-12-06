@@ -34,28 +34,33 @@ namespace AppBrix.Backgammon.ConsoleApp
                 Console.WriteLine("Executed in: {0} seconds.", stopwatch.Elapsed.TotalSeconds);
             }
         }
-        
+
         private static void Run(IApp app)
         {
-            var players = new List<IPlayer> { app.Get<IGameFactory>().CreatePlayer("Player 1"), app.Get<IGameFactory>().CreatePlayer("Player 2") };
-            players.ForEach(x => Program.players.Add(x.Name, x));
-            var game = app.Get<IGameFactory>().CreateGame(players);
+            var players = new Dictionary<string, IPlayer>
+            {
+                { "Player 1", app.Get<IGameFactory>().CreatePlayer("Player 1") },
+                { "Player 2", app.Get<IGameFactory>().CreatePlayer("Player 2") }
+            };
+            var game = app.Get<IGameFactory>().CreateGame(players.Values.ToList());
+            game.Start(players.Values.First());
 
-            game.OnGameEnded(Program.OnGameEnded);
-            game.OnTurnChanged(Program.OnTurnChanged);
-            game.Start(players[0]);
+            while (game.IsRunning)
+            {
+                Program.OnTurnChanged(game, players);
+            }
+            Program.OnGameEnded(game);
         }
 
-        private static void OnGameEnded(IGameEnded gameEnded)
+        private static void OnGameEnded(IGame game)
         {
-            Console.WriteLine("Game ended! Winner: {0}", gameEnded.Winner);
+            Console.WriteLine("Game ended! Winner: {0}", game.Winner);
         }
 
-        private static void OnTurnChanged(ITurnChanged turnChanged)
+        private static void OnTurnChanged(IGame game, IDictionary<string, IPlayer> players)
         {
-            var game = turnChanged.Game;
-            var turn = turnChanged.Turn;
-            var player = Program.players[turn.Player];
+            var turn = game.Turn;
+            var player = players[turn.Player];
 
             Program.PrintBoard(game, turn, player);
             if (!turn.AreDiceRolled)
@@ -162,7 +167,5 @@ namespace AppBrix.Backgammon.ConsoleApp
 
             Console.WriteLine("-24-23-22-21-20-19-----18-17-16-15-14-13-");
         }
-
-        private static IDictionary<string, IPlayer> players = new Dictionary<string, IPlayer>();
     }
 }

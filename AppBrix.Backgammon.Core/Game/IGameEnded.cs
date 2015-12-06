@@ -11,9 +11,5 @@ namespace AppBrix.Backgammon.Core.Game
     /// </summary>
     public interface IGameEnded : IGameEvent
     {
-        /// <summary>
-        /// Gets the name of the player who has won the game.
-        /// </summary>
-        string Winner { get; }
     }
 }

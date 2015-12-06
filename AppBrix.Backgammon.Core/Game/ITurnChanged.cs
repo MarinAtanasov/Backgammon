@@ -11,9 +11,5 @@ namespace AppBrix.Backgammon.Core.Game
     /// </summary>
     public interface ITurnChanged : IGameEvent
     {
-        /// <summary>
-        /// Gets the current turn.
-        /// </summary>
-        ITurn Turn { get; }
     }
 }

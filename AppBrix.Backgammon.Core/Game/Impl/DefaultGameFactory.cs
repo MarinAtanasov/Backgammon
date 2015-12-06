@@ -22,6 +22,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         #region Public and overriden methods
         public IPlayer CreatePlayer(string name, Guid id)
         {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException("name");
+
             return new DefaultPlayer(name, id);
         }
 
