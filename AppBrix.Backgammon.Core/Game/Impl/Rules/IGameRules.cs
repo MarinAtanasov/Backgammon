@@ -4,6 +4,7 @@
 using AppBrix.Backgammon.Core.Board;
 using AppBrix.Backgammon.Core.Board.Impl;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Game.Impl.Rules
@@ -13,5 +14,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules
         bool IsMoveValid(IPlayer player, IBoard board, IBoardLane lane, IDie die);
 
         void MovePiece(IPlayer player, IGameBoard board, IGameBoardLane lane, IDie die);
+
+        IPlayer TryGetWinner(IBoard board, IEnumerable<IPlayer> players);
     }
 }

@@ -81,6 +81,12 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules
 
             targetLane.AddPiece(piece);
         }
+
+        public IPlayer TryGetWinner(IBoard board, IEnumerable<IPlayer> players)
+        {
+            var playersOnBoard = board.Lanes.SelectMany(l => l.Pieces).Select(x => x.Player).Distinct().ToList();
+            return players.FirstOrDefault(x => !playersOnBoard.Contains(x.Name));
+        }
         #endregion
 
         #region Private methods
@@ -143,6 +149,10 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules
 
             return false;
         }
+        #endregion
+
+        #region Private fields and constants
+        private const int PiecesPerPlayer = 15;
         #endregion
     }
 }

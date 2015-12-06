@@ -13,12 +13,18 @@ namespace AppBrix.Backgammon.Core.Game
         ITurn Turn { get; }
         #endregion
 
+        #region Events
+        event Action<ITurn> TurnChanged;
+
+        event Action<IGameResult> GameFinished;
+        #endregion
+
         #region Methods
         IBoard GetBoard(IPlayer player);
 
-        ITurn RollDice(IPlayer player);
+        void RollDice(IPlayer player);
 
-        ITurn PlayDie(IPlayer player, IBoardLane lane, IDie die);
+        void PlayDie(IPlayer player, IBoardLane lane, IDie die);
         #endregion
     }
 }

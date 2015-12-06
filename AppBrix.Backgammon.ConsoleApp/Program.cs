@@ -1,12 +1,14 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
+using AppBrix.Application;
 using AppBrix.Backgammon.Core;
 using AppBrix.Backgammon.Core.Game;
 using AppBrix.Configuration;
 using AppBrix.Configuration.Files;
 using AppBrix.Configuration.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -21,37 +23,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             app.Start();
             try
             {
-                var players = new []
-                {
-                    app.Get<IGameFactory>().CreatePlayer("Player 1"),
-                    app.Get<IGameFactory>().CreatePlayer("Player 2")
-                };
-                var game = app.Get<IGameFactory>().CreateGame(players);
-
-                Action sleep = () => System.Threading.Thread.Sleep(100);
-                Program.PrintBoard(game, players[0]);
-                sleep();
-                while (true)
-                {
-                    var currentPlayer = players.First(x => x.Name == game.Turn.Player);
-                    var board = game.GetBoard(currentPlayer);
-                    Console.Write("Press <Enter> to roll rice.");
-                    Console.ReadLine();
-                    game.RollDice(currentPlayer);
-                    Program.PrintBoard(game, currentPlayer);
-                    sleep();
-                    while (game.Turn.Dice.Any(x => !x.IsUsed))
-                    {
-                        Console.Write("Select \"<position> <dice>\" to play: ");
-                        var toPlay = Console.ReadLine().Split(' ');
-                        var index = int.Parse(toPlay[0]);
-                        var lane = index > 0 ? board.Lanes[index - 1] : board.Bar;
-                        var die = int.Parse(toPlay[1]);
-                        game.PlayDie(currentPlayer, lane, game.Turn.Dice.First(x => !x.IsUsed && x.Value == die));
-                        Program.PrintBoard(game, currentPlayer);
-                        sleep();
-                    }
-                }
+                Program.Run(app);
             }
             catch (Exception ex)
             {
@@ -62,6 +34,56 @@ namespace AppBrix.Backgammon.ConsoleApp
                 app.Stop();
                 Console.WriteLine("Executed in: {0} seconds.", stopwatch.Elapsed.TotalSeconds);
             }
+        }
+        
+        private static void Run(IApp app)
+        {
+            var players = new Dictionary<string, IPlayer>()
+                {
+                    {  "Player 1", app.Get<IGameFactory>().CreatePlayer("Player 1") },
+                    {  "Player 2", app.Get<IGameFactory>().CreatePlayer("Player 2") },
+                };
+            var game = app.Get<IGameFactory>().CreateGame(players.Values.ToList());
+
+            Action<ITurn> onTurnChanged = x =>
+            {
+                var player = players[x.Player];
+                Program.PrintBoard(game, player);
+                if (!x.AreDiceRolled)
+                {
+                    Console.Write("Press <Enter> to roll rice.");
+                    Console.ReadLine();
+                    game.RollDice(player);
+                }
+                else
+                {
+                    var board = game.GetBoard(player);
+                    bool isValidMove = false;
+                    do
+                    {
+                        try
+                        {
+                            Console.Write("Select \"<position> <dice>\" to play: ");
+                            var toPlay = Console.ReadLine().Split(' ');
+                            var index = int.Parse(toPlay[0]);
+                            var lane = index > 0 ? board.Lanes[index - 1] : board.Bar;
+                            var die = int.Parse(toPlay[1]);
+                            game.PlayDie(player, lane, game.Turn.Dice.First(d => !d.IsUsed && d.Value == die));
+
+                            isValidMove = true;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                    } while (!isValidMove);
+                }
+            };
+
+            game.GameFinished += x => { Console.WriteLine("Game ended! Winner: {0}", x.Winner); };
+            game.TurnChanged += onTurnChanged;
+
+            onTurnChanged(game.Turn);
         }
 
         private static void PrintBoard(IGame game, IPlayer player)
@@ -93,8 +115,8 @@ namespace AppBrix.Backgammon.ConsoleApp
                 }
                 Console.WriteLine();
             }
-
-            Console.Write("---------------------------");
+            var dashes = 16 - player.Name.Length;
+            Console.Write("-{0} {1} {2}--------", new string('-', dashes / 2), player.Name, new string('-', (dashes + 1) / 2));
             for (int i = 0; i < 4; i++)
             {
                 if (game.Turn.Dice.Count > i && !game.Turn.Dice[i].IsUsed)

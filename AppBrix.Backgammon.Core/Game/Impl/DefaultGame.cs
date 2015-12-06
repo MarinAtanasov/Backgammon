@@ -14,7 +14,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
     internal class DefaultGame : IGame
     {
         #region Construction
-        public DefaultGame(IApp app, IPlayer player1, IPlayer player2)
+        public DefaultGame(IApp app, IGameBoard board, IPlayer player1, IPlayer player2)
         {
             if (app == null)
                 throw new ArgumentNullException("app");
@@ -29,9 +29,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
             this.app = app;
             this.Players = new IPlayer[] { player1, player2 };
-
-            var board = this.CreateBoard();
-            this.SetBoard(board, this.Players);
+            
             var reversedBoard = new DefaultBoard(new ReversedLanes(board.GameLanes), board.GameBar, board.GameBearedOff);
             this.Boards = new IGameBoard[] { board, reversedBoard };
 
@@ -47,7 +45,27 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         public IGameRules Rules { get; private set; }
 
-        public ITurn Turn { get; private set; }
+        public ITurn Turn
+        {
+            get
+            {
+                return this.turn;
+            }
+            private set
+            {
+                this.turn = value;
+                if (this.TurnChanged != null && !this.IsGameFinished)
+                    this.TurnChanged(this.Turn);
+            }
+        }
+
+        public bool IsGameFinished { get; private set; }
+        #endregion
+
+        #region Events
+        public event Action<ITurn> TurnChanged;
+
+        public event Action<IGameResult> GameFinished;
         #endregion
 
         #region Public and overriden methods
@@ -59,7 +77,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             return this.GetBoardInternal(player);
         }
 
-        public ITurn PlayDie(IPlayer player, IBoardLane lane, IDie die)
+        public void PlayDie(IPlayer player, IBoardLane lane, IDie die)
         {
             if (player == null)
                 throw new ArgumentNullException("player");
@@ -79,13 +97,22 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             if (die.IsUsed)
                 throw new ArgumentException("This die has already been used: " + die);
 
-            this.Rules.MovePiece(player, board, (IGameBoardLane)lane, die);
-            this.Turn = this.UseDie(die);
+            if (this.IsGameFinished)
+                throw new InvalidOperationException("The game is already finished.");
 
-            return this.Turn;
+            this.Rules.MovePiece(player, board, (IGameBoardLane)lane, die);
+            var turn = this.UseDie(die);
+            // TODO: Handle if unable to use dice.
+
+            var winner = this.Rules.TryGetWinner(board, this.Players);
+            this.IsGameFinished = winner != null;
+            this.Turn = turn;
+
+            if (this.IsGameFinished)
+                this.GameFinished(new DefaultGameResult(winner));
         }
 
-        public ITurn RollDice(IPlayer player)
+        public void RollDice(IPlayer player)
         {
             if (player == null)
                 throw new ArgumentNullException("player");
@@ -96,46 +123,11 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
             if (this.Turn.AreDiceRolled)
                 throw new InvalidOperationException("Dice have already been rolled this turn.");
+            if (this.IsGameFinished)
+                throw new InvalidOperationException("The game is already finished.");
 
             this.Turn = this.RollDice();
-            return this.Turn;
-        }
-        #endregion
-
-        #region Board initialization
-        private IGameBoard CreateBoard()
-        {
-            var lanes = new List<IGameBoardLane>(24);
-
-            for (int i = 0; i < 24; i++)
-            {
-                lanes.Add(new DefaultBoardLane(new IPiece[0]));
-            }
-
-            return new DefaultBoard(lanes, new DefaultBoardLane(), new DefaultBoardLane());
-        }
-
-        private void SetBoard(IGameBoard board, IList<IPlayer> players)
-        {
-            var lanes = (IList<IGameBoardLane>)board.GameLanes;
-            lanes[0] = new DefaultBoardLane(this.CreatePieces(2, players[0]));
-            lanes[5] = new DefaultBoardLane(this.CreatePieces(5, players[1]));
-            lanes[7] = new DefaultBoardLane(this.CreatePieces(3, players[1]));
-            lanes[11] = new DefaultBoardLane(this.CreatePieces(5, players[0]));
-            lanes[12] = new DefaultBoardLane(this.CreatePieces(5, players[1]));
-            lanes[16] = new DefaultBoardLane(this.CreatePieces(3, players[0]));
-            lanes[18] = new DefaultBoardLane(this.CreatePieces(5, players[0]));
-            lanes[23] = new DefaultBoardLane(this.CreatePieces(2, players[1]));
-        }
-
-        private IPiece[] CreatePieces(int count, IPlayer owner = null)
-        {
-            var pieces = new IPiece[count];
-            for (int i = 0; i < count; i++)
-            {
-                pieces[i] = new DefaultPiece(owner);
-            }
-            return pieces;
+            // TODO: Handle if unable to use dice.
         }
         #endregion
 
@@ -197,6 +189,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         #region private fields and constants
         private readonly IApp app;
+        private ITurn turn;
         #endregion
     }
 }
