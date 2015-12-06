@@ -25,7 +25,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             if (player1 == player2)
                 throw new ArgumentException("player1 == player2");
             if (player1.Name == player2.Name)
-                throw new ArgumentException("player1 == player2");
+                throw new ArgumentException("player1.Name == player2.Name");
 
             this.app = app;
             this.Players = new IPlayer[] { player1, player2 };
@@ -77,6 +77,23 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             return this.GetBoardInternal(player);
         }
 
+        public void EndTurn(IPlayer player)
+        {
+            if (player == null)
+                throw new ArgumentNullException("player");
+            if (!this.Players.Contains(player))
+                throw new ArgumentException("Player not found: " + player);
+            if (this.GetCurrentPlayer() != player)
+                throw new ArgumentException("This player's turn has not come yet: " + player);
+
+            // TODO: Handle if unable to use dice.
+            if (this.turn.Dice.Any(x => !x.IsUsed))
+                throw new InvalidOperationException("The player has not played all his dice.");
+
+            var otherPlayer = this.Players[0] == player ? this.Players[1] : this.Players[0];
+            this.Turn = this.CreateNewTurn(otherPlayer);
+        }
+
         public void PlayDie(IPlayer player, IBoardLane lane, IDie die)
         {
             if (player == null)
@@ -101,7 +118,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
                 throw new InvalidOperationException("The game is already finished.");
 
             this.Rules.MovePiece(player, board, (IGameBoardLane)lane, die);
-            var turn = this.UseDie(die);
+            var turn = this.UseDie(player, die);
             // TODO: Handle if unable to use dice.
 
             var winner = this.Rules.TryGetWinner(board, this.Players);
@@ -169,21 +186,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             return app.GetDiceRoller().RollDie();
         }
 
-        private ITurn UseDie(IDie usedDie)
+        private ITurn UseDie(IPlayer player, IDie usedDie)
         {
-            IPlayer currentPlayer = this.Players[0];
-            IPlayer otherPlayer = this.Players[1];
-
-            if (this.Players[0].Name != this.Turn.Player)
-            {
-                currentPlayer = this.Players[1];
-                otherPlayer = this.Players[0];
-            }
-            
-            if (this.Turn.Dice.Count(x => x.IsUsed) < this.Turn.Dice.Count - 1)
-                return new DefaultTurn(currentPlayer, this.Turn.Dice.Select(x => x == usedDie ? new DefaultDie(true, x.Value) : x).ToArray()); 
-            else
-                return this.CreateNewTurn(otherPlayer);
+            return new DefaultTurn(player, this.Turn.Dice.Select(x => x == usedDie ? new DefaultDie(true, x.Value) : x).ToArray());
         }
         #endregion
 

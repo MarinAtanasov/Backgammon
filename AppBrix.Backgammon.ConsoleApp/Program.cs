@@ -55,6 +55,13 @@ namespace AppBrix.Backgammon.ConsoleApp
                     Console.ReadLine();
                     game.RollDice(player);
                 }
+                else if (x.Dice.All(d => d.IsUsed))
+                {
+                    // TODO: Handle if unable to use dice.
+                    Console.Write("Press <Enter> to end turn.");
+                    Console.ReadLine();
+                    game.EndTurn(player);
+                }
                 else
                 {
                     var board = game.GetBoard(player);

@@ -42,10 +42,10 @@ namespace AppBrix.Backgammon.Core.Game
         IBoard GetBoard(IPlayer player);
 
         /// <summary>
-        /// Rolls the dice.
+        /// Ends the current turn, allowing the other player to roll the dice.
         /// </summary>
-        /// <param name="player">The player.</param>
-        void RollDice(IPlayer player);
+        /// <param name="player"></param>
+        void EndTurn(IPlayer player);
 
         /// <summary>
         /// Plays an unused <see cref="IDie"/>.
@@ -54,6 +54,12 @@ namespace AppBrix.Backgammon.Core.Game
         /// <param name="lane">The lane which holds the piece to be moved.</param>
         /// <param name="die">The die to be used.</param>
         void PlayDie(IPlayer player, IBoardLane lane, IDie die);
+
+        /// <summary>
+        /// Rolls the dice.
+        /// </summary>
+        /// <param name="player">The player.</param>
+        void RollDice(IPlayer player);
         #endregion
     }
 }
