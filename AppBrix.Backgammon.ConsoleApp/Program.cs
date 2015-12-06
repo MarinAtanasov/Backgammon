@@ -68,7 +68,7 @@ namespace AppBrix.Backgammon.ConsoleApp
                             var index = int.Parse(toPlay[0]);
                             var lane = index > 0 ? board.Lanes[index - 1] : board.Bar;
                             var die = int.Parse(toPlay[1]);
-                            game.PlayDie(player, lane, game.Turn.Dice.First(d => !d.IsUsed && d.Value == die));
+                            game.PlayDie(player, lane, game.Turn.Dice.FirstOrDefault(d => !d.IsUsed && d.Value == die));
 
                             isValidMove = true;
                         }
