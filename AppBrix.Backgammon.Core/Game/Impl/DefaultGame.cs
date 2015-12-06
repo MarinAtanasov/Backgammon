@@ -33,8 +33,8 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             var reversedBoard = new DefaultBoard(new ReversedLanes(board.GameLanes), board.GameBar, board.GameBearedOff);
             this.Boards = new IGameBoard[] { board, reversedBoard };
 
-            this.Turn = this.CreateNewTurn(this.Players.First());
             this.Rules = new BasicGameRules();
+            this.Turn = this.CreateNewTurn(this.Players.First());
         }
         #endregion
 
@@ -54,29 +54,14 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             private set
             {
                 this.turn = value;
-                if (this.TurnChanged != null && !this.IsGameFinished)
-                    this.TurnChanged(this.Turn);
+                this.app.GetEventHub().Raise(new DefaultTurnChanged(this, this.Turn));
             }
         }
 
         public bool IsGameFinished { get; private set; }
         #endregion
-
-        #region Events
-        public event Action<ITurn> TurnChanged;
-
-        public event Action<IGameResult> GameFinished;
-        #endregion
-
+        
         #region Public and overriden methods
-        public IBoard GetBoard(IPlayer player)
-        {
-            if (player == null)
-                throw new ArgumentNullException("player");
-            
-            return this.GetBoardInternal(player);
-        }
-
         public void EndTurn(IPlayer player)
         {
             if (player == null)
@@ -94,6 +79,14 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             this.Turn = this.CreateNewTurn(otherPlayer);
         }
 
+        public IBoard GetBoard(IPlayer player)
+        {
+            if (player == null)
+                throw new ArgumentNullException("player");
+            
+            return this.GetBoardInternal(player);
+        }
+        
         public void PlayDie(IPlayer player, IBoardLane lane, IDie die)
         {
             if (player == null)
@@ -126,7 +119,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             this.Turn = turn;
 
             if (this.IsGameFinished)
-                this.GameFinished(new DefaultGameResult(winner));
+                this.app.GetEventHub().Raise(new DefaultGameEnded(this, winner));
         }
 
         public void RollDice(IPlayer player)

@@ -9,6 +9,7 @@ namespace AppBrix.Backgammon.Core.Game
 {
     /// <summary>
     /// A game of Backgammon.
+    /// You need to subscribe to <see cref="ITurnChanged"/> and <see cref="IGameEnded"/>.
     /// </summary>
     public interface IGame
     {
@@ -20,19 +21,13 @@ namespace AppBrix.Backgammon.Core.Game
         ITurn Turn { get; }
         #endregion
 
-        #region Events
-        /// <summary>
-        /// Event fired after every move.
-        /// </summary>
-        event Action<ITurn> TurnChanged;
-
-        /// <summary>
-        /// Event fired after the game has been finished.
-        /// </summary>
-        event Action<IGameResult> GameFinished;
-        #endregion
-
         #region Methods
+        /// <summary>
+        /// Ends the current turn, allowing the other player to roll the dice.
+        /// </summary>
+        /// <param name="player"></param>
+        void EndTurn(IPlayer player);
+
         /// <summary>
         /// Gets the board for the player.
         /// Both players use different representations of the same board.
@@ -40,13 +35,7 @@ namespace AppBrix.Backgammon.Core.Game
         /// <param name="player">The player.</param>
         /// <returns>The player's representation of the board.</returns>
         IBoard GetBoard(IPlayer player);
-
-        /// <summary>
-        /// Ends the current turn, allowing the other player to roll the dice.
-        /// </summary>
-        /// <param name="player"></param>
-        void EndTurn(IPlayer player);
-
+        
         /// <summary>
         /// Plays an unused <see cref="IDie"/>.
         /// </summary>

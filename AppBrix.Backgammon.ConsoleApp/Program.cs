@@ -38,62 +38,66 @@ namespace AppBrix.Backgammon.ConsoleApp
         
         private static void Run(IApp app)
         {
-            var players = new Dictionary<string, IPlayer>()
-                {
-                    {  "Player 1", app.Get<IGameFactory>().CreatePlayer("Player 1") },
-                    {  "Player 2", app.Get<IGameFactory>().CreatePlayer("Player 2") },
-                };
+            Program.players["Player 1"] = app.Get<IGameFactory>().CreatePlayer("Player 1");
+            Program.players["Player 2"] = app.Get<IGameFactory>().CreatePlayer("Player 2");
+
+            app.GetEventHub().Subscribe<IGameEnded>(Program.OnGameEnded);
+            app.GetEventHub().Subscribe<ITurnChanged>(Program.OnTurnChanged);
+
             var game = app.Get<IGameFactory>().CreateGame(players.Values.ToList());
-
-            Action<ITurn> onTurnChanged = x =>
-            {
-                var player = players[x.Player];
-                Program.PrintBoard(game, player);
-                if (!x.AreDiceRolled)
-                {
-                    Console.Write("Press <Enter> to roll rice.");
-                    Console.ReadLine();
-                    game.RollDice(player);
-                }
-                else if (x.Dice.All(d => d.IsUsed))
-                {
-                    // TODO: Handle if unable to use dice.
-                    Console.Write("Press <Enter> to end turn.");
-                    Console.ReadLine();
-                    game.EndTurn(player);
-                }
-                else
-                {
-                    var board = game.GetBoard(player);
-                    bool isValidMove = false;
-                    do
-                    {
-                        try
-                        {
-                            Console.Write("Select \"<position> <dice>\" to play: ");
-                            var toPlay = Console.ReadLine().Split(' ');
-                            var index = int.Parse(toPlay[0]);
-                            var lane = index > 0 ? board.Lanes[index - 1] : board.Bar;
-                            var die = int.Parse(toPlay[1]);
-                            game.PlayDie(player, lane, game.Turn.Dice.FirstOrDefault(d => !d.IsUsed && d.Value == die));
-
-                            isValidMove = true;
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                    } while (!isValidMove);
-                }
-            };
-
-            game.GameFinished += x => Console.WriteLine("Game ended! Winner: {0}", x.Winner);
-            game.TurnChanged += onTurnChanged;
-
-            onTurnChanged(game.Turn);
         }
 
-        private static void PrintBoard(IGame game, IPlayer player)
+        private static void OnGameEnded(IGameEnded gameEnded)
+        {
+            Console.WriteLine("Game ended! Winner: {0}", gameEnded.Winner);
+        }
+
+        private static void OnTurnChanged(ITurnChanged turnChanged)
+        {
+            var game = turnChanged.Game;
+            var turn = turnChanged.Turn;
+            var player = Program.players[turn.Player];
+
+            Program.PrintBoard(game, turn, player);
+            if (!turn.AreDiceRolled)
+            {
+                Console.Write("Press <Enter> to roll rice.");
+                Console.ReadLine();
+                game.RollDice(player);
+            }
+            else if (turn.Dice.All(d => d.IsUsed))
+            {
+                // TODO: Handle if unable to use dice.
+                Console.Write("Press <Enter> to end turn.");
+                Console.ReadLine();
+                game.EndTurn(player);
+            }
+            else
+            {
+                var board = game.GetBoard(player);
+                bool isValidMove = false;
+                do
+                {
+                    try
+                    {
+                        Console.Write("Select \"<position> <die>\" to play: ");
+                        var toPlay = Console.ReadLine().Split(' ');
+                        var index = int.Parse(toPlay[0]);
+                        var lane = index > 0 ? board.Lanes[index - 1] : board.Bar;
+                        var die = int.Parse(toPlay[1]);
+                        game.PlayDie(player, lane, turn.Dice.FirstOrDefault(d => !d.IsUsed && d.Value == die));
+
+                        isValidMove = true;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                } while (!isValidMove);
+            }
+        }
+
+        private static void PrintBoard(IGame game, ITurn turn, IPlayer player)
         {
             var board = game.GetBoard(player);
             var lanes = board.Lanes;
@@ -126,9 +130,9 @@ namespace AppBrix.Backgammon.ConsoleApp
             Console.Write("-{0} {1} {2}--------", new string('-', dashes / 2), player.Name, new string('-', (dashes + 1) / 2));
             for (int i = 0; i < 4; i++)
             {
-                if (game.Turn.Dice.Count > i && !game.Turn.Dice[i].IsUsed)
+                if (turn.Dice.Count > i && !turn.Dice[i].IsUsed)
                 {
-                    Console.Write("{0}--", game.Turn.Dice[i].Value);
+                    Console.Write("{0}--", turn.Dice[i].Value);
                 }
                 else
                 {
@@ -159,5 +163,7 @@ namespace AppBrix.Backgammon.ConsoleApp
 
             Console.WriteLine("-24-23-22-21-20-19-----18-17-16-15-14-13-");
         }
+
+        private static IDictionary<string, IPlayer> players = new Dictionary<string, IPlayer>();
     }
 }
