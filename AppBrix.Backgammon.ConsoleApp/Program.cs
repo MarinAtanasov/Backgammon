@@ -37,12 +37,13 @@ namespace AppBrix.Backgammon.ConsoleApp
         
         private static void Run(IApp app)
         {
-            app.GetEventHub().Subscribe<IGameEnded>(Program.OnGameEnded);
-            app.GetEventHub().Subscribe<ITurnChanged>(Program.OnTurnChanged);
-
             var players = new List<IPlayer> { app.Get<IGameFactory>().CreatePlayer("Player 1"), app.Get<IGameFactory>().CreatePlayer("Player 2") };
             players.ForEach(x => Program.players.Add(x.Name, x));
             var game = app.Get<IGameFactory>().CreateGame(players);
+
+            game.OnGameEnded(Program.OnGameEnded);
+            game.OnTurnChanged(Program.OnTurnChanged);
+            game.Start(players[0]);
         }
 
         private static void OnGameEnded(IGameEnded gameEnded)

@@ -34,7 +34,6 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             this.Boards = new IGameBoard[] { board, reversedBoard };
 
             this.Rules = new BasicGameRules();
-            this.Turn = this.CreateNewTurn(this.Players.First());
         }
         #endregion
 
@@ -60,7 +59,19 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         public bool IsGameFinished { get; private set; }
         #endregion
-        
+
+        #region Events
+        public void OnGameEnded(Action<IGameEnded> handler)
+        {
+            this.app.GetEventHub().Subscribe<IGameEnded>(x => { if (x.Game == this) handler(x); });
+        }
+
+        public void OnTurnChanged(Action<ITurnChanged> handler)
+        {
+            this.app.GetEventHub().Subscribe<ITurnChanged>(x => { if (x.Game == this) handler(x); });
+        }
+        #endregion
+
         #region Public and overriden methods
         public void EndTurn(IPlayer player)
         {
@@ -139,6 +150,20 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             this.Turn = this.RollDice();
             // TODO: Handle if unable to use dice.
         }
+
+        public void Start(IPlayer player)
+        {
+            if (player == null)
+                throw new ArgumentNullException("player");
+            if (!this.Players.Contains(player))
+                throw new ArgumentException("Player not found: " + player);
+
+            if (this.isStarted)
+                throw new InvalidOperationException("Game already started.");
+
+            this.isStarted = true;
+            this.Turn = this.CreateNewTurn(player);
+        }
         #endregion
 
         #region Private methods
@@ -188,6 +213,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         #region private fields and constants
         private readonly IApp app;
         private ITurn turn;
+        private bool isStarted;
         #endregion
     }
 }

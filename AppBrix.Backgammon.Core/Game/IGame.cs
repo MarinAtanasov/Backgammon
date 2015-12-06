@@ -21,6 +21,20 @@ namespace AppBrix.Backgammon.Core.Game
         ITurn Turn { get; }
         #endregion
 
+        #region Events
+        /// <summary>
+        /// Subscribes to the <see cref="IGameEnded"/> event for the current game.
+        /// </summary>
+        /// <param name="handler">The event handler.</param>
+        void OnGameEnded(Action<IGameEnded> handler);
+
+        /// <summary>
+        /// Subscribes to the <see cref="ITurnChanged"/> event for the current game.
+        /// </summary>
+        /// <param name="handler">The event handler.</param>
+        void OnTurnChanged(Action<ITurnChanged> handler);
+        #endregion
+
         #region Methods
         /// <summary>
         /// Ends the current turn, allowing the other player to roll the dice.
@@ -49,6 +63,12 @@ namespace AppBrix.Backgammon.Core.Game
         /// </summary>
         /// <param name="player">The player.</param>
         void RollDice(IPlayer player);
+
+        /// <summary>
+        /// Starts the game with the selected first player.
+        /// </summary>
+        /// <param name="player">The player to play first</param>
+        void Start(IPlayer player);
         #endregion
     }
 }
