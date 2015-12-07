@@ -1,15 +1,16 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
+using AppBrix.Backgammon.Core.Game;
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Game.Impl
+namespace AppBrix.Backgammon.Core.Events.Impl
 {
-    internal class DefaultGameEnded : IGameEnded
+    internal class DefaultTurnChanged : ITurnChanged
     {
         #region Construction
-        public DefaultGameEnded(IGame game)
+        public DefaultTurnChanged(IGame game)
         {
             this.Game = game;
         }

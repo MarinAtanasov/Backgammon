@@ -4,7 +4,7 @@
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Game
+namespace AppBrix.Backgammon.Core.Events
 {
     /// <summary>
     /// An event which is raised after every player action.

@@ -4,6 +4,7 @@
 using AppBrix.Application;
 using AppBrix.Backgammon.Core.Board;
 using AppBrix.Backgammon.Core.Board.Impl;
+using AppBrix.Backgammon.Core.Events.Impl;
 using AppBrix.Backgammon.Core.Game.Impl.Rules;
 using System;
 using System.Collections.Generic;
