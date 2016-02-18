@@ -9,9 +9,11 @@ namespace AppBrix.Backgammon.Core.Board.Impl
     internal interface IGameBoardLane : IBoardLane
     {
         #region Methods
-        void AddPiece(IPiece piece);
-
-        void RemovePiece(IPiece piece);
+        /// <summary>
+        /// Moves a piece from the current lane to the target lane.
+        /// </summary>
+        /// <param name="target">The target lane which will receive the piece.</param>
+        void MovePiece(IGameBoardLane target);
         #endregion
     }
 }

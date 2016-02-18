@@ -27,25 +27,20 @@ namespace AppBrix.Backgammon.Core.Board.Impl
                 return this.pieces;
             }
         }
-
-        public IPiece TopPiece
-        {
-            get
-            {
-                return this.pieces.Count > 0 ? this.pieces[this.pieces.Count - 1] : null;
-            }
-        }
         #endregion
 
         #region Public and overriden methods
-        public void AddPiece(IPiece piece)
+        public void MovePiece(IGameBoardLane target)
         {
-            this.pieces.Add(piece);
-        }
+            if (target == null)
+                throw new ArgumentNullException("target");
+            var targetLane = target as DefaultBoardLane;
+            if (targetLane == null)
+                throw new ArgumentException("This method requires a target lane of type: " + typeof(DefaultBoardLane).FullName);
 
-        public void RemovePiece(IPiece piece)
-        {
+            var piece = this.pieces[this.pieces.Count - 1];
             this.pieces.Remove(piece);
+            targetLane.pieces.Add(piece);
         }
         #endregion
 

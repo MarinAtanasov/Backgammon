@@ -13,7 +13,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
         #region Public and overriden methods
         protected override void GetStrategyValidMoves(IGameBoard board, ITurn turn, IGameRuleStrategyContext context)
         {
-            if (board.Bar.Pieces.Count > 0 && board.Bar.TopPiece.Player == turn.Player)
+            if (board.Bar.Pieces.Count > 0 && board.Bar.Pieces[0].Player == turn.Player)
             {
                 foreach (var die in this.GetAvailableDice(turn.Dice))
                 {
@@ -30,17 +30,13 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
         {
             if (move.Lane != board.Bar || !this.IsMoveValid(board, move.Die.Value, player.Name))
                 return false;
-
-            var piece = move.Lane.TopPiece;
+            
             var targetLane = board.Lanes[move.Die.Value - 1];
-            if (targetLane.Pieces.Count == 1 && targetLane.TopPiece.Player != player.Name)
+            if (targetLane.Pieces.Count == 1 && targetLane.Pieces[0].Player != player.Name)
             {
-                var barredPiece = targetLane.TopPiece;
-                targetLane.RemovePiece(barredPiece);
-                board.Bar.AddPiece(barredPiece);
+                targetLane.MovePiece(board.Bar);
             }
-            move.Lane.RemovePiece(piece);
-            targetLane.AddPiece(piece);
+            move.Lane.MovePiece(targetLane);
             return true;
         }
         #endregion
@@ -49,7 +45,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
         private bool IsMoveValid(IBoard board, int die, string player)
         {
             var targetLane = board.Lanes[die - 1];
-            return targetLane.Pieces.Count <= 1 || targetLane.TopPiece.Player == player;
+            return targetLane.Pieces.Count <= 1 || targetLane.Pieces[0].Player == player;
         }
         #endregion
     }

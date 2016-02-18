@@ -18,7 +18,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
             for (int i = 0; i < board.Lanes.Count; i++)
             {
                 var lane = board.Lanes[i];
-                if (lane.Pieces.Count == 0 || lane.TopPiece.Player != playerName)
+                if (lane.Pieces.Count == 0 || lane.Pieces[0].Player != playerName)
                     continue;
 
                 foreach (var die in dice)
@@ -36,16 +36,12 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
             if (!this.IsMoveValid(board, move.LaneIndex, move.Die.Value, player.Name))
                 return false;
 
-            var piece = move.Lane.TopPiece;
             var targetLane = board.Lanes[move.LaneIndex + move.Die.Value];
-            if (targetLane.Pieces.Count == 1 && targetLane.TopPiece.Player != player.Name)
+            if (targetLane.Pieces.Count == 1 && targetLane.Pieces[0].Player != player.Name)
             {
-                var barredPiece = targetLane.TopPiece;
-                targetLane.RemovePiece(barredPiece);
-                board.Bar.AddPiece(barredPiece);
+                targetLane.MovePiece(board.Bar);
             }
-            move.Lane.RemovePiece(piece);
-            targetLane.AddPiece(piece);
+            move.Lane.MovePiece(targetLane);
             return true;
         }
         #endregion
@@ -56,7 +52,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
             if (index + die < board.Lanes.Count)
             {
                 var targetLane = board.Lanes[index + die];
-                if (targetLane.Pieces.Count <= 1 || targetLane.TopPiece.Player == player)
+                if (targetLane.Pieces.Count <= 1 || targetLane.Pieces[0].Player == player)
                 {
                     return true;
                 }

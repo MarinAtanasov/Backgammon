@@ -18,11 +18,6 @@ namespace AppBrix.Backgammon.Core.Board
         /// Gets a list of <see cref="IPiece"/> elements on the lane.
         /// </summary>
         IReadOnlyList<IPiece> Pieces { get; }
-
-        /// <summary>
-        /// Gets the top <see cref="IPiece"/>. Returns null if there are none.
-        /// </summary>
-        IPiece TopPiece { get; }
         #endregion
     }
 }

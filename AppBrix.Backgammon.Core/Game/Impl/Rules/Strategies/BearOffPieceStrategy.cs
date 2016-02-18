@@ -22,7 +22,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
             for (int i = (board.Lanes.Count * 3) / 4; i < board.Lanes.Count; i++)
             {
                 var lane = board.Lanes[i];
-                if (lane.Pieces.Count == 0 || lane.TopPiece.Player != playerName)
+                if (lane.Pieces.Count == 0 || lane.Pieces[0].Player != playerName)
                     continue;
 
                 foreach (var die in dice)
@@ -39,9 +39,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
 
         protected override bool MakeMove(IPlayer player, IGameBoard board, IGameMove move)
         {
-            var piece = move.Lane.TopPiece;
-            move.Lane.RemovePiece(piece);
-            board.BearedOff.AddPiece(piece);
+            move.Lane.MovePiece(board.BearedOff);
             return true;
         }
         #endregion
@@ -53,7 +51,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
             var preBearOffLanes = (lanes.Count * 3) / 4;
             for (int i = 0; i < preBearOffLanes; i++)
             {
-                if (lanes[i].Pieces.Count > 0 && lanes[i].TopPiece.Player == playerName)
+                if (lanes[i].Pieces.Count > 0 && lanes[i].Pieces[0].Player == playerName)
                 {
                     return true;
                 }
