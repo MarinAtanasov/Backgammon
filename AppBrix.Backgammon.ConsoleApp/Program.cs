@@ -51,6 +51,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             {
                 Program.OnTurnChanged(game, players);
             }
+            Program.PrintBoard(game, game.Turn, players[game.Turn.Player]);
             Program.OnGameEnded(game);
         }
         

@@ -126,11 +126,8 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
             var winner = this.Rules.TryGetWinner(board, this.Players);
             this.IsRunning = winner == null;
-            if (this.IsRunning)
-            {
-                this.Turn = turn;
-            }
-            else
+            this.Turn = turn;
+            if (!this.IsRunning)
             {
                 this.Winner = winner.Name;
                 this.app.GetEventHub().Raise(new DefaultGameEnded(this));
@@ -155,18 +152,6 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         #endregion
 
         #region Private methods
-        private void SetAllowedMoves()
-        {
-            if (this.IsRunning)
-            {
-                this.AllowedMoves = this.Rules.GetValidMoves(this.GetBoardInternal(this.GetCurrentPlayer()), this.Turn);
-            }
-            else
-            {
-                this.AllowedMoves = new List<IMove>();
-            }
-        }
-
         private IPlayer GetCurrentPlayer()
         {
             return this.Players[0].Name == this.Turn.Player ? this.Players[0] : this.Players[1];
@@ -202,6 +187,18 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         private int RollDie()
         {
             return app.GetDiceRoller().RollDie();
+        }
+
+        private void SetAllowedMoves()
+        {
+            if (this.IsRunning)
+            {
+                this.AllowedMoves = this.Rules.GetValidMoves(this.GetBoardInternal(this.GetCurrentPlayer()), this.Turn);
+            }
+            else
+            {
+                this.AllowedMoves = new List<IMove>();
+            }
         }
 
         private ITurn UseDie(IPlayer player, IDie usedDie)
