@@ -34,12 +34,12 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules
 
         public IPlayer TryGetWinner(IBoard board, IEnumerable<IPlayer> players)
         {
-            var playersOnBoard = board.Lanes.SelectMany(l => l.Pieces).Select(x => x.Player).Distinct().ToList();
-            return players.FirstOrDefault(x => !playersOnBoard.Contains(x.Name));
+            return players.FirstOrDefault(x => board.BearedOff.Pieces.Count(p => p.Player == x.Name) == BasicGameRules.PiecesPerPlayer);
         }
         #endregion
-        
+
         #region Private fields and constants
+        private const int PiecesPerPlayer = 15;
         private GameRuleStrategyBase strategy;
         #endregion
     }
