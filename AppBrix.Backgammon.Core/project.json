@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "0.1.0-*",
   "title": "AppBrix.Backgammon.Core",
   "summary": "Contains core functionality for the backgammon libraries.",
@@ -14,10 +14,10 @@
   "copyright": "Copyright 2015",
 
   "dependencies": {
-    "AppBrix": "0.1.0-*",
-    "AppBrix.Events": "0.1.0-*",
-    "AppBrix.Factory": "0.1.0-*",
-    "AppBrix.Resolver": "0.1.0-*"
+    "AppBrix": "0.2.0-*",
+    "AppBrix.Events": "0.2.0-*",
+    "AppBrix.Factory": "0.2.0-*",
+    "AppBrix.Resolver": "0.2.0-*"
   },
 
   "frameworks": {
