@@ -11,9 +11,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules
 {
     internal interface IGameRules
     {
-        bool IsMoveValid(IPlayer player, IBoard board, IBoardLane lane, IDie die);
+        IReadOnlyCollection<IMove> GetValidMoves(IGameBoard board, ITurn turn);
 
-        void MovePiece(IPlayer player, IGameBoard board, IGameBoardLane lane, IDie die);
+        void MovePiece(IPlayer player, IGameBoard board, IGameMove move);
 
         IPlayer TryGetWinner(IBoard board, IEnumerable<IPlayer> players);
     }

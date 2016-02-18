@@ -55,7 +55,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         private void SetBoard(IGameBoard board, IReadOnlyList<IPlayer> players)
         {
-            var lanes = (IList<IGameBoardLane>)board.GameLanes;
+            var lanes = (IList<IGameBoardLane>)board.Lanes;
             lanes[0] = new DefaultBoardLane(this.CreatePieces(2, players[0]));
             lanes[5] = new DefaultBoardLane(this.CreatePieces(5, players[1]));
             lanes[7] = new DefaultBoardLane(this.CreatePieces(3, players[1]));

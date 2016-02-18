@@ -3,6 +3,7 @@
 //
 using AppBrix.Backgammon.Core.Board;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Game
@@ -26,18 +27,23 @@ namespace AppBrix.Backgammon.Core.Game
         ITurn Turn { get; }
 
         /// <summary>
+        /// Gets a collection of the allowed moves for this turn.
+        /// </summary>
+        IReadOnlyCollection<IMove> AllowedMoves { get; }
+
+        /// <summary>
         /// Gets the name of player who has won the game.
         /// </summary>
         string Winner { get; }
         #endregion
-        
+
         #region Methods
         /// <summary>
-        /// Ends the current turn, allowing the other player to roll the dice.
+        /// Starts the game with the selected first player.
         /// </summary>
-        /// <param name="player"></param>
-        void EndTurn(IPlayer player);
-
+        /// <param name="player">The player to play first</param>
+        void Start(IPlayer player);
+        
         /// <summary>
         /// Gets the board for the player.
         /// Both players use different representations of the same board.
@@ -45,14 +51,6 @@ namespace AppBrix.Backgammon.Core.Game
         /// <param name="player">The player.</param>
         /// <returns>The player's representation of the board.</returns>
         IBoard GetBoard(IPlayer player);
-        
-        /// <summary>
-        /// Plays an unused <see cref="IDie"/>.
-        /// </summary>
-        /// <param name="player">The player to play the die.</param>
-        /// <param name="lane">The lane which holds the piece to be moved.</param>
-        /// <param name="die">The die to be used.</param>
-        void PlayDie(IPlayer player, IBoardLane lane, IDie die);
 
         /// <summary>
         /// Rolls the dice.
@@ -61,10 +59,17 @@ namespace AppBrix.Backgammon.Core.Game
         void RollDice(IPlayer player);
 
         /// <summary>
-        /// Starts the game with the selected first player.
+        /// Plays an unused <see cref="IDie"/>.
         /// </summary>
-        /// <param name="player">The player to play first</param>
-        void Start(IPlayer player);
+        /// <param name="player">The player to play the die.</param>
+        /// <param name="move">The (piece/die) move to be played.</param>
+        void PlayMove(IPlayer player, IMove move);
+        
+        /// <summary>
+        /// Ends the current turn, allowing the other player to roll the dice.
+        /// </summary>
+        /// <param name="player"></param>
+        void EndTurn(IPlayer player);
         #endregion
     }
 }

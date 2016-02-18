@@ -28,6 +28,21 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         #endregion
 
         #region Public and overriden methods
+        public override bool Equals(object obj)
+        {
+            var other = obj as DefaultPlayer;
+            if (other != null)
+            {
+                return this.Id == other.Id && this.Name == other.Name;
+            }
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
+
         public override string ToString()
         {
             return string.Format("{0} ({1})", this.Name, this.Id);

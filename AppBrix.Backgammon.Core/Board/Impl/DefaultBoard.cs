@@ -15,27 +15,25 @@ namespace AppBrix.Backgammon.Core.Board.Impl
             if (lanes == null)
                 throw new ArgumentNullException("lanes");
 
-            this.GameBar = bar;
-            this.GameBearedOff = bearedOff;
-            this.GameLanes = lanes;
+            this.Bar = bar;
+            this.BearedOff = bearedOff;
+            this.Lanes = lanes;
         }
 
         #endregion
 
         #region Game Properties
-        public IGameBoardLane GameBar { get; private set; }
+        public IGameBoardLane Bar { get; private set; }
 
-        public IGameBoardLane GameBearedOff { get; private set; }
+        IBoardLane IBoard.Bar { get { return this.Bar; } }
 
-        public IReadOnlyList<IGameBoardLane> GameLanes { get; private set; }
-        #endregion
+        public IGameBoardLane BearedOff { get; private set; }
 
-        #region Properties
-        public IBoardLane Bar { get { return this.GameBar; } }
+        IBoardLane IBoard.BearedOff { get { return this.BearedOff; } }
 
-        public IBoardLane BearedOff { get { return this.GameBearedOff; } }
+        public IReadOnlyList<IGameBoardLane> Lanes { get; private set; }
 
-        public IReadOnlyList<IBoardLane> Lanes { get { return this.GameLanes; } }
+        IReadOnlyList<IBoardLane> IBoard.Lanes { get { return this.Lanes; } }
         #endregion
     }
 }

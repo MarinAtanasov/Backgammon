@@ -31,7 +31,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             this.app = app;
             this.Players = new IPlayer[] { player1, player2 };
             
-            var reversedBoard = new DefaultBoard(new ReversedLanes(board.GameLanes), board.GameBar, board.GameBearedOff);
+            var reversedBoard = new DefaultBoard(new ReversedLanes(board.Lanes), board.Bar, board.BearedOff);
             this.Boards = new IGameBoard[] { board, reversedBoard };
 
             this.Rules = new BasicGameRules();
@@ -56,72 +56,38 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             private set
             {
                 this.turn = value;
+                this.SetAllowedMoves();
                 this.app.GetEventHub().Raise(new DefaultTurnChanged(this));
             }
         }
+        
+        public IReadOnlyCollection<IMove> AllowedMoves { get; private set; }
 
         public string Winner { get; private set; }
         #endregion
 
         #region Public and overriden methods
-        public void EndTurn(IPlayer player)
+        public void Start(IPlayer player)
         {
             if (player == null)
                 throw new ArgumentNullException("player");
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
-            if (this.GetCurrentPlayer() != player)
-                throw new ArgumentException("This player's turn has not come yet: " + player);
 
-            // TODO: Handle if unable to use dice.
-            if (this.turn.Dice.Any(x => !x.IsUsed))
-                throw new InvalidOperationException("The player has not played all his dice.");
+            if (this.isStarted)
+                throw new InvalidOperationException("Game already started.");
 
-            var otherPlayer = this.Players[0] == player ? this.Players[1] : this.Players[0];
-            this.Turn = this.CreateNewTurn(otherPlayer);
+            this.isStarted = true;
+            this.IsRunning = true;
+            this.Turn = this.CreateNewTurn(player);
         }
 
         public IBoard GetBoard(IPlayer player)
         {
             if (player == null)
                 throw new ArgumentNullException("player");
-            
+
             return this.GetBoardInternal(player);
-        }
-        
-        public void PlayDie(IPlayer player, IBoardLane lane, IDie die)
-        {
-            if (player == null)
-                throw new ArgumentNullException("player");
-            if (!this.Players.Contains(player))
-                throw new ArgumentException("Player not found: " + player);
-            if (this.GetCurrentPlayer() != player)
-                throw new ArgumentException("This player's turn has not come yet: " + player);
-            if (lane == null)
-                throw new ArgumentNullException("lane");
-            var board = this.GetBoardInternal(player);
-            if (board.Bar != lane && !board.Lanes.Contains(lane))
-                throw new ArgumentException("Lane not found: " + lane);
-            if (die == null)
-                throw new ArgumentNullException("die");
-            if (!this.Turn.Dice.Contains(die))
-                throw new ArgumentException("Die not found: " + die);
-            if (die.IsUsed)
-                throw new ArgumentException("This die has already been used: " + die);
-
-            if (!this.IsRunning)
-                throw new InvalidOperationException("The game is already finished.");
-
-            this.Rules.MovePiece(player, board, (IGameBoardLane)lane, die);
-            var turn = this.UseDie(player, die);
-            // TODO: Handle if unable to use dice.
-
-            var winner = this.Rules.TryGetWinner(board, this.Players);
-            this.IsRunning = winner == null;
-            this.Turn = turn;
-
-            if (!this.IsRunning)
-                this.app.GetEventHub().Raise(new DefaultGameEnded(this));
         }
 
         public void RollDice(IPlayer player)
@@ -139,26 +105,68 @@ namespace AppBrix.Backgammon.Core.Game.Impl
                 throw new InvalidOperationException("The game is already finished.");
 
             this.Turn = this.RollDice();
-            // TODO: Handle if unable to use dice.
         }
 
-        public void Start(IPlayer player)
+        public void PlayMove(IPlayer player, IMove move)
         {
             if (player == null)
                 throw new ArgumentNullException("player");
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
+            if (this.GetCurrentPlayer() != player)
+                throw new ArgumentException("This player's turn has not come yet: " + player);
+            if (move == null)
+                throw new ArgumentNullException("move");
+            if (!this.AllowedMoves.Contains(move))
+                throw new ArgumentException("Illegal move!");
 
-            if (this.isStarted)
-                throw new InvalidOperationException("Game already started.");
+            var board = this.GetBoardInternal(player);
+            this.Rules.MovePiece(player, board, (IGameMove)move);
+            var turn = this.UseDie(player, move.Die);
 
-            this.isStarted = true;
-            this.IsRunning = true;
-            this.Turn = this.CreateNewTurn(player);
+            var winner = this.Rules.TryGetWinner(board, this.Players);
+            this.IsRunning = winner == null;
+            if (this.IsRunning)
+            {
+                this.Turn = turn;
+            }
+            else
+            {
+                this.Winner = winner.Name;
+                this.app.GetEventHub().Raise(new DefaultGameEnded(this));
+            }
+        }
+
+        public void EndTurn(IPlayer player)
+        {
+            if (player == null)
+                throw new ArgumentNullException("player");
+            if (!this.Players.Contains(player))
+                throw new ArgumentException("Player not found: " + player);
+            if (this.GetCurrentPlayer() != player)
+                throw new ArgumentException("This player's turn has not come yet: " + player);
+            
+            if (this.AllowedMoves.Count > 0)
+                throw new InvalidOperationException("The player has not played all his dice.");
+
+            var otherPlayer = this.Players[0] == player ? this.Players[1] : this.Players[0];
+            this.Turn = this.CreateNewTurn(otherPlayer);
         }
         #endregion
 
         #region Private methods
+        private void SetAllowedMoves()
+        {
+            if (this.IsRunning)
+            {
+                this.AllowedMoves = this.Rules.GetValidMoves(this.GetBoardInternal(this.GetCurrentPlayer()), this.Turn);
+            }
+            else
+            {
+                this.AllowedMoves = new List<IMove>();
+            }
+        }
+
         private IPlayer GetCurrentPlayer()
         {
             return this.Players[0].Name == this.Turn.Player ? this.Players[0] : this.Players[1];

@@ -10,11 +10,11 @@ namespace AppBrix.Backgammon.Core.Board.Impl
     internal interface IGameBoard : IBoard
     {
         #region Properties
-        IGameBoardLane GameBar { get; }
+        new IGameBoardLane Bar { get; }
 
-        IGameBoardLane GameBearedOff { get; }
+        new IGameBoardLane BearedOff { get; }
 
-        IReadOnlyList<IGameBoardLane> GameLanes { get; }
+        new IReadOnlyList<IGameBoardLane> Lanes { get; }
         #endregion
     }
 }

@@ -3,6 +3,7 @@
 //
 using AppBrix.Application;
 using AppBrix.Backgammon.Core;
+using AppBrix.Backgammon.Core.Board;
 using AppBrix.Backgammon.Core.Game;
 using AppBrix.Configuration;
 using AppBrix.Configuration.Files;
@@ -52,12 +53,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             }
             Program.OnGameEnded(game);
         }
-
-        private static void OnGameEnded(IGame game)
-        {
-            Console.WriteLine("Game ended! Winner: {0}", game.Winner);
-        }
-
+        
         private static void OnTurnChanged(IGame game, IDictionary<string, IPlayer> players)
         {
             var turn = game.Turn;
@@ -70,9 +66,8 @@ namespace AppBrix.Backgammon.ConsoleApp
                 Console.ReadLine();
                 game.RollDice(player);
             }
-            else if (turn.Dice.All(d => d.IsUsed))
+            else if (game.AllowedMoves.Count == 0)
             {
-                // TODO: Handle if unable to use dice.
                 Console.Write("Press <Enter> to end turn.");
                 Console.ReadLine();
                 game.EndTurn(player);
@@ -85,12 +80,11 @@ namespace AppBrix.Backgammon.ConsoleApp
                 {
                     try
                     {
-                        Console.Write("Select \"<position> <die>\" to play: ");
-                        var toPlay = Console.ReadLine().Split(' ');
-                        var index = int.Parse(toPlay[0]);
-                        var lane = index > 0 ? board.Lanes[index - 1] : board.Bar;
-                        var die = int.Parse(toPlay[1]);
-                        game.PlayDie(player, lane, turn.Dice.FirstOrDefault(d => !d.IsUsed && d.Value == die));
+                        var move = Program.SelectMove(game, board);
+                        if (move == null)
+                            throw new InvalidOperationException("Illegal move!");
+
+                        game.PlayMove(player, move);
 
                         isValidMove = true;
                     }
@@ -100,6 +94,11 @@ namespace AppBrix.Backgammon.ConsoleApp
                     }
                 } while (!isValidMove);
             }
+        }
+
+        private static void OnGameEnded(IGame game)
+        {
+            Console.WriteLine("Game ended! Winner: {0}", game.Winner);
         }
 
         private static void PrintBoard(IGame game, ITurn turn, IPlayer player)
@@ -167,6 +166,16 @@ namespace AppBrix.Backgammon.ConsoleApp
             }
 
             Console.WriteLine("-24-23-22-21-20-19-----18-17-16-15-14-13-");
+        }
+
+        private static IMove SelectMove(IGame game, IBoard board)
+        {
+            Console.Write("Select \"<position> <die>\" to play: ");
+            var toPlay = Console.ReadLine().Split(' ');
+            var index = int.Parse(toPlay[0]) - 1;
+            var lane = index >= 0 ? board.Lanes[index] : board.Bar;
+            var die = int.Parse(toPlay[1]);
+            return game.AllowedMoves.FirstOrDefault(x => x.LaneIndex == index && x.Die.Value == die);
         }
     }
 }
