@@ -15,6 +15,6 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules
 
         void MovePiece(IPlayer player, IGameBoard board, IGameMove move);
 
-        IPlayer TryGetWinner(IBoard board, IEnumerable<IPlayer> players);
+        IPlayer TryGetWinner(IBoard board, IMove move, IEnumerable<IPlayer> players);
     }
 }

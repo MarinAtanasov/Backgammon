@@ -123,8 +123,8 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             var board = this.GetBoardInternal(player);
             this.Rules.MovePiece(player, board, (IGameMove)move);
             var turn = this.UseDie(player, move.Die);
-
-            var winner = this.Rules.TryGetWinner(board, this.Players);
+            
+            var winner = this.Rules.TryGetWinner(board, move, this.Players);
             this.IsRunning = winner == null;
             this.Turn = turn;
             if (!this.IsRunning)

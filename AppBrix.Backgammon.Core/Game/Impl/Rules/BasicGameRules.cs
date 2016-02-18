@@ -32,9 +32,11 @@ namespace AppBrix.Backgammon.Core.Game.Impl.Rules
             this.strategy.MovePiece(player, board, move);
         }
 
-        public IPlayer TryGetWinner(IBoard board, IEnumerable<IPlayer> players)
+        public IPlayer TryGetWinner(IBoard board, IMove move, IEnumerable<IPlayer> players)
         {
-            return players.FirstOrDefault(x => board.BearedOff.Pieces.Count(p => p.Player == x.Name) == BasicGameRules.PiecesPerPlayer);
+            return move.LaneIndex + move.Die.Value >= board.Lanes.Count ?
+                players.FirstOrDefault(x => board.BearedOff.Pieces.Count(p => p.Player == x.Name) == BasicGameRules.PiecesPerPlayer) :
+                null;
         }
         #endregion
 
