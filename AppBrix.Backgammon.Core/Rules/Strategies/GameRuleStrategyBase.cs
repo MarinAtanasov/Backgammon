@@ -3,11 +3,12 @@
 //
 using AppBrix.Backgammon.Core.Board;
 using AppBrix.Backgammon.Core.Board.Impl;
+using AppBrix.Backgammon.Core.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core.Game.Impl.Rules.Strategies
+namespace AppBrix.Backgammon.Core.Rules.Strategies
 {
     internal abstract class GameRuleStrategyBase
     {
