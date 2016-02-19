@@ -92,6 +92,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         public void RollDice(IPlayer player)
         {
+            if (!this.isStarted)
+                throw new InvalidOperationException("Game has not started yet.");
+
             if (player == null)
                 throw new ArgumentNullException("player");
             if (!this.Players.Contains(player))
@@ -109,6 +112,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         public void PlayMove(IPlayer player, IMove move)
         {
+            if (!this.isStarted)
+                throw new InvalidOperationException("Game has not started yet.");
+
             if (player == null)
                 throw new ArgumentNullException("player");
             if (!this.Players.Contains(player))
@@ -136,6 +142,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         public void EndTurn(IPlayer player)
         {
+            if (!this.isStarted)
+                throw new InvalidOperationException("Game has not started yet.");
+
             if (player == null)
                 throw new ArgumentNullException("player");
             if (!this.Players.Contains(player))
