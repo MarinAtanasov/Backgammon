@@ -38,6 +38,9 @@
     },
     {
       "Type": "AppBrix.Backgammon.Core.CoreModule, AppBrix.Backgammon.Core"
+    },
+    {
+      "Type": "AppBrix.Backgammon.Bots.BotsModule, AppBrix.Backgammon.Bots"
     }
   ]
 }

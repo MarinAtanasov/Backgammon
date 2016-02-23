@@ -1,6 +1,7 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
+using AppBrix.Application;
 using AppBrix.Backgammon.Core.Board;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,13 @@ namespace AppBrix.Backgammon.Core.Game
     /// </summary>
     public interface IGame
     {
+        #region Properties
+        /// <summary>
+        /// Gets the current application where the game is played.
+        /// </summary>
+        IApp App { get; }
+        #endregion
+
         #region Properties
         /// <summary>
         /// Gets whether the game is still running or has ended.

@@ -3,24 +3,21 @@
 //
 using AppBrix.Modules;
 using AppBrix.Lifecycle;
-using AppBrix.Backgammon.Core.Game.Impl;
 using System;
 using System.Linq;
 
-namespace AppBrix.Backgammon.Core
+namespace AppBrix.Backgammon.Bots
 {
     /// <summary>
-    /// A module used for registering commonly used Backgammon functionality.
-    /// Registers <see cref="Game.IGameFactory"/> and <see cref="Game.IDiceRoller"/>.
+    /// A module used for registering Backgammon bots.
     /// </summary>
-    public class CoreModule : ModuleBase
+    public class BotsModule : ModuleBase
     {
         #region ModuleBase implementation
         protected override void InitializeModule(IInitializeContext context)
         {
             this.App.GetResolver().Register(this);
-            this.App.GetResolver().Register(new DefaultGameFactory(this.App));
-            this.App.GetResolver().Register(new DefaultDiceRoller(this.App));
+            this.App.GetResolver().Register(new DefaultBotRegister(this.App));
         }
 
         protected override void UninitializeModule()

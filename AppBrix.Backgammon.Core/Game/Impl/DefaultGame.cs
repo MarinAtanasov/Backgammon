@@ -28,7 +28,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             if (player1.Name == player2.Name)
                 throw new ArgumentException("player1.Name == player2.Name");
 
-            this.app = app;
+            this.App = app;
             this.Players = new IPlayer[] { player1, player2 };
             
             var reversedBoard = new DefaultBoard(new ReversedLanes(board.Lanes), board.Bar, board.BearedOff);
@@ -39,6 +39,8 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         #endregion
 
         #region Properties
+        public IApp App { get; private set; }
+
         public IList<IGameBoard> Boards { get; private set; }
 
         public bool IsRunning { get; private set; }
@@ -57,7 +59,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             {
                 this.turn = value;
                 this.SetAllowedMoves();
-                this.app.GetEventHub().Raise(new DefaultTurnChanged(this));
+                this.App.GetEventHub().Raise(new DefaultTurnChanged(this));
             }
         }
         
@@ -132,11 +134,11 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             
             var winner = this.Rules.TryGetWinner(board, move, this.Players);
             this.IsRunning = winner == null;
+            this.Winner = this.IsRunning ? this.Winner : winner.Name;
             this.Turn = turn;
-            if (!this.IsRunning)
+            if (winner != null)
             {
-                this.Winner = winner.Name;
-                this.app.GetEventHub().Raise(new DefaultGameEnded(this));
+                this.App.GetEventHub().Raise(new DefaultGameEnded(this));
             }
         }
 
@@ -195,7 +197,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         private int RollDie()
         {
-            return app.GetDiceRoller().RollDie();
+            return App.GetDiceRoller().RollDie();
         }
 
         private void SetAllowedMoves()
@@ -217,7 +219,6 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         #endregion
 
         #region private fields and constants
-        private readonly IApp app;
         private ITurn turn;
         private bool isStarted;
         #endregion
