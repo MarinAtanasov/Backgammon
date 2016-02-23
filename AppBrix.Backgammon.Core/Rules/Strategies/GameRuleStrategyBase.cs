@@ -21,7 +21,12 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
 
         public IReadOnlyCollection<IGameMove> GetValidMoves(IGameBoard board, ITurn turn)
         {
-            return this.GetValidMoves(board, turn, new DefaultGameRuleStrategyContext());
+            var context = new DefaultGameRuleStrategyContext();
+            for (var strategy = this; !context.IsDone && strategy != null; strategy = strategy.next)
+            {
+                strategy.GetStrategyValidMoves(board, turn, context);
+            }
+            return context.Moves;
         }
 
         protected abstract void GetStrategyValidMoves(IGameBoard board, ITurn turn, IGameRuleStrategyContext context);
@@ -38,12 +43,6 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
         protected IEnumerable<IDie> GetAvailableDice(IEnumerable<IDie> dice)
         {
             return dice.Where(x => !x.IsUsed).Distinct();
-        }
-
-        private IReadOnlyCollection<IGameMove> GetValidMoves(IGameBoard board, ITurn turn, IGameRuleStrategyContext context)
-        {
-            this.GetStrategyValidMoves(board, turn, context);
-            return context.IsDone || this.next == null ? context.Moves : this.next.GetValidMoves(board, turn, context);
         }
         #endregion
 

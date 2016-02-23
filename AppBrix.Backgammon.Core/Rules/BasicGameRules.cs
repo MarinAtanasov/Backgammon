@@ -16,8 +16,9 @@ namespace AppBrix.Backgammon.Core.Rules
         #region Construction
         public BasicGameRules()
         {
-            this.strategy = new EnterPieceStrategy();
-            this.strategy.SetNext(new MovePieceStrategy())
+            this.strategy = new OptimizingStrategy();
+            this.strategy.SetNext(new EnterPieceStrategy())
+                .SetNext(new MovePieceStrategy())
                 .SetNext(new BearOffPieceStrategy());
         }
         #endregion

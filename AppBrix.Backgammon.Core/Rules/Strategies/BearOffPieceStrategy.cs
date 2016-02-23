@@ -20,7 +20,7 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
 
             var playerName = turn.Player;
             var dice = this.GetAvailableDice(turn.Dice).OrderByDescending(x => x.Value).ToList();
-            var hasExactMove = false;
+            var hasMove = false;
             for (int i = (board.Lanes.Count * 3) / 4; i < board.Lanes.Count; i++)
             {
                 var lane = board.Lanes[i];
@@ -29,11 +29,11 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
 
                 foreach (var die in dice)
                 {
-                    hasExactMove = hasExactMove || i + die.Value == board.Lanes.Count;
                     if (i + die.Value == board.Lanes.Count ||
-                        (i + die.Value > board.Lanes.Count && !hasExactMove))
+                        (i + die.Value > board.Lanes.Count && !hasMove))
                     {
                         context.Moves.Add(new DefaultMove(board.Lanes[i], i, die));
+                        hasMove = true;
                     }
                 }
             }

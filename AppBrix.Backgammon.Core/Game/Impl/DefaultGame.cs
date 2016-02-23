@@ -214,7 +214,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         private ITurn UseDie(IPlayer player, IDie usedDie)
         {
-            return new DefaultTurn(player, this.Turn.Dice.Select(x => x == usedDie ? new DefaultDie(true, x.Value) : x).ToArray());
+            return new DefaultTurn(player, this.Turn.Dice.Select(x => x == usedDie ? new DefaultDie(true, x.Value) : x).ToList());
         }
         #endregion
 
