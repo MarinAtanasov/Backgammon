@@ -25,6 +25,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
 
+            if (id == Guid.Empty)
+                id = Guid.NewGuid();
+
             return new DefaultPlayer(name, id);
         }
 

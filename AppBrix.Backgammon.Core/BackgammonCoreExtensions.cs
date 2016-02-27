@@ -12,6 +12,16 @@ namespace AppBrix
     public static class BackgammonCoreExtensions
     {
         /// <summary>
+        /// Gets the currently registered <see cref="IGameFactory"/>.
+        /// </summary>
+        /// <param name="app">The current application.</param>
+        /// <returns>The game factory.</returns>
+        public static IGameFactory GetGameFactory(this IApp app)
+        {
+            return app.Get<IGameFactory>();
+        }
+
+        /// <summary>
         /// Gets the currently registered dice roller.
         /// </summary>
         /// <param name="app">The current application.</param>
@@ -28,7 +38,7 @@ namespace AppBrix
         /// <returns>The new player.</returns>
         public static IPlayer CreatePlayer(this IGameFactory factory, string name)
         {
-            return factory.CreatePlayer(name, Guid.NewGuid());
+            return factory.CreatePlayer(name, Guid.Empty);
         }
     }
 }
