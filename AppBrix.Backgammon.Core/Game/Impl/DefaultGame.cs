@@ -28,6 +28,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             if (player1.Name == player2.Name)
                 throw new ArgumentException("player1.Name == player2.Name");
 
+            this.AllowedMoves = new List<IMove>();
             this.App = app;
             this.Players = new IPlayer[] { player1, player2 };
             

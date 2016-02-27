@@ -1,0 +1,31 @@
+﻿{
+  "version": "0.1.0-*",
+  "title": "Tests for AppBrix.Backgammon.Core library",
+  "summary": "Contains test for AppBrix.Backgammon.Core library.",
+  "description": "Contains test for AppBrix.Backgammon.Core library.",
+  "releaseNotes": "Initial version.",
+  "authors": [ "Marin Atanasov" ],
+  "owners": [ "Marin Atanasov" ],
+  "tags": [ "AppBrix Module Backgammon Core Tests" ],
+  "iconUrl": "https://raw.githubusercontent.com/MarinAtanasov/AppBrix.NetCore/master/icon-64x64.png",
+  "projectUrl": "https://github.com/MarinAtanasov/Backgammon",
+  "licenseUrl": "https://github.com/MarinAtanasov/Backgammon/blob/master/LICENSE.txt",
+  "requireLicenseAcceptance": false,
+  "copyright": "Copyright 2016",
+
+  "dependencies": {
+    "AppBrix.Backgammon.Core": "0.1.0-*",
+    "AppBrix.Configuration.Memory": "0.2.0-*",
+    "FluentAssertions": "4.2.2",
+    "xunit": "2.2.0-*",
+    "xunit.runner.dnx": "2.1.0-*"
+  },
+
+  "commands": {
+    "test": "xunit.runner.dnx"
+  },
+
+  "frameworks": {
+    "dnxcore50": { }
+  }
+}
