@@ -11,13 +11,7 @@ namespace AppBrix.Backgammon.Core.Board
     /// A lane on the Backgammon board.
     /// Every lane can hold <see cref="IPiece"/>.
     /// </summary>
-    public interface IBoardLane
+    public interface IBoardLane : IReadOnlyList<IPiece>
     {
-        #region Properties
-        /// <summary>
-        /// Gets a list of <see cref="IPiece"/> elements on the lane.
-        /// </summary>
-        IReadOnlyList<IPiece> Pieces { get; }
-        #endregion
     }
 }

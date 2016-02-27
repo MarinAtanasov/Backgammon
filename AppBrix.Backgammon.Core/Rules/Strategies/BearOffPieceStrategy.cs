@@ -24,7 +24,7 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
             for (int i = (board.Lanes.Count * 3) / 4; i < board.Lanes.Count; i++)
             {
                 var lane = board.Lanes[i];
-                if (lane.Pieces.Count == 0 || lane.Pieces[0].Player != playerName)
+                if (lane.Count == 0 || lane[0].Player != playerName)
                     continue;
 
                 foreach (var die in dice)
@@ -53,7 +53,7 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
             var preBearOffLanes = (lanes.Count * 3) / 4;
             for (int i = 0; i < preBearOffLanes; i++)
             {
-                if (lanes[i].Pieces.Count > 0 && lanes[i].Pieces[0].Player == playerName)
+                if (lanes[i].Count > 0 && lanes[i][0].Player == playerName)
                 {
                     return true;
                 }

@@ -128,17 +128,17 @@ namespace AppBrix.Backgammon.ConsoleApp
             {
                 for (int column = 0; column < lanes.Count / 4; column++)
                 {
-                    var pieces = lanes[column].Pieces;
+                    var pieces = lanes[column];
                     Console.Write("|");
                     Console.Write("{0,1}", pieces.Count > row + 5 ? (pieces[row + 5].Player == playerName ? "W" : "B") : string.Empty);
                     Console.Write("{0,1}", pieces.Count > row ? (pieces[row].Player == playerName ? "W" : "B") : string.Empty);
                 }
                 Console.Write("| ");
-                Console.Write(board.Bar.Pieces.Count > row ? (board.Bar.Pieces[row].Player == playerName ? "W" : "B") : "-");
+                Console.Write(board.Bar.Count > row ? (board.Bar[row].Player == playerName ? "W" : "B") : "-");
                 Console.Write(" |");
                 for (int column = lanes.Count / 4; column < lanes.Count / 2; column++)
                 {
-                    var pieces = lanes[column].Pieces;
+                    var pieces = lanes[column];
                     Console.Write("{0,1}", pieces.Count > row + 5 ? (pieces[row + 5].Player == playerName ? "W" : "B") : string.Empty);
                     Console.Write("{0,1}", pieces.Count > row ? (pieces[row].Player == playerName ? "W" : "B") : string.Empty);
                     Console.Write("|");
@@ -164,7 +164,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             {
                 for (int column = lanes.Count - 1; column >= (lanes.Count * 3) / 4; column--)
                 {
-                    var pieces = lanes[column].Pieces;
+                    var pieces = lanes[column];
                     Console.Write("|");
                     Console.Write("{0,1}", pieces.Count > row + 5 ? (pieces[row + 5].Player == playerName ? "W" : "B") : string.Empty);
                     Console.Write("{0,1}", pieces.Count > row ? (pieces[row].Player == playerName ? "W" : "B") : string.Empty);
@@ -172,7 +172,7 @@ namespace AppBrix.Backgammon.ConsoleApp
                 Console.Write("| - |");
                 for (int column = ((lanes.Count * 3) / 4) - 1; column >= lanes.Count / 2; column--)
                 {
-                    var pieces = lanes[column].Pieces;
+                    var pieces = lanes[column];
                     Console.Write("{0,1}", pieces.Count > row + 5 ? (pieces[row + 5].Player == playerName ? "W" : "B") : string.Empty);
                     Console.Write("{0,1}", pieces.Count > row ? (pieces[row].Player == playerName ? "W" : "B") : string.Empty);
                     Console.Write("|");

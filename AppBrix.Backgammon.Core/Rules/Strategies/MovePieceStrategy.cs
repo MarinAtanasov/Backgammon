@@ -20,7 +20,7 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
             for (int i = 0; i < board.Lanes.Count; i++)
             {
                 var lane = board.Lanes[i];
-                if (lane.Pieces.Count == 0 || lane.Pieces[0].Player != playerName)
+                if (lane.Count == 0 || lane[0].Player != playerName)
                     continue;
 
                 foreach (var die in dice)
@@ -39,7 +39,7 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
                 return false;
 
             var targetLane = board.Lanes[move.LaneIndex + move.Die.Value];
-            if (targetLane.Pieces.Count == 1 && targetLane.Pieces[0].Player != player.Name)
+            if (targetLane.Count == 1 && targetLane[0].Player != player.Name)
             {
                 targetLane.MovePiece(board.Bar);
             }
@@ -54,7 +54,7 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
             if (index + die < board.Lanes.Count)
             {
                 var targetLane = board.Lanes[index + die];
-                if (targetLane.Pieces.Count <= 1 || targetLane.Pieces[0].Player == player)
+                if (targetLane.Count <= 1 || targetLane[0].Player == player)
                 {
                     return true;
                 }

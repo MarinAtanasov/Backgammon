@@ -120,44 +120,44 @@ namespace AppBrix.Backgammon.Core.Tests
         #region Private methods
         private void AssertIsInInitialState(IBoard board, IPlayer player)
         {
-            board.Bar.Pieces.Should().BeEmpty("initially there should be no pieces on the board bar");
-            board.BearedOff.Pieces.Should().BeEmpty("initially there should be no beared off pieces");
+            board.Bar.Should().BeEmpty("initially there should be no pieces on the board bar");
+            board.BearedOff.Should().BeEmpty("initially there should be no beared off pieces");
 
-            board.Lanes[0].Pieces.Count.Should().Be(2, "initially lane 0 should have 2 pieces");
-            board.Lanes[0].Pieces.Where(x => x.Player == player.Name).Count().Should().Be(2, "initially pieces on lane 0 should belong to " + player.Name);
-            board.Lanes[1].Pieces.Should().BeEmpty("initially lane 1 should be empty");
-            board.Lanes[2].Pieces.Should().BeEmpty("initially lane 2 should be empty");
-            board.Lanes[3].Pieces.Should().BeEmpty("initially lane 3 should be empty");
-            board.Lanes[4].Pieces.Should().BeEmpty("initially lane 4 should be empty");
-            board.Lanes[5].Pieces.Count.Should().Be(5, "initially lane 5 should have 5 pieces");
-            board.Lanes[5].Pieces.Where(x => x.Player != player.Name).Count().Should().Be(5, "initially pieces on lane 5 should not belong to " + player.Name);
+            board.Lanes[0].Count.Should().Be(2, "initially lane 0 should have 2 pieces");
+            board.Lanes[0].Where(x => x.Player == player.Name).Count().Should().Be(2, "initially pieces on lane 0 should belong to " + player.Name);
+            board.Lanes[1].Should().BeEmpty("initially lane 1 should be empty");
+            board.Lanes[2].Should().BeEmpty("initially lane 2 should be empty");
+            board.Lanes[3].Should().BeEmpty("initially lane 3 should be empty");
+            board.Lanes[4].Should().BeEmpty("initially lane 4 should be empty");
+            board.Lanes[5].Count.Should().Be(5, "initially lane 5 should have 5 pieces");
+            board.Lanes[5].Where(x => x.Player != player.Name).Count().Should().Be(5, "initially pieces on lane 5 should not belong to " + player.Name);
 
-            board.Lanes[6].Pieces.Should().BeEmpty("initially lane 6 should be empty");
-            board.Lanes[7].Pieces.Count.Should().Be(3, "initially lane 7 should have 3 pieces");
-            board.Lanes[7].Pieces.Where(x => x.Player != player.Name).Count().Should().Be(3, "initially pieces on lane 7 should not belong to " + player.Name);
-            board.Lanes[8].Pieces.Should().BeEmpty("initially lane 8 should be empty");
-            board.Lanes[9].Pieces.Should().BeEmpty("initially lane 9 should be empty");
-            board.Lanes[10].Pieces.Should().BeEmpty("initially lane 10 should be empty");
-            board.Lanes[11].Pieces.Count.Should().Be(5, "initially lane 11 should have 5 pieces");
-            board.Lanes[11].Pieces.Where(x => x.Player == player.Name).Count().Should().Be(5, "initially pieces on lane 11 should belong to " + player.Name);
+            board.Lanes[6].Should().BeEmpty("initially lane 6 should be empty");
+            board.Lanes[7].Count.Should().Be(3, "initially lane 7 should have 3 pieces");
+            board.Lanes[7].Where(x => x.Player != player.Name).Count().Should().Be(3, "initially pieces on lane 7 should not belong to " + player.Name);
+            board.Lanes[8].Should().BeEmpty("initially lane 8 should be empty");
+            board.Lanes[9].Should().BeEmpty("initially lane 9 should be empty");
+            board.Lanes[10].Should().BeEmpty("initially lane 10 should be empty");
+            board.Lanes[11].Count.Should().Be(5, "initially lane 11 should have 5 pieces");
+            board.Lanes[11].Where(x => x.Player == player.Name).Count().Should().Be(5, "initially pieces on lane 11 should belong to " + player.Name);
 
-            board.Lanes[12].Pieces.Count.Should().Be(5, "initially lane 12 should have 5 pieces");
-            board.Lanes[12].Pieces.Where(x => x.Player != player.Name).Count().Should().Be(5, "initially pieces on lane 12 should not belong to " + player.Name);
-            board.Lanes[13].Pieces.Should().BeEmpty("initially lane 13 should be empty");
-            board.Lanes[14].Pieces.Should().BeEmpty("initially lane 14 should be empty");
-            board.Lanes[15].Pieces.Should().BeEmpty("initially lane 15 should be empty");
-            board.Lanes[16].Pieces.Count.Should().Be(3, "initially lane 16 should have 3 pieces");
-            board.Lanes[16].Pieces.Where(x => x.Player == player.Name).Count().Should().Be(3, "initially pieces on lane 16 should belong to " + player.Name);
-            board.Lanes[17].Pieces.Should().BeEmpty("initially lane 17 should be empty");
+            board.Lanes[12].Count.Should().Be(5, "initially lane 12 should have 5 pieces");
+            board.Lanes[12].Where(x => x.Player != player.Name).Count().Should().Be(5, "initially pieces on lane 12 should not belong to " + player.Name);
+            board.Lanes[13].Should().BeEmpty("initially lane 13 should be empty");
+            board.Lanes[14].Should().BeEmpty("initially lane 14 should be empty");
+            board.Lanes[15].Should().BeEmpty("initially lane 15 should be empty");
+            board.Lanes[16].Count.Should().Be(3, "initially lane 16 should have 3 pieces");
+            board.Lanes[16].Where(x => x.Player == player.Name).Count().Should().Be(3, "initially pieces on lane 16 should belong to " + player.Name);
+            board.Lanes[17].Should().BeEmpty("initially lane 17 should be empty");
 
-            board.Lanes[18].Pieces.Count.Should().Be(5, "initially lane 18 should have 5 pieces");
-            board.Lanes[18].Pieces.Where(x => x.Player == player.Name).Count().Should().Be(5, "initially pieces on lane 18 should belong to " + player.Name);
-            board.Lanes[19].Pieces.Should().BeEmpty("initially lane 19 should be empty");
-            board.Lanes[20].Pieces.Should().BeEmpty("initially lane 20 should be empty");
-            board.Lanes[21].Pieces.Should().BeEmpty("initially lane 21 should be empty");
-            board.Lanes[22].Pieces.Should().BeEmpty("initially lane 22 should be empty");
-            board.Lanes[23].Pieces.Count.Should().Be(2, "initially lane 23 should have 2 pieces");
-            board.Lanes[23].Pieces.Where(x => x.Player != player.Name).Count().Should().Be(2, "initially pieces on lane 23 should not belong to " + player.Name);
+            board.Lanes[18].Count.Should().Be(5, "initially lane 18 should have 5 pieces");
+            board.Lanes[18].Where(x => x.Player == player.Name).Count().Should().Be(5, "initially pieces on lane 18 should belong to " + player.Name);
+            board.Lanes[19].Should().BeEmpty("initially lane 19 should be empty");
+            board.Lanes[20].Should().BeEmpty("initially lane 20 should be empty");
+            board.Lanes[21].Should().BeEmpty("initially lane 21 should be empty");
+            board.Lanes[22].Should().BeEmpty("initially lane 22 should be empty");
+            board.Lanes[23].Count.Should().Be(2, "initially lane 23 should have 2 pieces");
+            board.Lanes[23].Where(x => x.Player != player.Name).Count().Should().Be(2, "initially pieces on lane 23 should not belong to " + player.Name);
         }
         #endregion
 
