@@ -43,7 +43,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         public IList<IGameBoard> Boards { get; private set; }
 
-        public bool IsRunning { get; private set; }
+        public bool HasEnded { get { return this.Winner != null; } }
+
+        public bool HasStarted { get { return this.Turn != null; } }
 
         public IList<IPlayer> Players { get; private set; }
 
@@ -76,11 +78,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
 
-            if (this.isStarted)
+            if (this.HasStarted)
                 throw new InvalidOperationException("Game already started.");
-
-            this.isStarted = true;
-            this.IsRunning = true;
+            
             this.Turn = this.CreateNewTurn(player);
         }
 
@@ -94,7 +94,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         public void RollDice(IPlayer player)
         {
-            if (!this.isStarted)
+            if (!this.HasStarted)
                 throw new InvalidOperationException("Game has not started yet.");
 
             if (player == null)
@@ -106,7 +106,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
             if (this.Turn.AreDiceRolled)
                 throw new InvalidOperationException("Dice have already been rolled this turn.");
-            if (!this.IsRunning)
+            if (this.HasEnded)
                 throw new InvalidOperationException("The game is already finished.");
 
             this.Turn = this.RollDice();
@@ -114,7 +114,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         public void PlayMove(IPlayer player, IMove move)
         {
-            if (!this.isStarted)
+            if (!this.HasStarted)
                 throw new InvalidOperationException("Game has not started yet.");
 
             if (player == null)
@@ -133,18 +133,18 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             var turn = this.UseDie(player, move.Die);
             
             var winner = this.Rules.TryGetWinner(board, move, this.Players);
-            this.IsRunning = winner == null;
-            this.Winner = this.IsRunning ? this.Winner : winner.Name;
-            this.Turn = turn;
             if (winner != null)
-            {
+                this.Winner = winner.Name;
+
+            this.Turn = turn;
+
+            if (winner != null)
                 this.App.GetEventHub().Raise(new DefaultGameEnded(this));
-            }
         }
 
         public void EndTurn(IPlayer player)
         {
-            if (!this.isStarted)
+            if (!this.HasStarted)
                 throw new InvalidOperationException("Game has not started yet.");
 
             if (player == null)
@@ -202,13 +202,13 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         private void SetAllowedMoves()
         {
-            if (this.IsRunning)
+            if (this.HasEnded)
             {
-                this.AllowedMoves = this.Rules.GetValidMoves(this.GetBoardInternal(this.GetCurrentPlayer()), this.Turn);
+                this.AllowedMoves = new List<IMove>();
             }
             else
             {
-                this.AllowedMoves = new List<IMove>();
+                this.AllowedMoves = this.Rules.GetValidMoves(this.GetBoardInternal(this.GetCurrentPlayer()), this.Turn);
             }
         }
 
@@ -220,7 +220,6 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         #region private fields and constants
         private ITurn turn;
-        private bool isStarted;
         #endregion
     }
 }

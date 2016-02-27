@@ -25,6 +25,19 @@ namespace AppBrix.Backgammon.ConsoleApp
             try
             {
                 Program.Run(app);
+                //stopwatch.Restart();
+
+                //var times = new List<double>();
+                //app.GetEventHub().Subscribe<Core.Events.IGameEnded>(x =>
+                //{
+                //    times.Add(stopwatch.Elapsed.TotalMilliseconds);
+                //    stopwatch.Restart();
+                //});
+                //for (int i = 0; i < 1000; i++)
+                //{
+                //    Program.Run(app);
+                //}
+                //Console.WriteLine("Min: {0:0.0##} ; Avg: {1:0.0##} ; Max: {2:0.0##}", times.Min(), times.Average(), times.Max());
             }
             catch (Exception ex)
             {
@@ -49,7 +62,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             game.RegisterBot(new Bots.RandomMove.RandomMoveBot(players.Last().Value));
             game.Start(players.Values.First());
 
-            while (game.IsRunning)
+            while (!game.HasEnded)
             {
                 Program.OnTurnChanged(game, players);
             }

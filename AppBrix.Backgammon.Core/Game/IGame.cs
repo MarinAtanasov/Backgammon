@@ -24,20 +24,25 @@ namespace AppBrix.Backgammon.Core.Game
 
         #region Properties
         /// <summary>
+        /// Gets a collection of the allowed moves for this turn.
+        /// </summary>
+        IReadOnlyCollection<IMove> AllowedMoves { get; }
+
+        /// <summary>
         /// Gets whether the game is still running or has ended.
         /// </summary>
-        bool IsRunning { get; }
+        bool HasEnded { get; }
+
+        /// <summary>
+        /// Gets whether the game has a selected first player and has started.
+        /// </summary>
+        bool HasStarted { get; }
 
         /// <summary>
         /// Gets the current turn.
         /// It can be used to check which player must play next.
         /// </summary>
         ITurn Turn { get; }
-
-        /// <summary>
-        /// Gets a collection of the allowed moves for this turn.
-        /// </summary>
-        IReadOnlyCollection<IMove> AllowedMoves { get; }
 
         /// <summary>
         /// Gets the name of player who has won the game.

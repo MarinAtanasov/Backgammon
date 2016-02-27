@@ -11,7 +11,7 @@
   "projectUrl": "https://github.com/MarinAtanasov/Backgammon",
   "licenseUrl": "https://github.com/MarinAtanasov/Backgammon/blob/master/LICENSE.txt",
   "requireLicenseAcceptance": false,
-  "copyright": "Copyright 2015",
+  "copyright": "Copyright 2016",
 
   "dependencies": {
     "AppBrix": "0.2.0-*",

@@ -44,7 +44,7 @@ namespace AppBrix.Backgammon.Bots
         #region Private methods
         private void OnTurnChanged(IGame game, IBot bot, ITurnChanged turnChanged)
         {
-            if (turnChanged.Game == game && game.IsRunning && game.Turn.Player == bot.Player.Name)
+            if (turnChanged.Game == game && !game.HasEnded && game.Turn.Player == bot.Player.Name)
             {
                 bot.PlayTurn(turnChanged.Game);
             }
