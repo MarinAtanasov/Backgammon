@@ -4,6 +4,7 @@
 using AppBrix.Application;
 using AppBrix.Backgammon.Core.Board;
 using AppBrix.Backgammon.Core.Board.Impl;
+using AppBrix.Backgammon.Core.Rules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         public DefaultGameFactory(IApp app)
         {
             this.app = app;
+            this.gameRules = new BasicGameRules();
         }
         #endregion
 
@@ -41,7 +43,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             var board = this.CreateBoard();
             this.SetBoard(board, players);
 
-            return new DefaultGame(this.app, board, players[0], players[1]);
+            return new DefaultGame(this.app, board, players[0], players[1], this.gameRules);
         }
         #endregion
 
@@ -84,6 +86,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         #region Private fields and constants
         private readonly IApp app;
+        private readonly IGameRules gameRules;
         #endregion
     }
 }

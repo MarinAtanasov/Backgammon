@@ -15,7 +15,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
     internal class DefaultGame : IGame
     {
         #region Construction
-        public DefaultGame(IApp app, IGameBoard board, IPlayer player1, IPlayer player2)
+        public DefaultGame(IApp app, IGameBoard board, IPlayer player1, IPlayer player2, IGameRules gameRules)
         {
             if (app == null)
                 throw new ArgumentNullException("app");
@@ -35,7 +35,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             var reversedBoard = new DefaultBoard(new ReversedLanes(board.Lanes), board.Bar, board.BearedOff);
             this.Boards = new IGameBoard[] { board, reversedBoard };
 
-            this.Rules = new BasicGameRules();
+            this.Rules = gameRules;
         }
         #endregion
 
