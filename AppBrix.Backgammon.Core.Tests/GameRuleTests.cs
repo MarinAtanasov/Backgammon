@@ -236,6 +236,85 @@ namespace AppBrix.Backgammon.Core.Tests
             board.Lanes[21].Should().ContainSingle("the piece should have been moved to this lane");
             board.Lanes[21][0].Should().BeSameAs(piece, "the moved piece should be the same as the selected one");
         }
+
+        [Fact]
+        public void TestBearOffPieceStrategyZeroDice()
+        {
+            var player = this.app.GetGameFactory().CreatePlayer("Player 1");
+            var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+            var dice = new[] { new DefaultDie(false, 6), new DefaultDie(false, 5) };
+            var turn = new DefaultTurn(player, dice);
+            var context = new DefaultGameRuleStrategyContext();
+            var board = this.CreateDefaultBoard();
+            board.Lanes[17].Add(new DefaultPiece(player));
+            board.Lanes[18].Add(new DefaultPiece(player));
+            board.Lanes[19].Add(new DefaultPiece(enemy));
+            var strategy = new BearOffPieceStrategy();
+
+            this.CallGetStrategyValidMoves(strategy, board, turn, context);
+            context.IsDone.Should().BeFalse("the strategy should never short-circuit");
+            context.Moves.Should().BeEmpty("there should be no moves available");
+        }
+
+        [Fact]
+        public void TestBearOffPieceStrategyOneDie()
+        {
+            var player = this.app.GetGameFactory().CreatePlayer("Player 1");
+            var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+            var dice = new[] { new DefaultDie(true, 6), new DefaultDie(false, 5), new DefaultDie(false, 4), new DefaultDie(false, 3) };
+            var turn = new DefaultTurn(player, dice);
+            var context = new DefaultGameRuleStrategyContext();
+            var board = this.CreateDefaultBoard();
+            board.Lanes[19].Add(new DefaultPiece(player));
+            board.Lanes[20].Add(new DefaultPiece(enemy));
+            var strategy = new BearOffPieceStrategy();
+
+            this.CallGetStrategyValidMoves(strategy, board, turn, context);
+            context.IsDone.Should().BeFalse("the strategy should never short-circuit");
+            context.Moves.Should().ContainSingle("there should be only one move available");
+            context.Moves[0].Die.Should().Be(dice[1], "this is the only available die which can be used to exit");
+            context.Moves[0].Lane.Should().BeSameAs(board.Lanes[19], "this lane contains the only piece for the player");
+            context.Moves[0].LaneIndex.Should().Be(19, "this lane contains the only piece for the player");
+
+            var piece = board.Lanes[19][0];
+            strategy.MovePiece(player, board, context.Moves[0]);
+            board.Lanes[19].Should().BeEmpty("the piece should have been beared off");
+            board.BearedOff.Should().ContainSingle("the piece should have been moved to this lane");
+            board.BearedOff[0].Should().BeSameAs(piece, "the beared off piece should be the same as the selected one");
+        }
+
+        [Fact]
+        public void TestBearOffPieceStrategyTwoDice()
+        {
+            var player = this.app.GetGameFactory().CreatePlayer("Player 1");
+            var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+            var dice = new[] { new DefaultDie(false, 6), new DefaultDie(false, 5), new DefaultDie(false, 4), new DefaultDie(false, 3) };
+            var turn = new DefaultTurn(player, dice);
+            var context = new DefaultGameRuleStrategyContext();
+            var board = this.CreateDefaultBoard();
+            board.Lanes[19].Add(new DefaultPiece(player));
+            board.Lanes[19].Add(new DefaultPiece(player));
+            board.Lanes[20].Add(new DefaultPiece(enemy));
+            var strategy = new BearOffPieceStrategy();
+
+            this.CallGetStrategyValidMoves(strategy, board, turn, context);
+            context.IsDone.Should().BeFalse("the strategy should never short-circuit");
+            context.Moves.Count.Should().Be(2, "there should be two move available");
+            context.Moves[0].Die.Should().Be(dice[0], "a larger move can be used when there is no piece before ours");
+            context.Moves[0].Lane.Should().BeSameAs(board.Lanes[19], "this lane contains the only piece for the player");
+            context.Moves[0].LaneIndex.Should().Be(19, "this lane contains the only piece for the player");
+            context.Moves[1].Die.Should().Be(dice[1], "an exact die can be used to bear off the piece");
+            context.Moves[1].Lane.Should().BeSameAs(board.Lanes[19], "this lane contains the only piece for the player");
+            context.Moves[1].LaneIndex.Should().Be(19, "this lane contains the only piece for the player");
+
+            var unmovedPiece = board.Lanes[19][0];
+            var piece = board.Lanes[19][1];
+            strategy.MovePiece(player, board, context.Moves[0]);
+            board.Lanes[19].Should().ContainSingle("only one piece should be beared off");
+            board.Lanes[19][0].Should().BeSameAs(unmovedPiece, "the remaining piece should not be changed");
+            board.BearedOff.Should().ContainSingle("the piece should have been moved to this lane");
+            board.BearedOff[0].Should().BeSameAs(piece, "the beared off piece should be the same as the selected one");
+        }
         #endregion
 
         #region Private methods
