@@ -61,6 +61,25 @@ namespace AppBrix.Backgammon.Core.Tests
         }
 
         [Fact]
+        public void TestEnterPieceStrategyZeroDice()
+        {
+            var player = this.app.GetGameFactory().CreatePlayer("Player 1");
+            var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+            var dice = new[] { new DefaultDie(false, 6), new DefaultDie(true, 5) };
+            var turn = new DefaultTurn(player, dice);
+            var context = new DefaultGameRuleStrategyContext();
+            var board = this.CreateDefaultBoard();
+            board.Bar.Add(new DefaultPiece(player));
+            board.Lanes[5].Add(new DefaultPiece(enemy));
+            board.Lanes[5].Add(new DefaultPiece(enemy));
+            var strategy = new EnterPieceStrategy();
+
+            this.CallGetStrategyValidMoves(strategy, board, turn, context);
+            context.IsDone.Should().BeTrue("the strategy should short-circuit the chain if there are pieces to enter");
+            context.Moves.Should().BeEmpty("there should be no available moves because one dice is used and other position is taken");
+        }
+
+        [Fact]
         public void TestEnterPieceStrategyOneDie()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -102,7 +121,7 @@ namespace AppBrix.Backgammon.Core.Tests
 
             this.CallGetStrategyValidMoves(strategy, board, turn, context);
             context.IsDone.Should().BeTrue("the strategy should short-circuit the chain if there are pieces to enter");
-            context.Moves.Count.Should().Be(2, "there should be two available move because only one dice is unused");
+            context.Moves.Count.Should().Be(2, "there should be two available moves");
             context.Moves[0].Die.Should().BeSameAs(dice[0], "die with value 6 is unused");
             context.Moves[0].Lane.Should().BeSameAs(board.Bar, "the piece on the bar needs to be entered");
             context.Moves[0].LaneIndex.Should().Be(-1, "the bar's index should be -1");
@@ -117,6 +136,105 @@ namespace AppBrix.Backgammon.Core.Tests
             board.Bar[0].Should().BeSameAs(enemyPiece, "the enemy piece should be the same as the moved one");
             board.Lanes[4].Should().ContainSingle("the piece should have been moved to lane 5");
             board.Lanes[4][0].Should().BeSameAs(piece, "the moved piece should be the same as the removed one");
+        }
+
+        [Fact]
+        public void TestEnterPieceStrategyNoBarredPieces()
+        {
+            var player = this.app.GetGameFactory().CreatePlayer("Player 1");
+            var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+            var dice = new[] { new DefaultDie(false, 6), new DefaultDie(true, 5) };
+            var turn = new DefaultTurn(player, dice);
+            var context = new DefaultGameRuleStrategyContext();
+            var board = this.CreateDefaultBoard();
+            board.Bar.Add(new DefaultPiece(enemy));
+            board.Lanes[0].Add(new DefaultPiece(player));
+            var strategy = new EnterPieceStrategy();
+
+            this.CallGetStrategyValidMoves(strategy, board, turn, context);
+            context.IsDone.Should().BeFalse("the strategy should not short-circuit the chain if there are no pieces to enter");
+            context.Moves.Should().BeEmpty("there should be no available moves yet because no pieces need to enter");
+        }
+
+        [Fact]
+        public void TestMovePieceStrategyZeroDice()
+        {
+            var player = this.app.GetGameFactory().CreatePlayer("Player 1");
+            var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+            var dice = new[] { new DefaultDie(true, 2), new DefaultDie(false, 1) };
+            var turn = new DefaultTurn(player, dice);
+            var context = new DefaultGameRuleStrategyContext();
+            var board = this.CreateDefaultBoard();
+            board.Lanes[0].Add(new DefaultPiece(player));
+            board.Lanes[0].Add(new DefaultPiece(player));
+            board.Lanes[1].Add(new DefaultPiece(enemy));
+            board.Lanes[1].Add(new DefaultPiece(enemy));
+            var strategy = new MovePieceStrategy();
+
+            this.CallGetStrategyValidMoves(strategy, board, turn, context);
+            context.IsDone.Should().BeFalse("the strategy should never short-circuit");
+            context.Moves.Should().BeEmpty("there should be no moves available");
+        }
+
+        [Fact]
+        public void TestMovePieceStrategyOneDie()
+        {
+            var player = this.app.GetGameFactory().CreatePlayer("Player 1");
+            var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+            var dice = new[] { new DefaultDie(false, 2), new DefaultDie(false, 1) };
+            var turn = new DefaultTurn(player, dice);
+            var context = new DefaultGameRuleStrategyContext();
+            var board = this.CreateDefaultBoard();
+            board.Lanes[0].Add(new DefaultPiece(player));
+            board.Lanes[0].Add(new DefaultPiece(player));
+            board.Lanes[1].Add(new DefaultPiece(enemy));
+            board.Lanes[1].Add(new DefaultPiece(enemy));
+            var strategy = new MovePieceStrategy();
+
+            this.CallGetStrategyValidMoves(strategy, board, turn, context);
+            context.IsDone.Should().BeFalse("the strategy should never short-circuit");
+            context.Moves.Should().ContainSingle("there should be one available move because only one dice is unused");
+            context.Moves[0].Die.Should().BeSameAs(dice[0], "only die with value 2 is usable");
+            context.Moves[0].Lane.Should().BeSameAs(board.Lanes[0], "there is only one piece for this player");
+            context.Moves[0].LaneIndex.Should().Be(0, "the player's only piece is on that lane");
+
+            var piece = board.Lanes[0][1];
+            strategy.MovePiece(player, board, context.Moves[0]);
+            board.Lanes[0].Should().ContainSingle("the other piece should not have been moved");
+            board.Lanes[2].Should().ContainSingle("the piece should have been moved to this lane");
+            board.Lanes[2][0].Should().BeSameAs(piece, "the moved piece should be the same as the selected one");
+        }
+
+        [Fact]
+        public void TestMovePieceStrategyTwoDice()
+        {
+            var player = this.app.GetGameFactory().CreatePlayer("Player 1");
+            var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+            var dice = new[] { new DefaultDie(false, 4), new DefaultDie(true, 3), new DefaultDie(false, 2), new DefaultDie(false, 1) };
+            var turn = new DefaultTurn(player, dice);
+            var context = new DefaultGameRuleStrategyContext();
+            var board = this.CreateDefaultBoard();
+            board.Lanes[20].Add(new DefaultPiece(player));
+            board.Lanes[21].Add(new DefaultPiece(enemy));
+            var strategy = new MovePieceStrategy();
+
+            this.CallGetStrategyValidMoves(strategy, board, turn, context);
+            context.IsDone.Should().BeFalse("the strategy should never short-circuit");
+            context.Moves.Count.Should().Be(2, "there should be two available moves");
+            context.Moves[0].Die.Should().BeSameAs(dice[2], "die with value 2 is unused");
+            context.Moves[0].Lane.Should().BeSameAs(board.Lanes[20], "there is only one piece for this player");
+            context.Moves[0].LaneIndex.Should().Be(20, "the player's only piece is on that lane");
+            context.Moves[1].Die.Should().BeSameAs(dice[3], "die with value 1 is unused and the target has only 1 enemy piece");
+            context.Moves[1].Lane.Should().BeSameAs(board.Lanes[20], "there is only one piece for this player");
+            context.Moves[1].LaneIndex.Should().Be(20, "the player's only piece is on that lane");
+
+            var piece = board.Lanes[20][0];
+            var enemyPiece = board.Lanes[21][0];
+            strategy.MovePiece(player, board, context.Moves[1]);
+            board.Bar.Should().ContainSingle("the enemy piece should have been moved to the bar");
+            board.Bar[0].Should().BeSameAs(enemyPiece, "the enemy piece should be the same as the removed one");
+            board.Lanes[21].Should().ContainSingle("the piece should have been moved to this lane");
+            board.Lanes[21][0].Should().BeSameAs(piece, "the moved piece should be the same as the selected one");
         }
         #endregion
 
