@@ -32,13 +32,16 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
         {
             if (move.Lane != board.Bar || !this.IsMoveValid(board, move.Die.Value, player.Name))
                 return false;
-            
+
+            var lane = move.Lane;
+            var piece = lane[lane.Count - 1];
+            lane.RemoveAt(lane.Count - 1);
             var targetLane = board.Lanes[move.Die.Value - 1];
             if (targetLane.Count == 1 && targetLane[0].Player != player.Name)
             {
-                targetLane.MovePiece(board.Bar);
+                targetLane.MovePiece(lane);
             }
-            move.Lane.MovePiece(targetLane);
+            targetLane.Add(piece);
             return true;
         }
         #endregion

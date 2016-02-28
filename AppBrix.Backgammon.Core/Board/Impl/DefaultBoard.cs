@@ -15,7 +15,7 @@ namespace AppBrix.Backgammon.Core.Board.Impl
             this.Bar = new DefaultBoardLane();
             this.BearedOff = new DefaultBoardLane();
 
-            var lanes = new List<IGameBoardLane>();
+            var lanes = new List<IGameBoardLane>(24);
             for (int i = 0; i < DefaultBoard.LanesCount; i++)
             {
                 lanes.Add(new DefaultBoardLane());
