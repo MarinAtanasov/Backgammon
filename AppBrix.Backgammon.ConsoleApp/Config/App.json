@@ -18,16 +18,13 @@
       "Type": "AppBrix.Events.EventsModule, AppBrix.Events"
     },
     {
-      "Type": "AppBrix.Time.TimeModule, AppBrix.Time",
-      "Status": "Disabled"
+      "Type": "AppBrix.Time.TimeModule, AppBrix.Time"
     },
     {
-      "Type": "AppBrix.Logging.LoggingModule, AppBrix.Logging",
-      "Status": "Disabled"
+      "Type": "AppBrix.Logging.LoggingModule, AppBrix.Logging"
     },
     {
-      "Type": "AppBrix.Logging.Console.ConsoleLoggerModule, AppBrix.Logging.Console",
-      "Status": "Disabled"
+      "Type": "AppBrix.Logging.Console.ConsoleLoggerModule, AppBrix.Logging.Console"
     },
     {
       "Type": "AppBrix.Logging.File.FileLoggerModule, AppBrix.Logging.File",

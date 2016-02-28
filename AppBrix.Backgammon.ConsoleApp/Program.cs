@@ -62,9 +62,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             game.Start(players.Values.First());
 
             while (!game.HasEnded)
-            {
                 Program.OnTurnChanged(game, players);
-            }
             Program.PrintBoard(game, game.Turn, players[game.Turn.Player]);
             Program.OnGameEnded(game);
         }

@@ -20,12 +20,11 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
             this.Player = player.Name;
             this.Dice = dice;
-            this.AreDiceRolled = this.Dice.Count > 0;
         }
         #endregion
 
         #region Properties
-        public bool AreDiceRolled { get; private set; }
+        public bool AreDiceRolled { get { return this.Dice.Count > 0; } }
 
         public IReadOnlyList<IDie> Dice { get; private set; }
 

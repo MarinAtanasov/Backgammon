@@ -10,16 +10,32 @@ namespace AppBrix.Backgammon.Core.Board.Impl
     internal class DefaultBoard : IGameBoard
     {
         #region Construction
+        public DefaultBoard()
+        {
+            this.Bar = new DefaultBoardLane();
+            this.BearedOff = new DefaultBoardLane();
+
+            var lanes = new List<IGameBoardLane>();
+            for (int i = 0; i < DefaultBoard.LanesCount; i++)
+            {
+                lanes.Add(new DefaultBoardLane());
+            }
+            this.Lanes = lanes;
+        }
+
         public DefaultBoard(IReadOnlyList<IGameBoardLane> lanes, IGameBoardLane bar, IGameBoardLane bearedOff)
         {
             if (lanes == null)
                 throw new ArgumentNullException("lanes");
+            if (bar == null)
+                throw new ArgumentNullException("bar");
+            if (bearedOff == null)
+                throw new ArgumentNullException("bearedOff");
 
             this.Bar = bar;
             this.BearedOff = bearedOff;
             this.Lanes = lanes;
         }
-
         #endregion
 
         #region Game Properties
@@ -34,6 +50,10 @@ namespace AppBrix.Backgammon.Core.Board.Impl
         public IReadOnlyList<IGameBoardLane> Lanes { get; private set; }
 
         IReadOnlyList<IBoardLane> IBoard.Lanes { get { return this.Lanes; } }
+        #endregion
+
+        #region Private fields and constants
+        private const int LanesCount = 24;
         #endregion
     }
 }
