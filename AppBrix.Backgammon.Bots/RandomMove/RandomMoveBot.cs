@@ -17,8 +17,7 @@ namespace AppBrix.Backgammon.Bots.RandomMove
 
         protected override void MakeMove(IGame game)
         {
-            var move = game.AllowedMoves.Skip(RandomMoveBot.random.Next(game.AllowedMoves.Count)).First();
-            game.PlayMove(this.Player, move);
+            game.PlayMove(this.Player, game.AllowedMoves.Skip(RandomMoveBot.random.Next(game.AllowedMoves.Count)).First());
         }
 
         #region Private fields and constants
