@@ -61,6 +61,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
             return board;
         }
+
         private IPiece[] CreatePieces(int count, IPlayer owner = null)
         {
             var pieces = new IPiece[count];

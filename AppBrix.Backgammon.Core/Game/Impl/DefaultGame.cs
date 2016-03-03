@@ -198,7 +198,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         private int RollDie()
         {
-            return App.GetDiceRoller().RollDie();
+            return this.App.GetDiceRoller().RollDie();
         }
 
         private void SetAllowedMoves()
