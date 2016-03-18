@@ -3,8 +3,8 @@
 //
 using AppBrix.Application;
 using AppBrix.Backgammon.Core.Board;
+using AppBrix.Backgammon.Core.Rules;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Game
@@ -24,11 +24,6 @@ namespace AppBrix.Backgammon.Core.Game
 
         #region Properties
         /// <summary>
-        /// Gets a collection of the allowed moves for this turn.
-        /// </summary>
-        IReadOnlyCollection<IMove> AllowedMoves { get; }
-
-        /// <summary>
         /// Gets whether the game is still running or has ended.
         /// </summary>
         bool HasEnded { get; }
@@ -37,6 +32,11 @@ namespace AppBrix.Backgammon.Core.Game
         /// Gets whether the game has a selected first player and has started.
         /// </summary>
         bool HasStarted { get; }
+
+        /// <summary>
+        /// Gets the game's currently used rules.
+        /// </summary>
+        IRules Rules { get; }
 
         /// <summary>
         /// Gets the current turn.

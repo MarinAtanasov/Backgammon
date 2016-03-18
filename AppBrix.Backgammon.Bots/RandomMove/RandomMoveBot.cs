@@ -4,6 +4,7 @@
 using AppBrix.Application;
 using AppBrix.Backgammon.Core.Game;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Bots.RandomMove
@@ -15,9 +16,9 @@ namespace AppBrix.Backgammon.Bots.RandomMove
         {
         }
 
-        protected override void MakeMove(IGame game)
+        protected override void MakeMove(IGame game, IReadOnlyList<IMove> moves)
         {
-            game.PlayMove(this.Player, game.AllowedMoves.Skip(RandomMoveBot.random.Next(game.AllowedMoves.Count)).First());
+            game.PlayMove(this.Player, moves[RandomMoveBot.random.Next(moves.Count)]);
         }
 
         #region Private fields and constants

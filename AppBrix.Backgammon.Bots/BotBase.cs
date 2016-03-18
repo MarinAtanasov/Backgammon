@@ -3,6 +3,7 @@
 //
 using AppBrix.Backgammon.Core.Game;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Bots
@@ -34,17 +35,18 @@ namespace AppBrix.Backgammon.Bots
         /// <param name="game">The game.</param>
         public void PlayTurn(IGame game)
         {
+            var moves = game.Rules.GetAvailableMoves(game.GetBoard(this.Player), game.Turn).ToList();
             if (!game.Turn.AreDiceRolled)
             {
                 game.RollDice(this.Player);
             }
-            else if (game.AllowedMoves.Count == 0)
+            else if (moves.Count == 0)
             {
                 game.EndTurn(this.Player);
             }
             else
             {
-                this.MakeMove(game);
+                this.MakeMove(game, moves);
             }
         }
 
@@ -52,7 +54,8 @@ namespace AppBrix.Backgammon.Bots
         /// Called by <see cref="PlayTurn(IGame)"/> when a piece must be moved.
         /// </summary>
         /// <param name="game">The game.</param>
-        protected abstract void MakeMove(IGame game);
+        /// <param name="moves">Available moves.</param>
+        protected abstract void MakeMove(IGame game, IReadOnlyList<IMove> moves);
         #endregion
     }
 }

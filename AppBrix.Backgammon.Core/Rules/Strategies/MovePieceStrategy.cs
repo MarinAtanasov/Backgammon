@@ -6,6 +6,7 @@ using AppBrix.Backgammon.Core.Board.Impl;
 using AppBrix.Backgammon.Core.Game;
 using AppBrix.Backgammon.Core.Game.Impl;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Rules.Strategies
@@ -13,7 +14,7 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
     internal class MovePieceStrategy : GameRuleStrategyBase
     {
         #region Public and overriden methods
-        protected override void GetStrategyValidMoves(IGameBoard board, ITurn turn, IGameRuleStrategyContext context)
+        protected override IEnumerable<IMove> GetStrategyValidMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context)
         {
             var playerName = turn.Player;
             var dice = this.GetAvailableDice(turn.Dice).ToList();
@@ -27,10 +28,15 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
                 {
                     if (this.IsMoveValid(board, i, die.Value, playerName))
                     {
-                        context.Moves.Add(new DefaultMove(lane, i, die));
+                        yield return new DefaultMove(lane, i, die);
                     }
                 }
             }
+        }
+
+        protected override bool CanStrategyMovePiece(IPlayer player, IBoard board, IMove move, IGameRuleStrategyContext context)
+        {
+            return this.IsMoveValid(board, move.LaneIndex, move.Die.Value, player.Name);
         }
 
         protected override bool MakeMove(IPlayer player, IGameBoard board, IGameMove move)

@@ -24,8 +24,8 @@ namespace AppBrix.Backgammon.ConsoleApp
             try
             {
                 Program.Run(app);
-                //stopwatch.Restart();
 
+                //stopwatch.Restart();
                 //var times = new List<double>();
                 //app.GetEventHub().Subscribe<Core.Events.IGameEnded>(x =>
                 //{
@@ -73,13 +73,14 @@ namespace AppBrix.Backgammon.ConsoleApp
             var player = players[turn.Player];
 
             Program.PrintBoard(game, turn, player);
+            var moves = game.Rules.GetAvailableMoves(game.GetBoard(player), game.Turn).ToList();
             if (!turn.AreDiceRolled)
             {
                 Console.Write("Press <Enter> to roll rice.");
                 Console.ReadLine();
                 game.RollDice(player);
             }
-            else if (game.AllowedMoves.Count == 0)
+            else if (moves.Count == 0)
             {
                 Console.Write("Press <Enter> to end turn.");
                 Console.ReadLine();
@@ -93,7 +94,7 @@ namespace AppBrix.Backgammon.ConsoleApp
                 {
                     try
                     {
-                        var move = Program.SelectMove(game, board);
+                        var move = Program.SelectMove(game, board, moves);
                         if (move == null)
                             throw new InvalidOperationException("Illegal move!");
 
@@ -181,14 +182,14 @@ namespace AppBrix.Backgammon.ConsoleApp
             Console.WriteLine("-24-23-22-21-20-19-----18-17-16-15-14-13-");
         }
 
-        private static IMove SelectMove(IGame game, IBoard board)
+        private static IMove SelectMove(IGame game, IBoard board, IReadOnlyCollection<IMove> moves)
         {
             Console.Write("Select \"<position> <die>\" to play: ");
             var toPlay = Console.ReadLine().Split(' ');
             var index = int.Parse(toPlay[0]) - 1;
             var lane = index >= 0 ? board.Lanes[index] : board.Bar;
             var die = int.Parse(toPlay[1]);
-            return game.AllowedMoves.FirstOrDefault(x => x.LaneIndex == index && x.Die.Value == die);
+            return moves.FirstOrDefault(x => x.LaneIndex == index && x.Die.Value == die);
         }
     }
 }

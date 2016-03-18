@@ -1,9 +1,7 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
-using AppBrix.Backgammon.Core.Game;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Rules.Strategies
@@ -17,10 +15,5 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
         /// Gets or sets whether the strategy has found all available moves.
         /// </summary>
         bool IsDone { get; set; }
-
-        /// <summary>
-        /// Gets the available moves.
-        /// </summary>
-        List<IGameMove> Moves { get; }
     }
 }

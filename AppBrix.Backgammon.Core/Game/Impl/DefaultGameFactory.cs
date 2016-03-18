@@ -17,7 +17,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         public DefaultGameFactory(IApp app)
         {
             this.app = app;
-            this.gameRules = new BasicGameRules();
+            this.gameRules = new DefaultGameRules();
         }
         #endregion
 

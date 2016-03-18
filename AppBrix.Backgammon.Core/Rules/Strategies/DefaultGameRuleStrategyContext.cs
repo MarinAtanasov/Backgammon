@@ -1,9 +1,7 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
-using AppBrix.Backgammon.Core.Game;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Rules.Strategies
@@ -28,13 +26,10 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
                 }
             }
         }
-
-        public List<IGameMove> Moves { get { return this.moves; } }
         #endregion
 
         #region Private fields and constants
         private bool isDone;
-        private List<IGameMove> moves = new List<IGameMove>();
         #endregion
     }
 }

@@ -6,6 +6,7 @@ using AppBrix.Backgammon.Core.Board.Impl;
 using AppBrix.Backgammon.Core.Game;
 using AppBrix.Backgammon.Core.Game.Impl;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Core.Rules.Strategies
@@ -13,14 +14,14 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
     internal class BearOffPieceStrategy : GameRuleStrategyBase
     {
         #region Public and overriden methods
-        protected override void GetStrategyValidMoves(IGameBoard board, ITurn turn, IGameRuleStrategyContext context)
+        protected override IEnumerable<IMove> GetStrategyValidMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context)
         {
             if (this.NeedToMovePiece(board, turn.Player))
-                return;
+                yield break;
 
             var playerName = turn.Player;
             var dice = this.GetAvailableDice(turn.Dice).OrderByDescending(x => x.Value).ToList();
-            var hasMove = false;
+            var firstPiece = false;
             for (int i = (board.Lanes.Count * 3) / 4; i < board.Lanes.Count; i++)
             {
                 var lane = board.Lanes[i];
@@ -30,12 +31,33 @@ namespace AppBrix.Backgammon.Core.Rules.Strategies
                 foreach (var die in dice)
                 {
                     if (i + die.Value == board.Lanes.Count ||
-                        (i + die.Value > board.Lanes.Count && !hasMove))
+                        (i + die.Value > board.Lanes.Count && !firstPiece))
                     {
-                        context.Moves.Add(new DefaultMove(board.Lanes[i], i, die));
-                        hasMove = true;
+                        yield return new DefaultMove(board.Lanes[i], i, die);
+                        firstPiece = true;
                     }
                 }
+
+                firstPiece = true;
+            }
+        }
+
+        protected override bool CanStrategyMovePiece(IPlayer player, IBoard board, IMove move, IGameRuleStrategyContext context)
+        {
+            var targetIndex = move.LaneIndex + move.Die.Value;
+            if (targetIndex < board.Lanes.Count || this.NeedToMovePiece(board, player.Name))
+                return false;
+            else if (targetIndex == board.Lanes.Count)
+                return true;
+            else
+            {
+                for (int i = (board.Lanes.Count * 3) / 4; i < move.LaneIndex; i++)
+                {
+                    var lane = board.Lanes[i];
+                    if (lane.Count > 0 && lane[0].Player == player.Name)
+                        return false;
+                }
+                return true;
             }
         }
 

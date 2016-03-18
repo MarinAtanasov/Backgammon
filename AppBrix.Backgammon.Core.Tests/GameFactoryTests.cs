@@ -80,8 +80,6 @@ namespace AppBrix.Backgammon.Core.Tests
             var player1 = this.app.GetGameFactory().CreatePlayer("Player 1");
             var player2 = this.app.GetGameFactory().CreatePlayer("Player 2");
             var game = this.app.GetGameFactory().CreateGame(new[] { player1, player2 });
-            game.AllowedMoves.Should().NotBeNull("allowed moves should not be null even before starting the game");
-            game.AllowedMoves.Should().BeEmpty("there should be no allowed moves before starting the game");
             game.App.Should().Be(this.app, "the app should be the same as the one used when creating the game");
             game.HasEnded.Should().BeFalse("the game has not ended");
             game.HasStarted.Should().BeFalse("the game has not been started");

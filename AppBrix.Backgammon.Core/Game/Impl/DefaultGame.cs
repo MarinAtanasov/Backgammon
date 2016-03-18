@@ -27,8 +27,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
                 throw new ArgumentException("player1 == player2");
             if (player1.Name == player2.Name)
                 throw new ArgumentException("player1.Name == player2.Name");
-
-            this.AllowedMoves = new List<IMove>();
+            
             this.App = app;
             this.Players = new IPlayer[] { player1, player2 };
             
@@ -52,6 +51,8 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         public IGameRules Rules { get; private set; }
 
+        IRules IGame.Rules { get { return this.Rules; } }
+
         public ITurn Turn
         {
             get
@@ -61,12 +62,9 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             private set
             {
                 this.turn = value;
-                this.SetAllowedMoves();
                 this.App.GetEventHub().Raise(new DefaultTurnChanged(this));
             }
         }
-        
-        public IReadOnlyCollection<IMove> AllowedMoves { get; private set; }
 
         public string Winner { get; private set; }
         #endregion
@@ -126,7 +124,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
                 throw new ArgumentException("This player's turn has not come yet: " + player);
             if (move == null)
                 throw new ArgumentNullException("move");
-            if (!this.AllowedMoves.Contains(move))
+            if (!this.Rules.CanMakeMove(player, this.GetBoardInternal(player), move))
                 throw new ArgumentException("Illegal move!");
 
             var board = this.GetBoardInternal(player);
@@ -155,7 +153,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
             if (this.GetCurrentPlayer() != player)
                 throw new ArgumentException("This player's turn has not come yet: " + player);
             
-            if (this.AllowedMoves.Count > 0)
+            if (this.Rules.GetAvailableMoves(this.GetBoardInternal(player), this.Turn).Any())
                 throw new InvalidOperationException("The player has not played all his dice.");
 
             var otherPlayer = this.Players[0] == player ? this.Players[1] : this.Players[0];
@@ -200,19 +198,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         {
             return this.App.GetDiceRoller().RollDie();
         }
-
-        private void SetAllowedMoves()
-        {
-            if (this.HasEnded)
-            {
-                this.AllowedMoves = new List<IMove>();
-            }
-            else
-            {
-                this.AllowedMoves = this.Rules.GetValidMoves(this.GetBoardInternal(this.GetCurrentPlayer()), this.Turn);
-            }
-        }
-
+        
         private ITurn UseDie(IPlayer player, IDie usedDie)
         {
             return new DefaultTurn(player, this.Turn.Dice.Select(x => x == usedDie ? new DefaultDie(true, x.Value) : x).ToList());
