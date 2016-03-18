@@ -22,5 +22,12 @@ namespace AppBrix.Backgammon.Core.Board.Impl
         #region Properties
         public string Player { get; private set; }
         #endregion
+
+        #region Public and overriden methods
+        public override string ToString()
+        {
+            return this.Player;
+        }
+        #endregion
     }
 }
