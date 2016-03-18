@@ -25,7 +25,11 @@ namespace AppBrix.Backgammon.Bots
         #region Public methods
         public void RegisterBot(IGame game, IBot bot)
         {
-            Action<ITurnChanged> onTurnChanged = (x) => this.OnTurnChanged(game, bot, x);
+            Action<ITurnChanged> onTurnChanged = (x) =>
+            {
+                if (x.Game == game && !game.HasEnded && game.Turn.Player == bot.Player.Name)
+                    bot.PlayTurn(game);
+            };
             this.App.GetEventHub().Subscribe(onTurnChanged);
 
             Action<IGameEnded> onGameEnded = null;
@@ -38,16 +42,6 @@ namespace AppBrix.Backgammon.Bots
                 }
             };
             this.App.GetEventHub().Subscribe(onGameEnded);
-        }
-        #endregion
-
-        #region Private methods
-        private void OnTurnChanged(IGame game, IBot bot, ITurnChanged turnChanged)
-        {
-            if (turnChanged.Game == game && !game.HasEnded && game.Turn.Player == bot.Player.Name)
-            {
-                bot.PlayTurn(turnChanged.Game);
-            }
         }
         #endregion
     }

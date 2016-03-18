@@ -53,18 +53,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
         IRules IGame.Rules { get { return this.Rules; } }
 
-        public ITurn Turn
-        {
-            get
-            {
-                return this.turn;
-            }
-            private set
-            {
-                this.turn = value;
-                this.App.GetEventHub().Raise(new DefaultTurnChanged(this));
-            }
-        }
+        public ITurn Turn { get; private set; }
 
         public string Winner { get; private set; }
         #endregion
@@ -81,6 +70,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
                 throw new InvalidOperationException("Game already started.");
             
             this.Turn = this.CreateNewTurn(player);
+            this.App.GetEventHub().Raise(new DefaultTurnChanged(this));
         }
 
         public IBoard GetBoard(IPlayer player)
@@ -109,6 +99,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
                 throw new InvalidOperationException("The game is already finished.");
 
             this.Turn = this.RollDice();
+            this.App.GetEventHub().Raise(new DefaultTurnChanged(this));
         }
 
         public void PlayMove(IPlayer player, IMove move)
@@ -136,11 +127,12 @@ namespace AppBrix.Backgammon.Core.Game.Impl
                 this.Winner = winner.Name;
 
             this.Turn = turn;
+            this.App.GetEventHub().Raise(new DefaultTurnChanged(this));
 
             if (winner != null)
                 this.App.GetEventHub().Raise(new DefaultGameEnded(this));
         }
-
+        
         public void EndTurn(IPlayer player)
         {
             if (!this.HasStarted)
@@ -158,6 +150,7 @@ namespace AppBrix.Backgammon.Core.Game.Impl
 
             var otherPlayer = this.Players[0] == player ? this.Players[1] : this.Players[0];
             this.Turn = this.CreateNewTurn(otherPlayer);
+            this.App.GetEventHub().Raise(new DefaultTurnChanged(this));
         }
         #endregion
 
@@ -203,10 +196,6 @@ namespace AppBrix.Backgammon.Core.Game.Impl
         {
             return new DefaultTurn(player, this.Turn.Dice.Select(x => x == usedDie ? new DefaultDie(true, x.Value) : x).ToList());
         }
-        #endregion
-
-        #region private fields and constants
-        private ITurn turn;
         #endregion
     }
 }
