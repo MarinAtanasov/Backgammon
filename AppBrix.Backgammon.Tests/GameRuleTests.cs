@@ -310,7 +310,7 @@ namespace AppBrix.Backgammon.Tests
         #endregion
 
         #region Private fields and constants
-        private static readonly MethodInfo GetStrategyValidMovesMethod = typeof(GameRuleStrategyBase).GetTypeInfo().DeclaredMethods.Single(x => x.Name == "GetStrategyValidMoves");
+        private static readonly MethodInfo GetStrategyValidMovesMethod = typeof(GameRuleStrategyBase).GetTypeInfo().DeclaredMethods.Single(x => x.Name == "GetStrategyAvailableMoves");
         private readonly IApp app;
         #endregion
     }

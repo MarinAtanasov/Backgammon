@@ -2,8 +2,8 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
-using AppBrix.Backgammon.Core.Board;
-using AppBrix.Backgammon.Core.Game;
+using AppBrix.Backgammon.Board;
+using AppBrix.Backgammon.Game;
 using AppBrix.Configuration;
 using AppBrix.Configuration.Files;
 using AppBrix.Configuration.Json;
@@ -24,19 +24,6 @@ namespace AppBrix.Backgammon.ConsoleApp
             try
             {
                 Program.Run(app);
-
-                //stopwatch.Restart();
-                //var times = new List<double>();
-                //app.GetEventHub().Subscribe<Core.Events.IGameEnded>(x =>
-                //{
-                //    times.Add(stopwatch.Elapsed.TotalMilliseconds);
-                //    stopwatch.Restart();
-                //});
-                //for (int i = 0; i < 1000; i++)
-                //{
-                //    Program.Run(app);
-                //}
-                //Console.WriteLine("Min: {0:0.0##} ; Avg: {1:0.0##} ; Max: {2:0.0##}", times.Min(), times.Average(), times.Max());
             }
             catch (Exception ex)
             {
@@ -51,10 +38,12 @@ namespace AppBrix.Backgammon.ConsoleApp
 
         private static void Run(IApp app)
         {
+            var player1Name = "Player 1";
+            var player2Name = "Player 2";
             var players = new Dictionary<string, IPlayer>
             {
-                { "Player 1", app.Get<IGameFactory>().CreatePlayer("Player 1") },
-                { "Player 2", app.Get<IGameFactory>().CreatePlayer("Player 2") }
+                { player1Name, app.Get<IGameFactory>().CreatePlayer(player1Name) },
+                { player2Name, app.Get<IGameFactory>().CreatePlayer(player2Name) }
             };
             var game = app.Get<IGameFactory>().CreateGame(players.Values.ToList());
             //game.RegisterBot(new Bots.RandomMove.RandomMoveBot(players.First().Value));
@@ -73,7 +62,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             var player = players[turn.Player];
 
             Program.PrintBoard(game, turn, player);
-            var moves = game.Rules.GetAvailableMoves(game.GetBoard(player), game.Turn).ToList();
+            var moves = game.GetAvailableMoves(player).ToList();
             if (!turn.AreDiceRolled)
             {
                 Console.Write("Press <Enter> to roll rice.");

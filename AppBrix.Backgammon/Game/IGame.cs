@@ -5,6 +5,7 @@ using AppBrix.Application;
 using AppBrix.Backgammon.Board;
 using AppBrix.Backgammon.Rules;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Game
@@ -32,12 +33,7 @@ namespace AppBrix.Backgammon.Game
         /// Gets whether the game has a selected first player and has started.
         /// </summary>
         bool HasStarted { get; }
-
-        /// <summary>
-        /// Gets the game's currently used rules.
-        /// </summary>
-        IRules Rules { get; }
-
+        
         /// <summary>
         /// Gets the current turn.
         /// It can be used to check which player must play next.
@@ -64,6 +60,13 @@ namespace AppBrix.Backgammon.Game
         /// <param name="player">The player.</param>
         /// <returns>The player's representation of the board.</returns>
         IBoard GetBoard(IPlayer player);
+
+        /// <summary>
+        /// Gets the available moves for the current turn for the specified player.
+        /// </summary>
+        /// <param name="player">The player.</param>
+        /// <returns>The available moves.</returns>
+        IEnumerable<IMove> GetAvailableMoves(IPlayer player);
 
         /// <summary>
         /// Rolls the dice.

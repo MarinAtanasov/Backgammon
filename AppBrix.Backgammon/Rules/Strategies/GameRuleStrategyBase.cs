@@ -19,7 +19,7 @@ namespace AppBrix.Backgammon.Rules.Strategies
             return rule;
         }
 
-        public IEnumerable<IMove> GetValidMoves(IBoard board, ITurn turn)
+        public IEnumerable<IMove> GetAvailableMoves(IBoard board, ITurn turn)
         {
             if (!turn.AreDiceRolled || !this.GetAvailableDice(turn.Dice).Any())
                 yield break;
@@ -27,14 +27,14 @@ namespace AppBrix.Backgammon.Rules.Strategies
             var context = new DefaultGameRuleStrategyContext();
             for (var strategy = this; !context.IsDone && strategy != null; strategy = strategy.next)
             {
-                foreach (var move in strategy.GetStrategyValidMoves(board, turn, context))
+                foreach (var move in strategy.GetStrategyAvailableMoves(board, turn, context))
                 {
                     yield return move;
                 }
             }
         }
 
-        protected abstract IEnumerable<IMove> GetStrategyValidMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context);
+        protected abstract IEnumerable<IMove> GetStrategyAvailableMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context);
 
         public bool CanMovePiece(IPlayer player, IBoard board, IMove move)
         {

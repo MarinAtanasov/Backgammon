@@ -26,7 +26,7 @@ namespace AppBrix.Backgammon.Rules
         #region Public and overriden methods
         public IEnumerable<IMove> GetAvailableMoves(IBoard board, ITurn turn)
         {
-            return this.strategy.GetValidMoves(board, turn);
+            return this.strategy.GetAvailableMoves(board, turn);
         }
 
         public bool CanMakeMove(IPlayer player, IBoard board, IMove move)

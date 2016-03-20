@@ -14,7 +14,7 @@ namespace AppBrix.Backgammon.Rules.Strategies
     internal class EnterPieceStrategy : GameRuleStrategyBase
     {
         #region Public and overriden methods
-        protected override IEnumerable<IMove> GetStrategyValidMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context)
+        protected override IEnumerable<IMove> GetStrategyAvailableMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context)
         {
             if (board.Bar.Any(x => x.Player == turn.Player))
             {

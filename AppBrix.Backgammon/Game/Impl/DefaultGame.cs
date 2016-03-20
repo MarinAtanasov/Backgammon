@@ -50,9 +50,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public IList<IPlayer> Players { get; private set; }
 
         public IGameRules Rules { get; private set; }
-
-        IRules IGame.Rules { get { return this.Rules; } }
-
+        
         public ITurn Turn { get; private set; }
 
         public string Winner { get; private set; }
@@ -81,18 +79,32 @@ namespace AppBrix.Backgammon.Game.Impl
             return this.GetBoardInternal(player);
         }
 
-        public void RollDice(IPlayer player)
+        public IEnumerable<IMove> GetAvailableMoves(IPlayer player)
         {
-            if (!this.HasStarted)
-                throw new InvalidOperationException("Game has not started yet.");
-
             if (player == null)
                 throw new ArgumentNullException("player");
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
-            if (this.GetCurrentPlayer() != player)
-                throw new ArgumentException("This player's turn has not come yet: " + player);
 
+            if (!this.HasStarted)
+                throw new InvalidOperationException("Game has not started yet.");
+            if (this.Turn.Player != player.Name)
+                throw new InvalidOperationException("This player's turn has not come yet: " + player);
+
+            return this.Rules.GetAvailableMoves(this.GetBoardInternal(player), this.Turn);
+        }
+
+        public void RollDice(IPlayer player)
+        {
+            if (player == null)
+                throw new ArgumentNullException("player");
+            if (!this.Players.Contains(player))
+                throw new ArgumentException("Player not found: " + player);
+
+            if (!this.HasStarted)
+                throw new InvalidOperationException("Game has not started yet.");
+            if (this.GetCurrentPlayer() != player)
+                throw new InvalidOperationException("This player's turn has not come yet: " + player);
             if (this.Turn.AreDiceRolled)
                 throw new InvalidOperationException("Dice have already been rolled this turn.");
             if (this.HasEnded)
@@ -104,19 +116,19 @@ namespace AppBrix.Backgammon.Game.Impl
 
         public void PlayMove(IPlayer player, IMove move)
         {
-            if (!this.HasStarted)
-                throw new InvalidOperationException("Game has not started yet.");
-
             if (player == null)
                 throw new ArgumentNullException("player");
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
-            if (this.GetCurrentPlayer() != player)
-                throw new ArgumentException("This player's turn has not come yet: " + player);
             if (move == null)
                 throw new ArgumentNullException("move");
+
+            if (!this.HasStarted)
+                throw new InvalidOperationException("Game has not started yet.");
+            if (this.GetCurrentPlayer() != player)
+                throw new InvalidOperationException("This player's turn has not come yet: " + player);
             if (!this.Rules.CanMakeMove(player, this.GetBoardInternal(player), move))
-                throw new ArgumentException("Illegal move!");
+                throw new InvalidOperationException("Illegal move!");
 
             var board = this.GetBoardInternal(player);
             this.Rules.MovePiece(player, board, (IGameMove)move);
@@ -135,16 +147,15 @@ namespace AppBrix.Backgammon.Game.Impl
         
         public void EndTurn(IPlayer player)
         {
-            if (!this.HasStarted)
-                throw new InvalidOperationException("Game has not started yet.");
-
             if (player == null)
                 throw new ArgumentNullException("player");
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
+
+            if (!this.HasStarted)
+                throw new InvalidOperationException("Game has not started yet.");
             if (this.GetCurrentPlayer() != player)
-                throw new ArgumentException("This player's turn has not come yet: " + player);
-            
+                throw new InvalidOperationException("This player's turn has not come yet: " + player);
             if (this.Rules.GetAvailableMoves(this.GetBoardInternal(player), this.Turn).Any())
                 throw new InvalidOperationException("The player has not played all his dice.");
 

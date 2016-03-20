@@ -35,7 +35,7 @@ namespace AppBrix.Backgammon.Bots
         /// <param name="game">The game.</param>
         public void PlayTurn(IGame game)
         {
-            var moves = game.Rules.GetAvailableMoves(game.GetBoard(this.Player), game.Turn).ToList();
+            var moves = game.GetAvailableMoves(this.Player).ToList();
             if (!game.Turn.AreDiceRolled)
             {
                 game.RollDice(this.Player);
