@@ -26,7 +26,8 @@ namespace AppBrix.Backgammon.Game.Impl
             if (player1 == player2)
                 throw new ArgumentException(string.Concat(nameof(player1), " == ", nameof(player2)));
             if (player1.Name == player2.Name)
-                throw new ArgumentException(string.Concat(nameof(player1), ".", nameof(player1.Name), " == ", nameof(player2), ".", nameof(player2.Name)));
+                throw new ArgumentException(string.Format("{0}.{1} == {2}.{3}",
+                    nameof(player1), nameof(player1.Name), nameof(player2), nameof(player2.Name)));
             
             this.App = app;
             this.Players = new IPlayer[] { player1, player2 };
