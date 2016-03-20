@@ -57,7 +57,7 @@ namespace AppBrix.Backgammon.Tests
             }
 
             stopwatch.Reset();
-            times.Average().Should().BeLessThan(2.5, "this tests the average performange per game");
+            times.Average().Should().BeLessThan(3, "this tests the average performange per game");
         }
         #endregion
 

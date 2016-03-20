@@ -14,9 +14,9 @@ namespace AppBrix.Backgammon.Game.Impl
         public DefaultMove(IBoardLane lane, int laneIndex, IDie die)
         {
             if (lane == null)
-                throw new ArgumentNullException("lane");
+                throw new ArgumentNullException(nameof(lane));
             if (die == null)
-                throw new ArgumentNullException("die");
+                throw new ArgumentNullException(nameof(die));
 
             this.Lane = (IGameBoardLane)lane;
             this.LaneIndex = laneIndex;

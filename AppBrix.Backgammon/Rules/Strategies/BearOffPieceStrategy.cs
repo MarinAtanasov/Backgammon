@@ -14,7 +14,7 @@ namespace AppBrix.Backgammon.Rules.Strategies
     internal class BearOffPieceStrategy : GameRuleStrategyBase
     {
         #region Public and overriden methods
-        protected override IEnumerable<IMove> GetStrategyAvailableMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context)
+        protected internal override IEnumerable<IMove> GetStrategyAvailableMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context)
         {
             if (this.NeedToMovePiece(board, turn.Player))
                 yield break;

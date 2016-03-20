@@ -18,15 +18,15 @@ namespace AppBrix.Backgammon.Game.Impl
         public DefaultGame(IApp app, IGameBoard board, IPlayer player1, IPlayer player2, IGameRules gameRules)
         {
             if (app == null)
-                throw new ArgumentNullException("app");
+                throw new ArgumentNullException(nameof(app));
             if (player1 == null)
-                throw new ArgumentNullException("player1");
+                throw new ArgumentNullException(nameof(player1));
             if (player2 == null)
-                throw new ArgumentNullException("player2");
+                throw new ArgumentNullException(nameof(player2));
             if (player1 == player2)
-                throw new ArgumentException("player1 == player2");
+                throw new ArgumentException(string.Concat(nameof(player1), " == ", nameof(player2)));
             if (player1.Name == player2.Name)
-                throw new ArgumentException("player1.Name == player2.Name");
+                throw new ArgumentException(string.Concat(nameof(player1), ".", nameof(player1.Name), " == ", nameof(player2), ".", nameof(player2.Name)));
             
             this.App = app;
             this.Players = new IPlayer[] { player1, player2 };
@@ -60,7 +60,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public void Start(IPlayer player)
         {
             if (player == null)
-                throw new ArgumentNullException("player");
+                throw new ArgumentNullException(nameof(player));
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
 
@@ -74,7 +74,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public IBoard GetBoard(IPlayer player)
         {
             if (player == null)
-                throw new ArgumentNullException("player");
+                throw new ArgumentNullException(nameof(player));
 
             return this.GetBoardInternal(player);
         }
@@ -82,7 +82,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public IEnumerable<IMove> GetAvailableMoves(IPlayer player)
         {
             if (player == null)
-                throw new ArgumentNullException("player");
+                throw new ArgumentNullException(nameof(player));
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
 
@@ -97,7 +97,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public void RollDice(IPlayer player)
         {
             if (player == null)
-                throw new ArgumentNullException("player");
+                throw new ArgumentNullException(nameof(player));
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
 
@@ -117,11 +117,11 @@ namespace AppBrix.Backgammon.Game.Impl
         public void PlayMove(IPlayer player, IMove move)
         {
             if (player == null)
-                throw new ArgumentNullException("player");
+                throw new ArgumentNullException(nameof(player));
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
             if (move == null)
-                throw new ArgumentNullException("move");
+                throw new ArgumentNullException(nameof(move));
 
             if (!this.HasStarted)
                 throw new InvalidOperationException("Game has not started yet.");
@@ -148,7 +148,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public void EndTurn(IPlayer player)
         {
             if (player == null)
-                throw new ArgumentNullException("player");
+                throw new ArgumentNullException(nameof(player));
             if (!this.Players.Contains(player))
                 throw new ArgumentException("Player not found: " + player);
 

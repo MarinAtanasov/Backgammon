@@ -14,7 +14,7 @@ namespace AppBrix.Backgammon.Rules.Strategies
     internal class MovePieceStrategy : GameRuleStrategyBase
     {
         #region Public and overriden methods
-        protected override IEnumerable<IMove> GetStrategyAvailableMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context)
+        protected internal override IEnumerable<IMove> GetStrategyAvailableMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context)
         {
             var playerName = turn.Player;
             var dice = this.GetAvailableDice(turn.Dice).ToList();

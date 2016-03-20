@@ -34,7 +34,7 @@ namespace AppBrix.Backgammon.Rules.Strategies
             }
         }
 
-        protected abstract IEnumerable<IMove> GetStrategyAvailableMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context);
+        protected internal abstract IEnumerable<IMove> GetStrategyAvailableMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context);
 
         public bool CanMovePiece(IPlayer player, IBoard board, IMove move)
         {

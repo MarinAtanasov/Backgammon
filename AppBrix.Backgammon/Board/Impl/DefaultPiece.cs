@@ -13,7 +13,7 @@ namespace AppBrix.Backgammon.Board.Impl
         public DefaultPiece(IPlayer player)
         {
             if (player == null)
-                throw new ArgumentNullException("player");
+                throw new ArgumentNullException(nameof(player));
 
             this.Player = player.Name;
         }

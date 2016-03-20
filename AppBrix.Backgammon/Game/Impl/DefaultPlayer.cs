@@ -12,9 +12,9 @@ namespace AppBrix.Backgammon.Game.Impl
         public DefaultPlayer(string name, Guid id)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
             if (id == Guid.Empty)
-                throw new ArgumentNullException("id is empty GUID");
+                throw new ArgumentNullException(nameof(id) + " cannot be an empty GUID");
             
             this.Id = id;
             this.Name = name;

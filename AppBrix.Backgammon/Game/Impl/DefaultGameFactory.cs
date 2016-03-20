@@ -25,7 +25,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public IPlayer CreatePlayer(string name, Guid id)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             if (id == Guid.Empty)
                 id = Guid.NewGuid();
@@ -36,7 +36,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public IGame CreateGame(IReadOnlyList<IPlayer> players)
         {
             if (players == null)
-                throw new ArgumentNullException("players");
+                throw new ArgumentNullException(nameof(players));
             if (players.Count != 2)
                 throw new ArgumentException("There should be exactly 2 players. Found: " + players.Count);
             

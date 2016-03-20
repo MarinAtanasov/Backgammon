@@ -298,7 +298,7 @@ namespace AppBrix.Backgammon.Tests
         #region Private methods
         private IList<IGameMove> CallGetStrategyValidMoves(GameRuleStrategyBase strategy, IGameBoard board, ITurn turn, IGameRuleStrategyContext context)
         {
-            return ((IEnumerable<IMove>)GameRuleTests.GetStrategyValidMovesMethod.Invoke(strategy, new object[] { board, turn, context }))
+            return strategy.GetStrategyAvailableMoves(board, turn, context)
                 .Cast<IGameMove>()
                 .ToList();
         }
@@ -310,7 +310,6 @@ namespace AppBrix.Backgammon.Tests
         #endregion
 
         #region Private fields and constants
-        private static readonly MethodInfo GetStrategyValidMovesMethod = typeof(GameRuleStrategyBase).GetTypeInfo().DeclaredMethods.Single(x => x.Name == "GetStrategyAvailableMoves");
         private readonly IApp app;
         #endregion
     }

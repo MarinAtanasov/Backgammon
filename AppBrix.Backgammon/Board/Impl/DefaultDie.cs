@@ -12,7 +12,7 @@ namespace AppBrix.Backgammon.Board.Impl
         public DefaultDie(bool isUsed, int value)
         {
             if (value < 1 || value > 6)
-                throw new ArgumentException("Invalid die value: " + value);
+                throw new ArgumentException("Die value should be between 1 and 6. Provided: " + value);
 
             this.IsUsed = isUsed;
             this.Value = value;

@@ -13,7 +13,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public DefaultDiceRoller(IApp app)
         {
             if (app == null)
-                throw new ArgumentNullException("app");
+                throw new ArgumentNullException(nameof(app));
 
             this.app = app;
         }
