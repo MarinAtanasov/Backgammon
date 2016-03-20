@@ -16,7 +16,7 @@
   "dependencies": {
     "AppBrix": "0.2.0-*",
     "AppBrix.Backgammon.Bots": "0.1.0-*",
-    "AppBrix.Backgammon.Core": "0.1.0-*",
+    "AppBrix.Backgammon": "0.1.0-*",
     "AppBrix.Caching": "0.2.0-*",
     "AppBrix.Cloning": "0.2.0-*",
     "AppBrix.Configuration.Files": "0.2.0-*",

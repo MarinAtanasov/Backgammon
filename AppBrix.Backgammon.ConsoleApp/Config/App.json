@@ -39,7 +39,7 @@
       "Status": "Disabled"
     },
     {
-      "Type": "AppBrix.Backgammon.Core.CoreModule, AppBrix.Backgammon.Core"
+      "Type": "AppBrix.Backgammon.BackgammonModule, AppBrix.Backgammon"
     },
     {
       "Type": "AppBrix.Backgammon.Bots.BotsModule, AppBrix.Backgammon.Bots"
