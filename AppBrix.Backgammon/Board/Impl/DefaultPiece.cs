@@ -20,7 +20,7 @@ namespace AppBrix.Backgammon.Board.Impl
         #endregion
 
         #region Properties
-        public string Player { get; private set; }
+        public string Player { get; }
         #endregion
 
         #region Public and overriden methods

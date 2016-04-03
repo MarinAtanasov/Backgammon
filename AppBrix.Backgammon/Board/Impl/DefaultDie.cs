@@ -20,9 +20,9 @@ namespace AppBrix.Backgammon.Board.Impl
         #endregion
 
         #region Properties
-        public bool IsUsed { get; private set; }
+        public bool IsUsed { get; }
 
-        public int Value { get; private set; }
+        public int Value { get; }
         #endregion
 
         #region Public and overriden methods

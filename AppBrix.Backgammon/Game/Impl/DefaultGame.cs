@@ -40,17 +40,17 @@ namespace AppBrix.Backgammon.Game.Impl
         #endregion
 
         #region Properties
-        public IApp App { get; private set; }
+        public IApp App { get; }
 
-        public IList<IGameBoard> Boards { get; private set; }
+        public IList<IGameBoard> Boards { get; }
 
         public bool HasEnded { get { return this.Winner != null; } }
 
         public bool HasStarted { get { return this.Turn != null; } }
 
-        public IList<IPlayer> Players { get; private set; }
+        public IList<IPlayer> Players { get; }
 
-        public IGameRules Rules { get; private set; }
+        public IGameRules Rules { get; }
         
         public ITurn Turn { get; private set; }
 

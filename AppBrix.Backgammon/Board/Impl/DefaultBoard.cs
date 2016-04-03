@@ -39,15 +39,15 @@ namespace AppBrix.Backgammon.Board.Impl
         #endregion
 
         #region Game Properties
-        public IGameBoardLane Bar { get; private set; }
+        public IGameBoardLane Bar { get; }
 
         IBoardLane IBoard.Bar { get { return this.Bar; } }
 
-        public IGameBoardLane BearedOff { get; private set; }
+        public IGameBoardLane BearedOff { get; }
 
         IBoardLane IBoard.BearedOff { get { return this.BearedOff; } }
 
-        public IReadOnlyList<IGameBoardLane> Lanes { get; private set; }
+        public IReadOnlyList<IGameBoardLane> Lanes { get; }
 
         IReadOnlyList<IBoardLane> IBoard.Lanes { get { return this.Lanes; } }
         #endregion

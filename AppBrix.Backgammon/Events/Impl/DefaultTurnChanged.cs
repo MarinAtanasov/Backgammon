@@ -17,7 +17,7 @@ namespace AppBrix.Backgammon.Events.Impl
         #endregion
 
         #region Properties
-        public IGame Game { get; private set; }
+        public IGame Game { get; }
         #endregion
     }
 }

@@ -25,13 +25,13 @@ namespace AppBrix.Backgammon.Game.Impl
         #endregion
 
         #region Properties
-        public IGameBoardLane Lane { get; private set; }
+        public IGameBoardLane Lane { get; }
 
         IBoardLane IMove.Lane { get { return this.Lane; } }
 
-        public int LaneIndex { get; private set; }
+        public int LaneIndex { get; }
 
-        public IDie Die { get; private set; }
+        public IDie Die { get; }
         #endregion
 
         #region Public and overriden methods

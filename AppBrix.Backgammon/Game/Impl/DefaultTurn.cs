@@ -26,9 +26,9 @@ namespace AppBrix.Backgammon.Game.Impl
         #region Properties
         public bool AreDiceRolled { get { return this.Dice.Count > 0; } }
 
-        public IReadOnlyList<IDie> Dice { get; private set; }
+        public IReadOnlyList<IDie> Dice { get; }
 
-        public string Player { get; private set; }
+        public string Player { get; }
         #endregion
     }
 }

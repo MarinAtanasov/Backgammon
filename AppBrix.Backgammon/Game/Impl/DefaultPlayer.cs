@@ -22,9 +22,9 @@ namespace AppBrix.Backgammon.Game.Impl
         #endregion
 
         #region Properties
-        public Guid Id { get; private set; }
+        public Guid Id { get; }
 
-        public string Name { get; private set; }
+        public string Name { get; }
         #endregion
 
         #region Public and overriden methods
