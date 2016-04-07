@@ -21,9 +21,7 @@ namespace AppBrix.Backgammon.Game
         /// Gets the current application where the game is played.
         /// </summary>
         IApp App { get; }
-        #endregion
 
-        #region Properties
         /// <summary>
         /// Gets whether the game is still running or has ended.
         /// </summary>
