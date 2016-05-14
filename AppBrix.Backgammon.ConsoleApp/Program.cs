@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using AppBrix.Configuration.Yaml;
 
 namespace AppBrix.Backgammon.ConsoleApp
 {
@@ -19,7 +20,11 @@ namespace AppBrix.Backgammon.ConsoleApp
         public static void Main(string[] args)
         {
             var stopwatch = Stopwatch.StartNew();
-            var app = App.Create(new ConfigManager(new FilesConfigProvider("./Config", "json"), new JsonConfigSerializer()));
+            var configManager = new ConfigManager(new FilesConfigProvider("./Config", "yaml"), new YamlConfigSerializer());
+            if (configManager.Get<AppConfig>().Modules.Count == 0)
+                configManager.Get<AppConfig>().Modules.Add(ModuleConfigElement.Create<ConfigInitializerModule>());
+
+            var app = App.Create(configManager);
             app.Start();
             try
             {

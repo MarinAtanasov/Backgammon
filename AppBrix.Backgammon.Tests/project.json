@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "0.1.0-*",
   "title": "Tests for AppBrix.Backgammon library",
   "summary": "Contains test for AppBrix.Backgammon library.",
@@ -15,8 +15,8 @@
 
   "dependencies": {
     "AppBrix.Backgammon": "0.1.0-*",
-    "AppBrix.Configuration.Memory": "0.2.0-*",
-    "FluentAssertions": "4.2.2",
+    "AppBrix.Configuration.Memory": "0.3.1-*",
+    "FluentAssertions": "4.6.1",
     "xunit": "2.2.0-*",
     "xunit.runner.dnx": "2.1.0-*"
   },
