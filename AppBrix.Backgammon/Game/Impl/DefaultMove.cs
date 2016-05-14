@@ -27,7 +27,7 @@ namespace AppBrix.Backgammon.Game.Impl
         #region Properties
         public IGameBoardLane Lane { get; }
 
-        IBoardLane IMove.Lane { get { return this.Lane; } }
+        IBoardLane IMove.Lane => this.Lane;
 
         public int LaneIndex { get; }
 

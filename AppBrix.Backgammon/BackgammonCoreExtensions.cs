@@ -33,6 +33,7 @@ namespace AppBrix
         /// <summary>
         /// Creates a new player with a randomly generated id.
         /// </summary>
+        /// <param name="factory">The game factory.</param>
         /// <param name="name">The name of the player.</param>
         /// <returns>The new player.</returns>
         public static IPlayer CreatePlayer(this IGameFactory factory, string name)

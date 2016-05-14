@@ -51,7 +51,9 @@ namespace AppBrix.Backgammon.Rules.Strategies
 
         public void MovePiece(IPlayer player, IGameBoard board, IGameMove move)
         {
-            for (var strategy = this; strategy != null && !strategy.MakeMove(player, board, move); strategy = strategy.next) ;
+            for (var strategy = this; strategy != null && !strategy.MakeMove(player, board, move); strategy = strategy.next)
+            {
+            }
         }
 
         protected abstract bool MakeMove(IPlayer player, IGameBoard board, IGameMove move);

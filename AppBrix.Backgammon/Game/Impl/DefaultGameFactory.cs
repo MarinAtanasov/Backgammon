@@ -65,7 +65,7 @@ namespace AppBrix.Backgammon.Game.Impl
         private IPiece[] CreatePieces(int count, IPlayer owner = null)
         {
             var pieces = new IPiece[count];
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 pieces[i] = new DefaultPiece(owner);
             }

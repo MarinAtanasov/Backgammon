@@ -18,27 +18,15 @@ namespace AppBrix.Backgammon.Board.Impl
         #endregion
 
         #region Properties
-        public int Count
-        {
-            get
-            {
-                return this.original.Count;
-            }
-        }
+        public int Count => this.original.Count;
 
-        public IGameBoardLane this[int index]
-        {
-            get
-            {
-                return this.original[this.original.Count - 1 - index];
-            }
-        }
+        public IGameBoardLane this[int index] => this.original[this.original.Count - 1 - index];
         #endregion
 
         #region Public and overriden methods
         public IEnumerator<IGameBoardLane> GetEnumerator()
         {
-            for (int i = this.original.Count - 1; i >= 0; i--)
+            for (var i = this.original.Count - 1; i >= 0; i--)
             {
                 yield return original[i];
             }

@@ -41,15 +41,15 @@ namespace AppBrix.Backgammon.Board.Impl
         #region Game Properties
         public IGameBoardLane Bar { get; }
 
-        IBoardLane IBoard.Bar { get { return this.Bar; } }
+        IBoardLane IBoard.Bar => this.Bar;
 
         public IGameBoardLane BearedOff { get; }
 
-        IBoardLane IBoard.BearedOff { get { return this.BearedOff; } }
+        IBoardLane IBoard.BearedOff => this.BearedOff;
 
         public IReadOnlyList<IGameBoardLane> Lanes { get; }
 
-        IReadOnlyList<IBoardLane> IBoard.Lanes { get { return this.Lanes; } }
+        IReadOnlyList<IBoardLane> IBoard.Lanes => this.Lanes;
         #endregion
 
         #region Private fields and constants

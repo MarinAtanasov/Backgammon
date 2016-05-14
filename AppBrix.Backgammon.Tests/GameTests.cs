@@ -72,11 +72,6 @@ namespace AppBrix.Backgammon.Tests
                 { player2Name, app.Get<IGameFactory>().CreatePlayer(player2Name) }
             };
             var game = app.Get<IGameFactory>().CreateGame(players.Values.ToList());
-            var boards = new Dictionary<string, IBoard>
-            {
-                { player1Name, game.GetBoard(players[player1Name]) },
-                { player2Name, game.GetBoard(players[player2Name]) },
-            };
             game.Start(players.Values.First());
 
             while (!game.HasEnded)

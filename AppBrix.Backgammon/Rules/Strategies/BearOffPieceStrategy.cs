@@ -22,7 +22,7 @@ namespace AppBrix.Backgammon.Rules.Strategies
             var playerName = turn.Player;
             var dice = this.GetAvailableDice(turn.Dice).OrderByDescending(x => x.Value).ToList();
             var firstPiece = false;
-            for (int i = (board.Lanes.Count * 3) / 4; i < board.Lanes.Count; i++)
+            for (var i = (board.Lanes.Count * 3) / 4; i < board.Lanes.Count; i++)
             {
                 var lane = board.Lanes[i];
                 if (lane.Count == 0 || lane[0].Player != playerName)
@@ -51,7 +51,7 @@ namespace AppBrix.Backgammon.Rules.Strategies
                 return true;
             else
             {
-                for (int i = (board.Lanes.Count * 3) / 4; i < move.LaneIndex; i++)
+                for (var i = (board.Lanes.Count * 3) / 4; i < move.LaneIndex; i++)
                 {
                     var lane = board.Lanes[i];
                     if (lane.Count > 0 && lane[0].Player == player.Name)
@@ -73,7 +73,7 @@ namespace AppBrix.Backgammon.Rules.Strategies
         {
             var lanes = board.Lanes;
             var preBearOffLanes = (lanes.Count * 3) / 4;
-            for (int i = 0; i < preBearOffLanes; i++)
+            for (var i = 0; i < preBearOffLanes; i++)
             {
                 if (lanes[i].Count > 0 && lanes[i][0].Player == playerName)
                 {

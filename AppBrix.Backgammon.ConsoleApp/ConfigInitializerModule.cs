@@ -70,6 +70,8 @@ namespace AppBrix.Backgammon.ConsoleApp
         #region Private fields and constants
         private static readonly IEnumerable<Type> Modules = new List<Type>()
         {
+            typeof(BackgammonModule),
+            typeof(BotsModule),
             typeof(CacheModule),
             typeof(CloningModule),
             typeof(EventsModule),
@@ -80,9 +82,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             typeof(ResolverModule),
             typeof(TimeModule),
             typeof(WebClientModule),
-            typeof(WebServerModule),
-            typeof(BackgammonModule),
-            typeof(BotsModule)
+            typeof(WebServerModule)
         };
 
         private static readonly HashSet<Type> DisabledModules = new HashSet<Type>()

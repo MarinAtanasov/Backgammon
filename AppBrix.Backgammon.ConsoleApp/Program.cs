@@ -20,7 +20,7 @@ namespace AppBrix.Backgammon.ConsoleApp
         public static void Main(string[] args)
         {
             var stopwatch = Stopwatch.StartNew();
-            var configManager = new ConfigManager(new FilesConfigProvider("./Config", "yaml"), new YamlConfigSerializer());
+            var configManager = new ConfigManager(new FilesConfigProvider("./Config", "json"), new JsonConfigSerializer());
             if (configManager.Get<AppConfig>().Modules.Count == 0)
                 configManager.Get<AppConfig>().Modules.Add(ModuleConfigElement.Create<ConfigInitializerModule>());
 
@@ -82,13 +82,12 @@ namespace AppBrix.Backgammon.ConsoleApp
             }
             else
             {
-                var board = game.GetBoard(player);
-                bool isValidMove = false;
+                var isValidMove = false;
                 do
                 {
                     try
                     {
-                        var move = Program.SelectMove(game, board, moves);
+                        var move = Program.SelectMove(moves);
                         if (move == null)
                             throw new InvalidOperationException("Illegal move!");
 
@@ -117,9 +116,9 @@ namespace AppBrix.Backgammon.ConsoleApp
 
             Console.WriteLine("--1--2--3--4--5--6--0---7--8--9-10-11-12-");
             
-            for (int row = 0; row < 5; row++)
+            for (var row = 0; row < 5; row++)
             {
-                for (int column = 0; column < lanes.Count / 4; column++)
+                for (var column = 0; column < lanes.Count / 4; column++)
                 {
                     var pieces = lanes[column];
                     Console.Write("|");
@@ -129,7 +128,7 @@ namespace AppBrix.Backgammon.ConsoleApp
                 Console.Write("| ");
                 Console.Write(board.Bar.Count > row ? (board.Bar[row].Player == playerName ? "W" : "B") : "-");
                 Console.Write(" |");
-                for (int column = lanes.Count / 4; column < lanes.Count / 2; column++)
+                for (var column = lanes.Count / 4; column < lanes.Count / 2; column++)
                 {
                     var pieces = lanes[column];
                     Console.Write("{0,1}", pieces.Count > row + 5 ? (pieces[row + 5].Player == playerName ? "W" : "B") : string.Empty);
@@ -140,7 +139,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             }
             var dashes = 16 - player.Name.Length;
             Console.Write("-{0} {1} {2}--------", new string('-', dashes / 2), player.Name, new string('-', (dashes + 1) / 2));
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < 4; i++)
             {
                 if (turn.Dice.Count > i && !turn.Dice[i].IsUsed)
                 {
@@ -153,9 +152,9 @@ namespace AppBrix.Backgammon.ConsoleApp
             }
             Console.WriteLine("--");
 
-            for (int row = 4; row >= 0; row--)
+            for (var row = 4; row >= 0; row--)
             {
-                for (int column = lanes.Count - 1; column >= (lanes.Count * 3) / 4; column--)
+                for (var column = lanes.Count - 1; column >= (lanes.Count * 3) / 4; column--)
                 {
                     var pieces = lanes[column];
                     Console.Write("|");
@@ -163,7 +162,7 @@ namespace AppBrix.Backgammon.ConsoleApp
                     Console.Write("{0,1}", pieces.Count > row ? (pieces[row].Player == playerName ? "W" : "B") : string.Empty);
                 }
                 Console.Write("| - |");
-                for (int column = ((lanes.Count * 3) / 4) - 1; column >= lanes.Count / 2; column--)
+                for (var column = ((lanes.Count * 3) / 4) - 1; column >= lanes.Count / 2; column--)
                 {
                     var pieces = lanes[column];
                     Console.Write("{0,1}", pieces.Count > row + 5 ? (pieces[row + 5].Player == playerName ? "W" : "B") : string.Empty);
@@ -176,12 +175,11 @@ namespace AppBrix.Backgammon.ConsoleApp
             Console.WriteLine("-24-23-22-21-20-19-----18-17-16-15-14-13-");
         }
 
-        private static IMove SelectMove(IGame game, IBoard board, IReadOnlyCollection<IMove> moves)
+        private static IMove SelectMove(IEnumerable<IMove> moves)
         {
             Console.Write("Select \"<position> <die>\" to play: ");
             var toPlay = Console.ReadLine().Split(' ');
             var index = int.Parse(toPlay[0]) - 1;
-            var lane = index >= 0 ? board.Lanes[index] : board.Bar;
             var die = int.Parse(toPlay[1]);
             return moves.FirstOrDefault(x => x.LaneIndex == index && x.Die.Value == die);
         }

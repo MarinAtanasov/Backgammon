@@ -3,7 +3,7 @@
 //
 using AppBrix.Application;
 using AppBrix.Backgammon.Board;
-using AppBrix.Backgammon.Rules;
+using AppBrix.Backgammon.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
