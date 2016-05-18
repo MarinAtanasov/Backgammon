@@ -14,15 +14,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{0F22
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{4366E805-FA17-41DB-86DB-9614C41D99ED}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon", "AppBrix.Backgammon\AppBrix.Backgammon.xproj", "{A471DE83-DFEF-46B2-8B6E-38896B98EE1C}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon", "src\AppBrix.Backgammon\AppBrix.Backgammon.xproj", "{A471DE83-DFEF-46B2-8B6E-38896B98EE1C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6E98C8AD-C25B-42E7-B40A-895E393CF3A9}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon.ConsoleApp", "AppBrix.Backgammon.ConsoleApp\AppBrix.Backgammon.ConsoleApp.xproj", "{4325F6A9-EC46-4CF2-856A-E0619012F0B6}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon.ConsoleApp", "src\AppBrix.Backgammon.ConsoleApp\AppBrix.Backgammon.ConsoleApp.xproj", "{4325F6A9-EC46-4CF2-856A-E0619012F0B6}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon.Bots", "AppBrix.Backgammon.Bots\AppBrix.Backgammon.Bots.xproj", "{3B9475D7-1F0F-46C5-AB49-7D1F9B552941}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon.Bots", "src\AppBrix.Backgammon.Bots\AppBrix.Backgammon.Bots.xproj", "{3B9475D7-1F0F-46C5-AB49-7D1F9B552941}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon.Tests", "AppBrix.Backgammon.Tests\AppBrix.Backgammon.Tests.xproj", "{1A623525-EBE6-403A-AE50-765ABA4589BC}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon.Tests", "test\AppBrix.Backgammon.Tests\AppBrix.Backgammon.Tests.xproj", "{1A623525-EBE6-403A-AE50-765ABA4589BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
