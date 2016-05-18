@@ -49,7 +49,7 @@ namespace AppBrix.Backgammon.Rules
 
         #region Private fields and constants
         private const int PiecesPerPlayer = 15;
-        private GameRuleStrategyBase strategy;
+        private readonly GameRuleStrategyBase strategy;
         #endregion
     }
 }

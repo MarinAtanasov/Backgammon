@@ -15,7 +15,7 @@ namespace AppBrix.Backgammon.Bots
         /// Creates a new instance of <see cref="BotBase"/>.
         /// </summary>
         /// <param name="player">The player whose turn the bot will control.</param>
-        public BotBase(IPlayer player)
+        protected BotBase(IPlayer player)
         {
             this.Player = player;
         }
@@ -25,7 +25,7 @@ namespace AppBrix.Backgammon.Bots
         /// <summary>
         /// Gets or sets the player whose turn the bot will control.
         /// </summary>
-        public IPlayer Player { get; private set; }
+        public IPlayer Player { get; }
         #endregion
 
         #region Public and abstract methods

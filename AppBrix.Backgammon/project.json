@@ -1,26 +1,35 @@
 {
   "version": "0.1.0-*",
   "title": "AppBrix.Backgammon",
-  "summary": "Contains core functionality for the backgammon libraries.",
   "description": "Contains core functionality for the backgammon libraries.",
-  "releaseNotes": "Initial version.",
   "authors": [ "Marin Atanasov" ],
-  "owners": [ "Marin Atanasov" ],
-  "tags": [ "AppBrix Module Backgammon" ],
-  "iconUrl": "https://raw.githubusercontent.com/MarinAtanasov/AppBrix.NetCore/master/icon-64x64.png",
-  "projectUrl": "https://github.com/MarinAtanasov/Backgammon",
-  "licenseUrl": "https://github.com/MarinAtanasov/Backgammon/blob/master/LICENSE.txt",
-  "requireLicenseAcceptance": false,
   "copyright": "Copyright 2016",
 
+  "packOptions": {
+    "summary": "Contains core functionality for the backgammon libraries.",
+    "releaseNotes": "Initial version.",
+    "owners": [ "Marin Atanasov" ],
+    "tags": [ "AppBrix Module Backgammon" ],
+    "iconUrl": "https://raw.githubusercontent.com/MarinAtanasov/AppBrix.NetCore/master/icon-64x64.png",
+    "projectUrl": "https://github.com/MarinAtanasov/Backgammon",
+    "licenseUrl": "https://github.com/MarinAtanasov/Backgammon/blob/master/LICENSE.txt",
+    "requireLicenseAcceptance": false,
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/MarinAtanasov/Backgammon"
+    }
+  },
+
   "dependencies": {
-    "AppBrix": "0.3.1-*",
-    "AppBrix.Events": "0.3.1-*",
-    "AppBrix.Factory": "0.3.1-*",
-    "AppBrix.Resolver": "0.3.1-*"
+    "AppBrix": "0.4.0-*",
+    "AppBrix.Events": "0.4.0-*",
+    "AppBrix.Factory": "0.4.0-*",
+    "AppBrix.Resolver": "0.4.0-*"
   },
 
   "frameworks": {
-    "dotnet5.4": { }
+    "netstandard1.5": {
+      "imports": [ "dnxcore50" ]
+    }
   }
 }

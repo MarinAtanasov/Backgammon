@@ -18,7 +18,7 @@ namespace AppBrix.Backgammon.Rules.Strategies
         {
             var playerName = turn.Player;
             var dice = this.GetAvailableDice(turn.Dice).ToList();
-            for (int i = 0; i < board.Lanes.Count; i++)
+            for (var i = 0; i < board.Lanes.Count; i++)
             {
                 var lane = board.Lanes[i];
                 if (lane.Count == 0 || lane[0].Player != playerName)

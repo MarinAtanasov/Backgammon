@@ -19,7 +19,7 @@ namespace AppBrix.Backgammon.Bots
         #endregion
 
         #region Properties
-        public IApp App { get; private set; }
+        public IApp App { get; }
         #endregion
 
         #region Public methods

@@ -72,7 +72,7 @@ namespace AppBrix.Backgammon.ConsoleApp
         {
             typeof(BackgammonModule),
             typeof(BotsModule),
-            typeof(CacheModule),
+            typeof(CachingModule),
             typeof(CloningModule),
             typeof(EventsModule),
             typeof(FactoryModule),
@@ -87,7 +87,7 @@ namespace AppBrix.Backgammon.ConsoleApp
 
         private static readonly HashSet<Type> DisabledModules = new HashSet<Type>()
         {
-            typeof(CacheModule),
+            typeof(CachingModule),
             typeof(CloningModule),
             typeof(FileLoggerModule),
             typeof(WebClientModule),

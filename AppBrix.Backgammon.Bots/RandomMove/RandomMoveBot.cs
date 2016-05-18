@@ -1,7 +1,6 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
-using AppBrix.Application;
 using AppBrix.Backgammon.Game;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace AppBrix.Backgammon.Bots.RandomMove
         }
 
         #region Private fields and constants
-        private static Random random = new Random();
+        private static readonly Random random = new Random();
         #endregion
     }
 }
