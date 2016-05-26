@@ -16,8 +16,8 @@ namespace AppBrix.Backgammon.Bots
         #region ModuleBase implementation
         protected override void InitializeModule(IInitializeContext context)
         {
-            this.App.GetResolver().Register(this);
-            this.App.GetResolver().Register(new DefaultBotRegister(this.App));
+            this.App.GetContainer().Register(this);
+            this.App.GetContainer().Register(new DefaultBotRegister(this.App));
         }
 
         protected override void UninitializeModule()

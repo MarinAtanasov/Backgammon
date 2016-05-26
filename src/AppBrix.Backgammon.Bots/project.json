@@ -21,11 +21,11 @@
   },
 
   "dependencies": {
-    "AppBrix": "0.4.0-*",
+    "AppBrix": "0.4.1-*",
     "AppBrix.Backgammon": "0.1.0-*",
-    "AppBrix.Events": "0.4.0-*",
-    "AppBrix.Factory": "0.4.0-*",
-    "AppBrix.Resolver": "0.4.0-*"
+    "AppBrix.Container": "0.4.1-*",
+    "AppBrix.Events": "0.4.1-*",
+    "AppBrix.Factory": "0.4.1-*"
   },
 
   "frameworks": {

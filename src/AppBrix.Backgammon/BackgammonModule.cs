@@ -18,9 +18,9 @@ namespace AppBrix.Backgammon
         #region ModuleBase implementation
         protected override void InitializeModule(IInitializeContext context)
         {
-            this.App.GetResolver().Register(this);
-            this.App.GetResolver().Register(new DefaultGameFactory(this.App));
-            this.App.GetResolver().Register(new DefaultDiceRoller(this.App));
+            this.App.GetContainer().Register(this);
+            this.App.GetContainer().Register(new DefaultGameFactory(this.App));
+            this.App.GetContainer().Register(new DefaultDiceRoller(this.App));
         }
 
         protected override void UninitializeModule()

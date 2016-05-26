@@ -5,9 +5,9 @@ using AppBrix.Application;
 using AppBrix.Backgammon.Board;
 using AppBrix.Backgammon.Events;
 using AppBrix.Backgammon.Game;
+using AppBrix.Container;
 using AppBrix.Events;
 using AppBrix.Factory;
-using AppBrix.Resolver;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace AppBrix.Backgammon.Tests
         public GameTests()
         {
             this.app = TestUtils.CreateTestApp(
-                typeof(ResolverModule),
+                typeof(ContainerModule),
                 typeof(FactoryModule),
                 typeof(EventsModule),
                 typeof(BackgammonModule));
