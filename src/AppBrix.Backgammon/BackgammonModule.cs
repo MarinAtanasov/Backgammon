@@ -6,6 +6,7 @@ using AppBrix.Lifecycle;
 using AppBrix.Backgammon.Game.Impl;
 using System;
 using System.Linq;
+using AppBrix.Backgammon.Game;
 
 namespace AppBrix.Backgammon
 {
@@ -19,13 +20,22 @@ namespace AppBrix.Backgammon
         protected override void InitializeModule(IInitializeContext context)
         {
             this.App.GetContainer().Register(this);
-            this.App.GetContainer().Register(new DefaultGameFactory(this.App));
-            this.App.GetContainer().Register(new DefaultDiceRoller(this.App));
+            this.factory.Value.Initialize(context);
+            this.App.GetContainer().Register(this.factory.Value);
+            this.diceRoller.Value.Initialize(context);
+            this.App.GetContainer().Register(this.diceRoller.Value);
         }
 
         protected override void UninitializeModule()
         {
+            this.factory.Value.Uninitialize();
+            this.diceRoller.Value.Uninitialize();
         }
+        #endregion
+
+        #region Private fields and constants
+        private readonly Lazy<DefaultGameFactory> factory = new Lazy<DefaultGameFactory>();
+        private readonly Lazy<DefaultDiceRoller> diceRoller = new Lazy<DefaultDiceRoller>();
         #endregion
     }
 }

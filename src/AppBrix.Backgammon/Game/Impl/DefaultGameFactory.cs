@@ -5,23 +5,28 @@ using AppBrix.Application;
 using AppBrix.Backgammon.Board;
 using AppBrix.Backgammon.Board.Impl;
 using AppBrix.Backgammon.Rules;
+using AppBrix.Lifecycle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace AppBrix.Backgammon.Game.Impl
 {
-    internal class DefaultGameFactory : IGameFactory
+    internal class DefaultGameFactory : IGameFactory, IApplicationLifecycle
     {
-        #region Construction
-        public DefaultGameFactory(IApp app)
+        #region Public and overriden methods
+        public void Initialize(IInitializeContext context)
         {
-            this.app = app;
+            this.app = context.App;
             this.gameRules = new DefaultGameRules();
         }
-        #endregion
 
-        #region Public and overriden methods
+        public void Uninitialize()
+        {
+            this.app = null;
+            this.gameRules = null;
+        }
+
         public IPlayer CreatePlayer(string name, Guid id)
         {
             if (string.IsNullOrEmpty(name))
@@ -74,8 +79,8 @@ namespace AppBrix.Backgammon.Game.Impl
         #endregion
 
         #region Private fields and constants
-        private readonly IApp app;
-        private readonly IGameRules gameRules;
+        private IApp app;
+        private IGameRules gameRules;
         #endregion
     }
 }

@@ -2,7 +2,6 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
-using AppBrix.Backgammon.Board;
 using AppBrix.Backgammon.Events;
 using AppBrix.Backgammon.Game;
 using AppBrix.Container;
@@ -13,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace AppBrix.Backgammon.Tests
@@ -59,9 +60,43 @@ namespace AppBrix.Backgammon.Tests
             stopwatch.Reset();
             times.Average().Should().BeLessThan(3, "this tests the average performange per game");
         }
+
+        [Fact]
+        public void TestPerformanceGameMultithreading()
+        {
+            // The first game can skew the results because the assemblies are lazily loaded.
+            this.PlayGameRandomly();
+
+            var duration = TimeSpan.FromMilliseconds(100);
+            var expectedGain = 0.8;
+            double gamesOneCore = this.PlayGamesAsync(1, duration);
+            double gamesTwoCores = this.PlayGamesAsync(2, duration);
+            gamesTwoCores.Should().BeGreaterThan(gamesOneCore, "games should run asynchronously on two cores");
+            gamesTwoCores.Should().BeGreaterThan(gamesOneCore * (1 + expectedGain), $"performance gain should be at least {expectedGain * 100}% for the second core");
+        }
         #endregion
 
         #region Private methods
+        private int PlayGamesAsync(int threads, TimeSpan time)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            var played = Enumerable.Range(0, threads)
+                .Select(x => Task.Factory.StartNew(() =>
+                {
+                    var games = 0;
+                    while (stopwatch.Elapsed < time)
+                    {
+                        this.PlayGameRandomly();
+                        games++;
+                    }
+                    return games;
+                }))
+                .ToList()
+                .Select(x => x.Result)
+                .ToList();
+            return played.Sum();
+        }
+
         private void PlayGameRandomly()
         {
             var player1Name = "Player 1";
@@ -86,7 +121,7 @@ namespace AppBrix.Backgammon.Tests
                 var moves = game.GetAvailableMoves(player).ToList();
                 if (moves.Count > 0)
                 {
-                    game.PlayMove(player, moves[GameTests.Random.Next(moves.Count)]);
+                    game.PlayMove(player, moves[this.Random.Value.Next(moves.Count)]);
                 }
                 else
                 {
@@ -97,8 +132,8 @@ namespace AppBrix.Backgammon.Tests
         #endregion
 
         #region Private fields and constants
-        private static readonly Random Random = new Random(31415);
         private readonly IApp app;
+        private ThreadLocal<Random> Random = new ThreadLocal<Random>(() => new Random(31415));
         #endregion
     }
 }
