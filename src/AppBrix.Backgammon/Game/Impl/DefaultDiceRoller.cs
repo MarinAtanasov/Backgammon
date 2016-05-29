@@ -15,7 +15,7 @@ namespace AppBrix.Backgammon.Game.Impl
         public void Initialize(IInitializeContext context)
         {
             this.app = context.App;
-            this.random = new ThreadLocal<Random>(this.app.GetFactory().Get<Random>);
+            this.random = new ThreadLocal<Random>(() => this.app.GetFactory().Get<Random>());
         }
 
         public void Uninitialize()
