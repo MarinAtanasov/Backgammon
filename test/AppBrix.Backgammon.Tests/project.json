@@ -22,9 +22,9 @@
 
   "dependencies": {
     "AppBrix.Backgammon": "0.1.0-*",
-    "AppBrix.Configuration.Memory": "0.4.1-*",
+    "AppBrix.Configuration.Memory": "0.5.0-*",
     "dotnet-test-xunit": "1.0.0-*",
-    "FluentAssertions": "4.6.3-*",
+    "FluentAssertions": "4.9.1-*",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0-*"

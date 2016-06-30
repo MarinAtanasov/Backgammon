@@ -7,6 +7,7 @@ using AppBrix.Cloning;
 using AppBrix.Configuration;
 using AppBrix.Container;
 using AppBrix.Events;
+using AppBrix.Events.Async;
 using AppBrix.Factory;
 using AppBrix.Lifecycle;
 using AppBrix.Logging;
@@ -70,6 +71,7 @@ namespace AppBrix.Backgammon.ConsoleApp
         #region Private fields and constants
         private static readonly IEnumerable<Type> Modules = new List<Type>()
         {
+            typeof(AsyncEventsModule),
             typeof(BackgammonModule),
             typeof(BotsModule),
             typeof(CachingModule),
