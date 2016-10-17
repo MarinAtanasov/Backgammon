@@ -17,6 +17,8 @@ using AppBrix.Modules;
 using AppBrix.Time;
 using AppBrix.Web.Client;
 using AppBrix.Web.Server;
+using AppBrix.Caching.Memory;
+using AppBrix.Caching.Json;
 
 namespace AppBrix.Backgammon.ConsoleApp
 {
@@ -75,6 +77,8 @@ namespace AppBrix.Backgammon.ConsoleApp
             typeof(BackgammonModule),
             typeof(BotsModule),
             typeof(CachingModule),
+            typeof(JsonCachingModule),
+            typeof(MemoryCachingModule),
             typeof(CloningModule),
             typeof(ContainerModule),
             typeof(EventsModule),
@@ -90,6 +94,8 @@ namespace AppBrix.Backgammon.ConsoleApp
         private static readonly HashSet<Type> DisabledModules = new HashSet<Type>()
         {
             typeof(CachingModule),
+            typeof(JsonCachingModule),
+            typeof(MemoryCachingModule),
             typeof(CloningModule),
             typeof(FileLoggerModule),
             typeof(WebClientModule),
