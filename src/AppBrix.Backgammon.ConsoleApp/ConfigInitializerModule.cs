@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AppBrix.Backgammon.Bots;
+﻿using AppBrix.Backgammon.Bots;
 using AppBrix.Caching;
+using AppBrix.Caching.Json;
+using AppBrix.Caching.Memory;
 using AppBrix.Cloning;
 using AppBrix.Configuration;
 using AppBrix.Container;
+using AppBrix.Data;
+using AppBrix.Data.InMemory;
+using AppBrix.Data.Sqlite;
+using AppBrix.Data.SqlServer;
 using AppBrix.Events;
 using AppBrix.Events.Async;
 using AppBrix.Factory;
@@ -14,11 +17,13 @@ using AppBrix.Logging;
 using AppBrix.Logging.Console;
 using AppBrix.Logging.File;
 using AppBrix.Modules;
+using AppBrix.Text;
 using AppBrix.Time;
 using AppBrix.Web.Client;
 using AppBrix.Web.Server;
-using AppBrix.Caching.Memory;
-using AppBrix.Caching.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AppBrix.Backgammon.ConsoleApp
 {
@@ -81,11 +86,16 @@ namespace AppBrix.Backgammon.ConsoleApp
             typeof(MemoryCachingModule),
             typeof(CloningModule),
             typeof(ContainerModule),
+            typeof(DataModule),
+            typeof(InMemoryDataModule),
+            typeof(SqliteDataModule),
+            typeof(SqlServerDataModule),
             typeof(EventsModule),
             typeof(FactoryModule),
             typeof(LoggingModule),
             typeof(ConsoleLoggerModule),
             typeof(FileLoggerModule),
+            typeof(TextModule),
             typeof(TimeModule),
             typeof(WebClientModule),
             typeof(WebServerModule)
