@@ -2,11 +2,6 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
-using AppBrix.Backgammon.Board;
-using AppBrix.Backgammon.Game;
-using AppBrix.Container;
-using AppBrix.Events;
-using AppBrix.Factory;
 using FluentAssertions;
 using System;
 using System.Linq;
@@ -14,16 +9,12 @@ using Xunit;
 
 namespace AppBrix.Backgammon.Tests
 {
-    public class GameFactoryTests
+    public class GameFactoryTests : IDisposable
     {
         #region Setup and cleanup
         public GameFactoryTests()
         {
-            this.app = TestUtils.CreateTestApp(
-                typeof(ContainerModule),
-                typeof(FactoryModule),
-                typeof(EventsModule),
-                typeof(BackgammonModule));
+            this.app = TestUtils.CreateTestApp(typeof(BackgammonModule));
             this.app.Start();
         }
 
@@ -34,7 +25,7 @@ namespace AppBrix.Backgammon.Tests
         #endregion
 
         #region Tests
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestCreatePlayers()
         {
             var player1Name = "Player 1";
@@ -48,7 +39,7 @@ namespace AppBrix.Backgammon.Tests
             player1.Id.Should().NotBe(player2.Id, "created players should have different ids");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestCreatePlayerWithId()
         {
             var playerName = "Player 1";
@@ -58,7 +49,7 @@ namespace AppBrix.Backgammon.Tests
             player.Id.Should().Be(playerId, "the created player should have the same id as provided");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestRecreatedPlayer()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -67,14 +58,14 @@ namespace AppBrix.Backgammon.Tests
             recreated.Should().Be(player, "recreated player should be equal to the original");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestCreatingPlayerWithNullName()
         {
             Action action = () => this.app.GetGameFactory().CreatePlayer(null);
             action.ShouldThrow<ArgumentNullException>("passing a null player name is not allowed");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestCreatingGame()
         {
             var player1 = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -89,14 +80,14 @@ namespace AppBrix.Backgammon.Tests
             this.AssertIsInInitialState(game.GetBoard(player2), player2);
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestCreateGameWithNullPlayers()
         {
             Action action = () => this.app.GetGameFactory().CreateGame(null);
             action.ShouldThrow<ArgumentNullException>("passing a null players is not allowed");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestCreateGameWithOnePlayer()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -104,7 +95,7 @@ namespace AppBrix.Backgammon.Tests
             action.ShouldThrow<ArgumentException>("passing only one player is not allowed");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestCreateGameWithThreePlayers()
         {
             var player1 = this.app.GetGameFactory().CreatePlayer("Player 1");

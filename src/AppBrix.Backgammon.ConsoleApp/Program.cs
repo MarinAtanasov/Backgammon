@@ -2,13 +2,7 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
-using AppBrix.Backgammon.Board;
 using AppBrix.Backgammon.Game;
-using AppBrix.Configuration;
-using AppBrix.Configuration.Files;
-using AppBrix.Configuration.Json;
-using AppBrix.Configuration.Memory;
-using AppBrix.Configuration.Yaml;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,12 +15,7 @@ namespace AppBrix.Backgammon.ConsoleApp
         public static void Main(string[] args)
         {
             var stopwatch = Stopwatch.StartNew();
-            var configManager = new MemoryConfigManager();
-            if (configManager.Get<AppConfig>().Modules.Count == 0)
-                configManager.Get<AppConfig>().Modules.Add(ModuleConfigElement.Create<ConfigInitializerModule>());
-
-            var app = App.Create(configManager);
-            app.Start();
+            var app = ConfigInitializerModule.CreateApp();
             try
             {
                 Program.Run(app);

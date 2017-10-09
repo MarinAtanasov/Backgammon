@@ -19,11 +19,11 @@ namespace AppBrix.Backgammon
         #region ModuleBase implementation
         protected override void InitializeModule(IInitializeContext context)
         {
-            this.App.GetContainer().Register(this);
+            this.App.Container.Register(this);
             this.factory.Value.Initialize(context);
-            this.App.GetContainer().Register(this.factory.Value);
+            this.App.Container.Register(this.factory.Value);
             this.diceRoller.Value.Initialize(context);
-            this.App.GetContainer().Register(this.diceRoller.Value);
+            this.App.Container.Register(this.diceRoller.Value);
         }
 
         protected override void UninitializeModule()

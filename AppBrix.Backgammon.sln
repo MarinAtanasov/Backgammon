@@ -1,28 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Globals", ".Globals", "{87A60EF2-877C-4CAD-9752-C15858425A70}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		global.json = global.json
 		NuGet.Config = NuGet.Config
+		Test.ps1 = Test.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{0F226FB4-0724-46B3-9C24-04FA9B209793}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{4366E805-FA17-41DB-86DB-9614C41D99ED}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon", "src\AppBrix.Backgammon\AppBrix.Backgammon.xproj", "{A471DE83-DFEF-46B2-8B6E-38896B98EE1C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6E98C8AD-C25B-42E7-B40A-895E393CF3A9}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon.ConsoleApp", "src\AppBrix.Backgammon.ConsoleApp\AppBrix.Backgammon.ConsoleApp.xproj", "{4325F6A9-EC46-4CF2-856A-E0619012F0B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppBrix.Backgammon", "src\AppBrix.Backgammon\AppBrix.Backgammon.csproj", "{A471DE83-DFEF-46B2-8B6E-38896B98EE1C}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon.Bots", "src\AppBrix.Backgammon.Bots\AppBrix.Backgammon.Bots.xproj", "{3B9475D7-1F0F-46C5-AB49-7D1F9B552941}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppBrix.Backgammon.ConsoleApp", "src\AppBrix.Backgammon.ConsoleApp\AppBrix.Backgammon.ConsoleApp.csproj", "{4325F6A9-EC46-4CF2-856A-E0619012F0B6}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AppBrix.Backgammon.Tests", "test\AppBrix.Backgammon.Tests\AppBrix.Backgammon.Tests.xproj", "{1A623525-EBE6-403A-AE50-765ABA4589BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppBrix.Backgammon.Bots", "src\AppBrix.Backgammon.Bots\AppBrix.Backgammon.Bots.csproj", "{3B9475D7-1F0F-46C5-AB49-7D1F9B552941}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppBrix.Backgammon.Tests", "test\AppBrix.Backgammon.Tests\AppBrix.Backgammon.Tests.csproj", "{1A623525-EBE6-403A-AE50-765ABA4589BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,5 +55,8 @@ Global
 		{4325F6A9-EC46-4CF2-856A-E0619012F0B6} = {4366E805-FA17-41DB-86DB-9614C41D99ED}
 		{3B9475D7-1F0F-46C5-AB49-7D1F9B552941} = {0F226FB4-0724-46B3-9C24-04FA9B209793}
 		{1A623525-EBE6-403A-AE50-765ABA4589BC} = {6E98C8AD-C25B-42E7-B40A-895E393CF3A9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D24C571A-E08C-4DAF-9FCB-0136BBB8851D}
 	EndGlobalSection
 EndGlobal

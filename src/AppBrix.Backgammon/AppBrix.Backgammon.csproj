@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Contains core functionality for the backgammon libraries.</Description>
+    <Copyright>Copyright 2016</Copyright>
+    <AssemblyTitle>AppBrix.Backgammon</AssemblyTitle>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Authors>Marin Atanasov</Authors>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>AppBrix.Backgammon</AssemblyName>
+    <PackageId>AppBrix.Backgammon</PackageId>
+    <PackageTags>AppBrix Module Backgammon</PackageTags>
+    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
+    <PackageIconUrl>https://raw.githubusercontent.com/MarinAtanasov/AppBrix.NetCore/master/icon-64x64.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/MarinAtanasov/Backgammon</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/MarinAtanasov/Backgammon/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AppBrix.Events" Version="0.9.0" />
+    <PackageReference Include="AppBrix.Factory" Version="0.9.0" />
+  </ItemGroup>
+
+</Project>

@@ -2,13 +2,6 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
-using AppBrix.Backgammon.Board.Impl;
-using AppBrix.Backgammon.Game;
-using AppBrix.Backgammon.Game.Impl;
-using AppBrix.Backgammon.Rules.Strategies;
-using AppBrix.Container;
-using AppBrix.Events;
-using AppBrix.Factory;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -17,16 +10,12 @@ using Xunit;
 
 namespace AppBrix.Backgammon.Tests
 {
-    public class GameRuleTests
+    public class GameRuleTests : IDisposable
     {
         #region Setup and cleanup
         public GameRuleTests()
         {
-            this.app = TestUtils.CreateTestApp(
-                typeof(ContainerModule),
-                typeof(FactoryModule),
-                typeof(EventsModule),
-                typeof(BackgammonModule));
+            this.app = TestUtils.CreateTestApp(typeof(BackgammonModule));
             this.app.Start();
         }
 
@@ -37,7 +26,7 @@ namespace AppBrix.Backgammon.Tests
         #endregion
 
         #region Tests
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestEnterPieceStrategyZeroDice()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -56,7 +45,7 @@ namespace AppBrix.Backgammon.Tests
             moves.Should().BeEmpty("there should be no available moves because one dice is used and other position is taken");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestEnterPieceStrategyOneDie()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -81,7 +70,7 @@ namespace AppBrix.Backgammon.Tests
             board.Lanes[5][0].Should().BeSameAs(piece, "the moved piece should be the same as the removed one");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestEnterPieceStrategyTwoDice()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -115,7 +104,7 @@ namespace AppBrix.Backgammon.Tests
             board.Lanes[4][0].Should().BeSameAs(piece, "the moved piece should be the same as the removed one");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestEnterPieceStrategyNoBarredPieces()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -133,7 +122,7 @@ namespace AppBrix.Backgammon.Tests
             moves.Should().BeEmpty("there should be no available moves yet because no pieces need to enter");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestMovePieceStrategyZeroDice()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -153,7 +142,7 @@ namespace AppBrix.Backgammon.Tests
             moves.Should().BeEmpty("there should be no moves available");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestMovePieceStrategyOneDie()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -182,7 +171,7 @@ namespace AppBrix.Backgammon.Tests
             board.Lanes[2][0].Should().BeSameAs(piece, "the moved piece should be the same as the selected one");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestMovePieceStrategyTwoDice()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -214,7 +203,7 @@ namespace AppBrix.Backgammon.Tests
             board.Lanes[21][0].Should().BeSameAs(piece, "the moved piece should be the same as the selected one");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestBearOffPieceStrategyZeroDice()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -233,7 +222,7 @@ namespace AppBrix.Backgammon.Tests
             moves.Should().BeEmpty("there should be no moves available");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestBearOffPieceStrategyOneDie()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
@@ -260,7 +249,7 @@ namespace AppBrix.Backgammon.Tests
             board.BearedOff[0].Should().BeSameAs(piece, "the beared off piece should be the same as the selected one");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
         public void TestBearOffPieceStrategyTwoDice()
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");

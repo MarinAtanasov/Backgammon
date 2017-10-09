@@ -2,11 +2,6 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
-using AppBrix.Backgammon.Events;
-using AppBrix.Backgammon.Game;
-using AppBrix.Container;
-using AppBrix.Events;
-using AppBrix.Factory;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -18,16 +13,12 @@ using Xunit;
 
 namespace AppBrix.Backgammon.Tests
 {
-    public class GameTests
+    public class GameTests : IDisposable
     {
         #region Setup and cleanup
         public GameTests()
         {
-            this.app = TestUtils.CreateTestApp(
-                typeof(ContainerModule),
-                typeof(FactoryModule),
-                typeof(EventsModule),
-                typeof(BackgammonModule));
+            this.app = TestUtils.CreateTestApp(typeof(BackgammonModule));
             this.app.Start();
         }
 
@@ -38,7 +29,7 @@ namespace AppBrix.Backgammon.Tests
         #endregion
 
         #region Tests
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Performance)]
         public void TestPerformanceGame()
         {
             // The first game can skew the results because the assemblies are lazily loaded.
@@ -61,7 +52,7 @@ namespace AppBrix.Backgammon.Tests
             times.Average().Should().BeLessThan(3, "this tests the average performange per game");
         }
 
-        [Fact]
+        [Fact, Trait(TestCategories.Category, TestCategories.Performance)]
         public void TestPerformanceGameMultithreading()
         {
             // The first game can skew the results because the assemblies are lazily loaded.

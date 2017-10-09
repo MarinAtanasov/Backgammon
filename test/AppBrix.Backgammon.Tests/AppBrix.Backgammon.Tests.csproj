@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Contains test for AppBrix.Backgammon library.</Description>
+    <Copyright>Copyright 2016</Copyright>
+    <AssemblyTitle>Tests for AppBrix.Backgammon library</AssemblyTitle>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Authors>Marin Atanasov</Authors>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>AppBrix.Backgammon.Tests</AssemblyName>
+    <PackageId>AppBrix.Backgammon.Tests</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <PackageTags>AppBrix Module Backgammon Tests</PackageTags>
+    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
+    <PackageIconUrl>https://raw.githubusercontent.com/MarinAtanasov/AppBrix.NetCore/master/icon-64x64.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/MarinAtanasov/Backgammon</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/MarinAtanasov/Backgammon/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AppBrix.Backgammon\AppBrix.Backgammon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0-preview-20170923-02" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0" />
+    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.9.0" />
+    <PackageReference Include="FluentAssertions" Version="4.19.4" />
+    <PackageReference Include="xunit" Version="2.3.0" />
+  </ItemGroup>
+
+</Project>
