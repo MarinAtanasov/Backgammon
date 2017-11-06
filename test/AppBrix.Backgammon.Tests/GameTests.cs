@@ -2,6 +2,8 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 using AppBrix.Application;
+using AppBrix.Backgammon.Events;
+using AppBrix.Backgammon.Game;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
