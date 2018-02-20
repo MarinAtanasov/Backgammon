@@ -64,7 +64,7 @@ namespace AppBrix.Backgammon.Tests
         public void TestCreatingPlayerWithNullName()
         {
             Action action = () => this.app.GetGameFactory().CreatePlayer(null);
-            action.ShouldThrow<ArgumentNullException>("passing a null player name is not allowed");
+            action.Should().Throw<ArgumentNullException>("passing a null player name is not allowed");
         }
 
         [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
@@ -86,7 +86,7 @@ namespace AppBrix.Backgammon.Tests
         public void TestCreateGameWithNullPlayers()
         {
             Action action = () => this.app.GetGameFactory().CreateGame(null);
-            action.ShouldThrow<ArgumentNullException>("passing a null players is not allowed");
+            action.Should().Throw<ArgumentNullException>("passing a null players is not allowed");
         }
 
         [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
@@ -94,7 +94,7 @@ namespace AppBrix.Backgammon.Tests
         {
             var player = this.app.GetGameFactory().CreatePlayer("Player 1");
             Action action = () => this.app.GetGameFactory().CreateGame(new[] { player });
-            action.ShouldThrow<ArgumentException>("passing only one player is not allowed");
+            action.Should().Throw<ArgumentException>("passing only one player is not allowed");
         }
 
         [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
@@ -104,7 +104,7 @@ namespace AppBrix.Backgammon.Tests
             var player2 = this.app.GetGameFactory().CreatePlayer("Player 2");
             var player3 = this.app.GetGameFactory().CreatePlayer("Player 3");
             Action action = () => this.app.GetGameFactory().CreateGame(new[] { player1, player2, player3 });
-            action.ShouldThrow<ArgumentException>("passing more than 2 players is not allowed");
+            action.Should().Throw<ArgumentException>("passing more than 2 players is not allowed");
         }
         #endregion
 

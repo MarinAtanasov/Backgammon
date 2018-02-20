@@ -22,7 +22,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             }
             catch (Exception ex)
             {
-                app.GetLog().Error("The application has stopped because of an error!", ex);
+                app.GetLogHub().Error("The application has stopped because of an error!", ex);
             }
             finally
             {

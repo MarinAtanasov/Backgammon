@@ -19,8 +19,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Events" Version="0.10.0" />
-    <PackageReference Include="AppBrix.Factory" Version="0.10.0" />
+    <PackageReference Include="AppBrix.Events" Version="0.11.1" />
+    <PackageReference Include="AppBrix.Factory" Version="0.11.1" />
   </ItemGroup>
 
 </Project>
