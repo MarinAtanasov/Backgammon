@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>Contains core functionality for the backgammon libraries.</Description>
@@ -19,8 +19,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Events" Version="0.11.1" />
-    <PackageReference Include="AppBrix.Factory" Version="0.11.1" />
+    <PackageReference Include="AppBrix.Events" Version="0.12.0" />
+    <PackageReference Include="AppBrix.Factory" Version="0.12.0" />
   </ItemGroup>
 
 </Project>
