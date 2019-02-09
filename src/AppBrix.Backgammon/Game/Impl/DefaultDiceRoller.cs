@@ -1,7 +1,6 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
-using AppBrix.Application;
 using AppBrix.Lifecycle;
 using System;
 using System.Linq;
@@ -15,7 +14,8 @@ namespace AppBrix.Backgammon.Game.Impl
         public void Initialize(IInitializeContext context)
         {
             this.app = context.App;
-            this.random = new ThreadLocal<Random>(() => this.app.GetFactory().Get<Random>());
+            this.app.GetFactoryService().Register(() => new Random());
+            this.random = new ThreadLocal<Random>(() => this.app.GetFactoryService().Get<Random>());
         }
 
         public void Uninitialize()
