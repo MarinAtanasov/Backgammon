@@ -3,6 +3,7 @@
 //
 using AppBrix.Configuration;
 using AppBrix.Configuration.Memory;
+using AppBrix.Modules;
 using FluentAssertions;
 using System;
 using System.Linq;
@@ -20,12 +21,13 @@ namespace AppBrix.Backgammon.Tests
         /// </summary>
         /// <param name="module">The module to load inside the application.</param>
         /// <returns>The created application.</returns>
-        public static IApp CreateTestApp(Type module)
+        public static IApp CreateTestApp(params Type[] modules)
         {
-            var service = new MemoryConfigService();
+            IConfigService service = new MemoryConfigService();
             var config = service.Get<AppConfig>();
-            module.GetModuleDependencies()
-                .Concat(new[] { module })
+            modules.SelectMany(module => module.CreateObject<IModule>().GetAllDependencies())
+                .Concat(modules)
+                .Distinct()
                 .Select(ModuleConfigElement.Create)
                 .ToList()
                 .ForEach(config.Modules.Add);

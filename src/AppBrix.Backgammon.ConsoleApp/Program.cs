@@ -1,8 +1,8 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
-using AppBrix.Application;
 using AppBrix.Backgammon.Game;
+using AppBrix.Configuration.Memory;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ namespace AppBrix.Backgammon.ConsoleApp
         public static void Main(string[] args)
         {
             var stopwatch = Stopwatch.StartNew();
-            var app = ConfigInitializerModule.CreateApp();
+            var app = App.Start<ConfigInitializerModule>(new MemoryConfigService());
             try
             {
                 Program.Run(app);
@@ -78,7 +78,7 @@ namespace AppBrix.Backgammon.ConsoleApp
                     try
                     {
                         var move = Program.SelectMove(moves);
-                        if (move == null)
+                        if (move is null)
                             throw new InvalidOperationException("Illegal move!");
 
                         game.PlayMove(player, move);

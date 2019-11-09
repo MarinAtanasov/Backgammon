@@ -13,9 +13,9 @@ namespace AppBrix.Backgammon.Game.Impl
         #region Construction
         public DefaultTurn(IPlayer player, IReadOnlyList<IDie> dice)
         {
-            if (player == null)
+            if (player is null)
                 throw new ArgumentNullException(nameof(player));
-            if (dice == null)
+            if (dice is null)
                 throw new ArgumentNullException(nameof(dice));
 
             this.Player = player.Name;

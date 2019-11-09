@@ -25,11 +25,11 @@ namespace AppBrix.Backgammon.Board.Impl
 
         public DefaultBoard(IReadOnlyList<IGameBoardLane> lanes, IGameBoardLane bar, IGameBoardLane bearedOff)
         {
-            if (lanes == null)
+            if (lanes is null)
                 throw new ArgumentNullException(nameof(lanes));
-            if (bar == null)
+            if (bar is null)
                 throw new ArgumentNullException(nameof(bar));
-            if (bearedOff == null)
+            if (bearedOff is null)
                 throw new ArgumentNullException(nameof(bearedOff));
 
             this.Bar = bar;

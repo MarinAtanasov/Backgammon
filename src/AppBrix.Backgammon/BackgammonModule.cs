@@ -17,7 +17,7 @@ namespace AppBrix.Backgammon
     public class BackgammonModule : ModuleBase
     {
         #region ModuleBase implementation
-        protected override void InitializeModule(IInitializeContext context)
+        protected override void Initialize(IInitializeContext context)
         {
             this.App.Container.Register(this);
             this.factory.Value.Initialize(context);
@@ -26,7 +26,7 @@ namespace AppBrix.Backgammon
             this.App.Container.Register(this.diceRoller.Value);
         }
 
-        protected override void UninitializeModule()
+        protected override void Uninitialize()
         {
             this.factory.Value.Uninitialize();
             this.diceRoller.Value.Uninitialize();

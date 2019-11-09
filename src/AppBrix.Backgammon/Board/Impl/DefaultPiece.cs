@@ -12,7 +12,7 @@ namespace AppBrix.Backgammon.Board.Impl
         #region Construction
         public DefaultPiece(IPlayer player)
         {
-            if (player == null)
+            if (player is null)
                 throw new ArgumentNullException(nameof(player));
 
             this.Player = player.Name;

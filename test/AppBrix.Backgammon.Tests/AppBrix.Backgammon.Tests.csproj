@@ -6,7 +6,7 @@
     <AssemblyTitle>Tests for AppBrix.Backgammon library</AssemblyTitle>
     <VersionPrefix>0.1.0</VersionPrefix>
     <Authors>Marin Atanasov</Authors>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>AppBrix.Backgammon.Tests</AssemblyName>
     <PackageId>AppBrix.Backgammon.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -24,9 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.13.0" />
-    <PackageReference Include="FluentAssertions" Version="5.6.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.16.0" />
+    <PackageReference Include="FluentAssertions" Version="5.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>

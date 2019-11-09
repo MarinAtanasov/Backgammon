@@ -24,18 +24,9 @@ namespace AppBrix.Backgammon.Board.Impl
         #endregion
 
         #region Public and overriden methods
-        public IEnumerator<IGameBoardLane> GetEnumerator()
-        {
-            for (var i = this.original.Count - 1; i >= 0; i--)
-            {
-                yield return original[i];
-            }
-        }
+        public IEnumerator<IGameBoardLane> GetEnumerator() => this.original.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         #endregion
 
         #region Private fields and constants

@@ -40,7 +40,7 @@ namespace AppBrix.Backgammon.Game.Impl
 
         public IGame CreateGame(IReadOnlyList<IPlayer> players)
         {
-            if (players == null)
+            if (players is null)
                 throw new ArgumentNullException(nameof(players));
             if (players.Count != 2)
                 throw new ArgumentException("There should be exactly 2 players. Found: " + players.Count);
