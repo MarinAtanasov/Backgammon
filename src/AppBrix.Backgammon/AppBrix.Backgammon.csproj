@@ -9,7 +9,7 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <PackageIcon>icon-64x64.png</PackageIcon>
-    <PackageIconUrl>https://raw.githubusercontent.com/MarinAtanasov/AppBrix.NetCore/master/icon-64x64.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/MarinAtanasov/Backgammon/master/icon-64x64.png</PackageIconUrl>
     <PackageId>AppBrix.Backgammon</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/MarinAtanasov/Backgammon</PackageProjectUrl>
