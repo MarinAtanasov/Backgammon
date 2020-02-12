@@ -5,7 +5,6 @@ using AppBrix.Backgammon.Board;
 using AppBrix.Backgammon.Board.Impl;
 using AppBrix.Backgammon.Game;
 using AppBrix.Backgammon.Rules.Strategies;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

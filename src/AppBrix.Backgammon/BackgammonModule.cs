@@ -1,12 +1,13 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
-using AppBrix.Modules;
-using AppBrix.Lifecycle;
 using AppBrix.Backgammon.Game.Impl;
+using AppBrix.Events;
+using AppBrix.Factory;
+using AppBrix.Lifecycle;
+using AppBrix.Modules;
 using System;
-using System.Linq;
-using AppBrix.Backgammon.Game;
+using System.Collections.Generic;
 
 namespace AppBrix.Backgammon
 {
@@ -16,6 +17,10 @@ namespace AppBrix.Backgammon
     /// </summary>
     public class BackgammonModule : ModuleBase
     {
+        #region Properties
+        public override IEnumerable<Type> Dependencies => new[] { typeof(EventsModule), typeof(FactoryModule) };
+        #endregion
+
         #region ModuleBase implementation
         protected override void Initialize(IInitializeContext context)
         {

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) MarinAtanasov. All rights reserved.
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
-using AppBrix.Modules;
 using AppBrix.Lifecycle;
+using AppBrix.Modules;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace AppBrix.Backgammon.Bots
 {
@@ -13,6 +13,10 @@ namespace AppBrix.Backgammon.Bots
     /// </summary>
     public class BotsModule : ModuleBase
     {
+        #region Properties
+        public override IEnumerable<Type> Dependencies => new[] { typeof(BackgammonModule) };
+        #endregion
+
         #region ModuleBase implementation
         protected override void Initialize(IInitializeContext context)
         {

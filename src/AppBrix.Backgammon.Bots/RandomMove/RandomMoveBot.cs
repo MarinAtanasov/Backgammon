@@ -4,7 +4,6 @@
 using AppBrix.Backgammon.Game;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AppBrix.Backgammon.Bots.RandomMove
 {

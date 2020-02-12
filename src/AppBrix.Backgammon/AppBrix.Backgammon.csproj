@@ -1,26 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>Contains core functionality for the backgammon libraries.</Description>
-    <Copyright>Copyright 2016</Copyright>
-    <AssemblyTitle>AppBrix.Backgammon</AssemblyTitle>
-    <VersionPrefix>0.1.0</VersionPrefix>
-    <Authors>Marin Atanasov</Authors>
-    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>AppBrix.Backgammon</AssemblyName>
-    <PackageId>AppBrix.Backgammon</PackageId>
-    <PackageTags>AppBrix Module Backgammon</PackageTags>
-    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
+    <AssemblyTitle>AppBrix.Backgammon</AssemblyTitle>
+    <Authors>Marin Atanasov</Authors>
+    <Copyright>Copyright 2016-2020</Copyright>
+    <Description>Contains core functionality for the backgammon libraries.</Description>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+    <PackageIcon>icon-64x64.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/MarinAtanasov/AppBrix.NetCore/master/icon-64x64.png</PackageIconUrl>
+    <PackageId>AppBrix.Backgammon</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/MarinAtanasov/Backgammon</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/MarinAtanasov/Backgammon/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
+    <PackageTags>AppBrix Module Backgammon</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Events" Version="0.16.0" />
-    <PackageReference Include="AppBrix.Factory" Version="0.16.0" />
+    <None Include="..\..\icon-64x64.png" Pack="true" PackagePath="" Visible="false" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="AppBrix.Events" Version="0.18.0" />
+    <PackageReference Include="AppBrix.Factory" Version="0.18.0" />
   </ItemGroup>
 
 </Project>

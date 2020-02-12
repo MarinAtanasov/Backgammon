@@ -4,7 +4,6 @@
 using AppBrix.Backgammon.Board;
 using AppBrix.Backgammon.Board.Impl;
 using System;
-using System.Linq;
 
 namespace AppBrix.Backgammon.Game.Impl
 {

@@ -3,7 +3,6 @@
 //
 using AppBrix.Lifecycle;
 using System;
-using System.Linq;
 using System.Threading;
 
 namespace AppBrix.Backgammon.Game.Impl

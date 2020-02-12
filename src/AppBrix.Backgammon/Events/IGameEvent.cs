@@ -3,8 +3,6 @@
 //
 using AppBrix.Backgammon.Game;
 using AppBrix.Events;
-using System;
-using System.Linq;
 
 namespace AppBrix.Backgammon.Events
 {
