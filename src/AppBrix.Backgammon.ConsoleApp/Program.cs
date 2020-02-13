@@ -42,7 +42,7 @@ namespace AppBrix.Backgammon.ConsoleApp
             };
             var game = app.Get<IGameFactory>().CreateGame(players.Values.ToList());
             //game.RegisterBot(new Bots.RandomMove.RandomMoveBot(players.First().Value));
-            game.RegisterBot(new Bots.RandomMove.RandomMoveBot(players.Last().Value));
+            game.RegisterBot(new Bots.RandomMove.RandomMoveBot(app, players.Last().Value));
             game.Start(players.Values.First());
 
             while (!game.HasEnded)

@@ -113,7 +113,7 @@ namespace AppBrix.Backgammon.Tests
                 var moves = game.GetAvailableMoves(player).ToList();
                 if (moves.Count > 0)
                 {
-                    game.PlayMove(player, moves[this.Random.Value.Next(moves.Count)]);
+                    game.PlayMove(player, moves[this.app.GetRandomService().GetRandom().Next(moves.Count)]);
                 }
                 else
                 {
@@ -125,7 +125,6 @@ namespace AppBrix.Backgammon.Tests
 
         #region Private fields and constants
         private readonly IApp app;
-        private ThreadLocal<Random> Random = new ThreadLocal<Random>(() => new Random(31415));
         #endregion
     }
 }

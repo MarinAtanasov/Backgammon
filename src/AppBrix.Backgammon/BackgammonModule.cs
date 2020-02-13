@@ -6,6 +6,7 @@ using AppBrix.Events;
 using AppBrix.Factory;
 using AppBrix.Lifecycle;
 using AppBrix.Modules;
+using AppBrix.Random;
 using System;
 using System.Collections.Generic;
 
@@ -18,7 +19,7 @@ namespace AppBrix.Backgammon
     public class BackgammonModule : ModuleBase
     {
         #region Properties
-        public override IEnumerable<Type> Dependencies => new[] { typeof(EventsModule), typeof(FactoryModule) };
+        public override IEnumerable<Type> Dependencies => new[] { typeof(EventsModule), typeof(FactoryModule), typeof(RandomModule) };
         #endregion
 
         #region ModuleBase implementation
