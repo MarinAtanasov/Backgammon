@@ -12,7 +12,7 @@ namespace AppBrix.Backgammon.ConsoleApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main(string[] _)
         {
             var stopwatch = Stopwatch.StartNew();
             var app = App.Start<ConfigInitializerModule>(new MemoryConfigService());
