@@ -14,6 +14,6 @@ namespace AppBrix.Backgammon.Rules
 
         bool CanMakeMove(IPlayer player, IBoard board, IMove move);
 
-        IPlayer TryGetWinner(IBoard board, IMove move, IEnumerable<IPlayer> players);
+        IPlayer? TryGetWinner(IBoard board, IMove move, IEnumerable<IPlayer> players);
     }
 }

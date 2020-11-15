@@ -35,6 +35,7 @@ namespace AppBrix.Backgammon.Game.Impl
             this.Boards = new [] { board, reversedBoard };
 
             this.Rules = gameRules;
+            this.Winner = string.Empty;
         }
         #endregion
 
@@ -43,15 +44,17 @@ namespace AppBrix.Backgammon.Game.Impl
 
         public IList<IGameBoard> Boards { get; }
 
-        public bool HasEnded => this.Winner != null;
+        public bool HasEnded => !string.IsNullOrEmpty(this.Winner);
 
         public bool HasStarted => this.Turn != null;
 
         public IList<IPlayer> Players { get; }
 
         public IGameRules Rules { get; }
-        
+
+        #nullable disable
         public ITurn Turn { get; private set; }
+        #nullable restore
 
         public string Winner { get; private set; }
         #endregion

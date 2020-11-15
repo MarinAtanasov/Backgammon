@@ -165,10 +165,10 @@ namespace AppBrix.Backgammon.ConsoleApp
             Console.WriteLine("-24-23-22-21-20-19-----18-17-16-15-14-13-");
         }
 
-        private static IMove SelectMove(IEnumerable<IMove> moves)
+        private static IMove? SelectMove(IEnumerable<IMove> moves)
         {
             Console.Write("Select \"<position> <die>\" to play: ");
-            var toPlay = Console.ReadLine().Split(' ');
+            var toPlay = Console.ReadLine()!.Split(' ');
             var index = int.Parse(toPlay[0]) - 1;
             var die = int.Parse(toPlay[1]);
             return moves.FirstOrDefault(x => x.LaneIndex == index && x.Die.Value == die);

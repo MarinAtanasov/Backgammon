@@ -66,7 +66,9 @@ namespace AppBrix.Backgammon.Rules.Strategies
         #endregion
 
         #region Private fields and constants
+        #nullable disable
         private GameRuleStrategyBase next;
+        #nullable restore
         #endregion
     }
 }

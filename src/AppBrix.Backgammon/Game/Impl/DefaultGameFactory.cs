@@ -65,7 +65,7 @@ namespace AppBrix.Backgammon.Game.Impl
             return board;
         }
 
-        private IPiece[] CreatePieces(int count, IPlayer owner = null)
+        private IPiece[] CreatePieces(int count, IPlayer owner)
         {
             var pieces = new IPiece[count];
             for (var i = 0; i < count; i++)
@@ -77,8 +77,10 @@ namespace AppBrix.Backgammon.Game.Impl
         #endregion
 
         #region Private fields and constants
+        #nullable disable
         private IApp app;
         private IGameRules gameRules;
+        #nullable restore
         #endregion
     }
 }

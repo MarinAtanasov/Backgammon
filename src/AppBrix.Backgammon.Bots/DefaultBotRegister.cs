@@ -30,6 +30,7 @@ namespace AppBrix.Backgammon.Bots
             };
             this.App.GetEventHub().Subscribe(onTurnChanged);
 
+            #nullable disable
             Action<IGameEnded> onGameEnded = null;
             onGameEnded = x =>
             {
@@ -39,6 +40,7 @@ namespace AppBrix.Backgammon.Bots
                     this.App.GetEventHub().Unsubscribe(onGameEnded);
                 }
             };
+            #nullable restore
             this.App.GetEventHub().Subscribe(onGameEnded);
         }
         #endregion

@@ -38,7 +38,7 @@ namespace AppBrix.Backgammon.Rules
             this.strategy.MovePiece(player, board, move);
         }
 
-        public IPlayer TryGetWinner(IBoard board, IMove move, IEnumerable<IPlayer> players)
+        public IPlayer? TryGetWinner(IBoard board, IMove move, IEnumerable<IPlayer> players)
         {
             return move.LaneIndex + move.Die.Value >= board.Lanes.Count ?
                 players.FirstOrDefault(x => board.BearedOff.Count(p => p.Player == x.Name) == DefaultGameRules.PiecesPerPlayer) :

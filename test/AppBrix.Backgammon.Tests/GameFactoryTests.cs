@@ -76,7 +76,7 @@ namespace AppBrix.Backgammon.Tests
             game.HasEnded.Should().BeFalse("the game has not ended");
             game.HasStarted.Should().BeFalse("the game has not been started");
             game.Turn.Should().BeNull("the turn should not be set before the game has started");
-            game.Winner.Should().BeNull("the game has not ended and there should be no winner yet");
+            game.Winner.Should().BeEmpty("the game has not ended and there should be no winner yet");
             this.AssertIsInInitialState(game.GetBoard(player1), player1);
             this.AssertIsInInitialState(game.GetBoard(player2), player2);
         }
