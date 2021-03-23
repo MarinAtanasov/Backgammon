@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.All" Version="0.20.0" />
+    <PackageReference Include="AppBrix.All" Version="0.22.0" />
   </ItemGroup>
 
 </Project>

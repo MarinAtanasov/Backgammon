@@ -60,7 +60,7 @@ namespace AppBrix.Backgammon.Tests
             this.PlayGameRandomly();
 
             var duration = TimeSpan.FromMilliseconds(100);
-            var expectedGain = 0.8;
+            var expectedGain = 0.5;
             double gamesOneCore = this.PlayGamesAsync(1, duration);
             double gamesTwoCores = this.PlayGamesAsync(2, duration);
             gamesTwoCores.Should().BeGreaterThan(gamesOneCore, "games should run asynchronously on two cores");
@@ -84,7 +84,7 @@ namespace AppBrix.Backgammon.Tests
                     return games;
                 }))
                 .ToList()
-                .Select(x => x.Result)
+                .Select(x => x.GetAwaiter().GetResult())
                 .ToList();
             return played.Sum();
         }
