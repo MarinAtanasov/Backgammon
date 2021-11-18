@@ -5,29 +5,28 @@ using AppBrix.Backgammon.Board;
 using System;
 using System.Collections.Generic;
 
-namespace AppBrix.Backgammon.Game.Impl
+namespace AppBrix.Backgammon.Game.Impl;
+
+internal class DefaultTurn : ITurn
 {
-    internal class DefaultTurn : ITurn
+    #region Construction
+    public DefaultTurn(IPlayer player, IReadOnlyList<IDie> dice)
     {
-        #region Construction
-        public DefaultTurn(IPlayer player, IReadOnlyList<IDie> dice)
-        {
-            if (player is null)
-                throw new ArgumentNullException(nameof(player));
-            if (dice is null)
-                throw new ArgumentNullException(nameof(dice));
+        if (player is null)
+            throw new ArgumentNullException(nameof(player));
+        if (dice is null)
+            throw new ArgumentNullException(nameof(dice));
 
-            this.Player = player.Name;
-            this.Dice = dice;
-        }
-        #endregion
-
-        #region Properties
-        public bool AreDiceRolled => this.Dice.Count > 0;
-
-        public IReadOnlyList<IDie> Dice { get; }
-
-        public string Player { get; }
-        #endregion
+        this.Player = player.Name;
+        this.Dice = dice;
     }
+    #endregion
+
+    #region Properties
+    public bool AreDiceRolled => this.Dice.Count > 0;
+
+    public IReadOnlyList<IDie> Dice { get; }
+
+    public string Player { get; }
+    #endregion
 }

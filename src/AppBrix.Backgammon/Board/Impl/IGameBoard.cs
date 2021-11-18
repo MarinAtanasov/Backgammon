@@ -3,16 +3,15 @@
 //
 using System.Collections.Generic;
 
-namespace AppBrix.Backgammon.Board.Impl
+namespace AppBrix.Backgammon.Board.Impl;
+
+internal interface IGameBoard : IBoard
 {
-    internal interface IGameBoard : IBoard
-    {
-        #region Properties
-        new IGameBoardLane Bar { get; }
+    #region Properties
+    new IGameBoardLane Bar { get; }
 
-        new IGameBoardLane BearedOff { get; }
+    new IGameBoardLane BearedOff { get; }
 
-        new IReadOnlyList<IGameBoardLane> Lanes { get; }
-        #endregion
-    }
+    new IReadOnlyList<IGameBoardLane> Lanes { get; }
+    #endregion
 }

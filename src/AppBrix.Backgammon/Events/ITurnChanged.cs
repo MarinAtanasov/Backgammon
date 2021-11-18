@@ -2,12 +2,11 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 
-namespace AppBrix.Backgammon.Events
+namespace AppBrix.Backgammon.Events;
+
+/// <summary>
+/// An event which is raised after every player action.
+/// </summary>
+public interface ITurnChanged : IGameEvent
 {
-    /// <summary>
-    /// An event which is raised after every player action.
-    /// </summary>
-    public interface ITurnChanged : IGameEvent
-    {
-    }
 }

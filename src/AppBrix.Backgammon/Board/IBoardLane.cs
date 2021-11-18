@@ -3,13 +3,12 @@
 //
 using System.Collections.Generic;
 
-namespace AppBrix.Backgammon.Board
+namespace AppBrix.Backgammon.Board;
+
+/// <summary>
+/// A lane on the Backgammon board.
+/// Every lane can hold <see cref="IPiece"/>.
+/// </summary>
+public interface IBoardLane : IReadOnlyList<IPiece>
 {
-    /// <summary>
-    /// A lane on the Backgammon board.
-    /// Every lane can hold <see cref="IPiece"/>.
-    /// </summary>
-    public interface IBoardLane : IReadOnlyList<IPiece>
-    {
-    }
 }

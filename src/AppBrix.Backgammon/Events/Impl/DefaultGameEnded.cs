@@ -3,19 +3,18 @@
 //
 using AppBrix.Backgammon.Game;
 
-namespace AppBrix.Backgammon.Events.Impl
-{
-    internal class DefaultGameEnded : IGameEnded
-    {
-        #region Construction
-        public DefaultGameEnded(IGame game)
-        {
-            this.Game = game;
-        }
-        #endregion
+namespace AppBrix.Backgammon.Events.Impl;
 
-        #region Properties
-        public IGame Game { get; }
-        #endregion
+internal class DefaultGameEnded : IGameEnded
+{
+    #region Construction
+    public DefaultGameEnded(IGame game)
+    {
+        this.Game = game;
     }
+    #endregion
+
+    #region Properties
+    public IGame Game { get; }
+    #endregion
 }

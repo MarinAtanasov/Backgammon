@@ -5,10 +5,9 @@ using AppBrix.Backgammon.Board;
 using AppBrix.Backgammon.Game;
 using System.Collections.Generic;
 
-namespace AppBrix.Backgammon.Rules
+namespace AppBrix.Backgammon.Rules;
+
+public interface IRules
 {
-    public interface IRules
-    {
-        IEnumerable<IMove> GetAvailableMoves(IBoard board, ITurn turn);
-    }
+    IEnumerable<IMove> GetAvailableMoves(IBoard board, ITurn turn);
 }

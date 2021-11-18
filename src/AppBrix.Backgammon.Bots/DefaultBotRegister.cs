@@ -5,44 +5,43 @@ using AppBrix.Backgammon.Events;
 using AppBrix.Backgammon.Game;
 using System;
 
-namespace AppBrix.Backgammon.Bots
+namespace AppBrix.Backgammon.Bots;
+
+internal class DefaultBotRegister : IBotRegister
 {
-    internal class DefaultBotRegister : IBotRegister
+    #region Construction
+    public DefaultBotRegister(IApp app)
     {
-        #region Construction
-        public DefaultBotRegister(IApp app)
-        {
-            this.App = app;
-        }
-        #endregion
-
-        #region Properties
-        public IApp App { get; }
-        #endregion
-
-        #region Public methods
-        public void RegisterBot(IGame game, IBot bot)
-        {
-            Action<ITurnChanged> onTurnChanged = x =>
-            {
-                if (x.Game == game && !game.HasEnded && game.Turn.Player == bot.Player.Name)
-                    bot.PlayTurn(game);
-            };
-            this.App.GetEventHub().Subscribe(onTurnChanged);
-
-            #nullable disable
-            Action<IGameEnded> onGameEnded = null;
-            onGameEnded = x =>
-            {
-                if (game == x.Game)
-                {
-                    this.App.GetEventHub().Unsubscribe(onTurnChanged);
-                    this.App.GetEventHub().Unsubscribe(onGameEnded);
-                }
-            };
-            #nullable restore
-            this.App.GetEventHub().Subscribe(onGameEnded);
-        }
-        #endregion
+        this.App = app;
     }
+    #endregion
+
+    #region Properties
+    public IApp App { get; }
+    #endregion
+
+    #region Public methods
+    public void RegisterBot(IGame game, IBot bot)
+    {
+        Action<ITurnChanged> onTurnChanged = x =>
+        {
+            if (x.Game == game && !game.HasEnded && game.Turn.Player == bot.Player.Name)
+                bot.PlayTurn(game);
+        };
+        this.App.GetEventHub().Subscribe(onTurnChanged);
+
+    #nullable disable
+        Action<IGameEnded> onGameEnded = null;
+        onGameEnded = x =>
+        {
+            if (game == x.Game)
+            {
+                this.App.GetEventHub().Unsubscribe(onTurnChanged);
+                this.App.GetEventHub().Unsubscribe(onGameEnded);
+            }
+        };
+    #nullable restore
+        this.App.GetEventHub().Subscribe(onGameEnded);
+    }
+    #endregion
 }

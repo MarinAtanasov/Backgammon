@@ -3,28 +3,27 @@
 //
 using System.Collections.Generic;
 
-namespace AppBrix.Backgammon.Board
+namespace AppBrix.Backgammon.Board;
+
+/// <summary>
+/// The Backgammon board.
+/// </summary>
+public interface IBoard
 {
+    #region Properties
     /// <summary>
-    /// The Backgammon board.
+    /// Gets the Backgammon bar. Holds pieces which must be entered on the board's lanes.
     /// </summary>
-    public interface IBoard
-    {
-        #region Properties
-        /// <summary>
-        /// Gets the Backgammon bar. Holds pieces which must be entered on the board's lanes.
-        /// </summary>
-        IBoardLane Bar { get; }
+    IBoardLane Bar { get; }
 
-        /// <summary>
-        /// Gets the pieces which have been beared off.
-        /// </summary>
-        IBoardLane BearedOff { get; }
+    /// <summary>
+    /// Gets the pieces which have been beared off.
+    /// </summary>
+    IBoardLane BearedOff { get; }
 
-        /// <summary>
-        /// Gets the board's lanes.
-        /// </summary>
-        IReadOnlyList<IBoardLane> Lanes { get; }
-        #endregion
-    }
+    /// <summary>
+    /// Gets the board's lanes.
+    /// </summary>
+    IReadOnlyList<IBoardLane> Lanes { get; }
+    #endregion
 }

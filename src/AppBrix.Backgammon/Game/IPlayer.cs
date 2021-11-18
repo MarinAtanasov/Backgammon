@@ -3,23 +3,22 @@
 //
 using System;
 
-namespace AppBrix.Backgammon.Game
+namespace AppBrix.Backgammon.Game;
+
+/// <summary>
+/// A player in the game.
+/// </summary>
+public interface IPlayer
 {
+    #region Properties
     /// <summary>
-    /// A player in the game.
+    /// Gets the id of the player.
     /// </summary>
-    public interface IPlayer
-    {
-        #region Properties
-        /// <summary>
-        /// Gets the id of the player.
-        /// </summary>
-        Guid Id { get; }
-        
-        /// <summary>
-        /// Gets the name of the player.
-        /// </summary>
-        string Name { get; }
-        #endregion
-    }
+    Guid Id { get; }
+
+    /// <summary>
+    /// Gets the name of the player.
+    /// </summary>
+    string Name { get; }
+    #endregion
 }

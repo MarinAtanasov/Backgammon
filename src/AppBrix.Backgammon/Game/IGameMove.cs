@@ -3,10 +3,9 @@
 //
 using AppBrix.Backgammon.Board.Impl;
 
-namespace AppBrix.Backgammon.Game
+namespace AppBrix.Backgammon.Game;
+
+internal interface IGameMove : IMove
 {
-    internal interface IGameMove : IMove
-    {
-        new IGameBoardLane Lane { get; }
-    }
+    new IGameBoardLane Lane { get; }
 }

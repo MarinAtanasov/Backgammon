@@ -2,18 +2,17 @@
 // Licensed under the MIT License (MIT). See License.txt in the project root for license information.
 //
 
-namespace AppBrix.Backgammon.Board
+namespace AppBrix.Backgammon.Board;
+
+/// <summary>
+/// A piece which is used while playing Backgammon.
+/// </summary>
+public interface IPiece
 {
+    #region Properties
     /// <summary>
-    /// A piece which is used while playing Backgammon.
+    /// Gets the player who owns the piece.
     /// </summary>
-    public interface IPiece
-    {
-        #region Properties
-        /// <summary>
-        /// Gets the player who owns the piece.
-        /// </summary>
-        string Player { get; }
-        #endregion
-    }
+    string Player { get; }
+    #endregion
 }

@@ -4,21 +4,20 @@
 using AppBrix.Backgammon.Game;
 using System.Collections.Generic;
 
-namespace AppBrix.Backgammon.Bots.RandomMove
+namespace AppBrix.Backgammon.Bots.RandomMove;
+
+public class RandomMoveBot : BotBase
 {
-    public class RandomMoveBot : BotBase
+    public RandomMoveBot(IApp app, IPlayer player)
+        : base(player)
     {
-        public RandomMoveBot(IApp app, IPlayer player)
-            : base(player)
-        {
-            this.app = app;
-        }
-
-        protected override void MakeMove(IGame game, IReadOnlyList<IMove> moves) =>
-            game.PlayMove(this.Player, moves[this.app.GetRandomService().GetRandom().Next(moves.Count)]);
-
-        #region Private fields and constants
-        private readonly IApp app;
-        #endregion
+        this.app = app;
     }
+
+    protected override void MakeMove(IGame game, IReadOnlyList<IMove> moves) =>
+        game.PlayMove(this.Player, moves[this.app.GetRandomService().GetRandom().Next(moves.Count)]);
+
+    #region Private fields and constants
+    private readonly IApp app;
+    #endregion
 }

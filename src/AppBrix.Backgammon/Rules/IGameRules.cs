@@ -6,14 +6,13 @@ using AppBrix.Backgammon.Board.Impl;
 using AppBrix.Backgammon.Game;
 using System.Collections.Generic;
 
-namespace AppBrix.Backgammon.Rules
+namespace AppBrix.Backgammon.Rules;
+
+internal interface IGameRules : IRules
 {
-    internal interface IGameRules : IRules
-    {
-        void MovePiece(IPlayer player, IGameBoard board, IGameMove move);
+    void MovePiece(IPlayer player, IGameBoard board, IGameMove move);
 
-        bool CanMakeMove(IPlayer player, IBoard board, IMove move);
+    bool CanMakeMove(IPlayer player, IBoard board, IMove move);
 
-        IPlayer? TryGetWinner(IBoard board, IMove move, IEnumerable<IPlayer> players);
-    }
+    IPlayer? TryGetWinner(IBoard board, IMove move, IEnumerable<IPlayer> players);
 }

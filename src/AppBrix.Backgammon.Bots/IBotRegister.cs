@@ -3,18 +3,17 @@
 //
 using AppBrix.Backgammon.Game;
 
-namespace AppBrix.Backgammon.Bots
+namespace AppBrix.Backgammon.Bots;
+
+/// <summary>
+/// Defines a bot registers which can register a bot to a specified game.
+/// </summary>
+public interface IBotRegister
 {
     /// <summary>
-    /// Defines a bot registers which can register a bot to a specified game.
+    /// Registers a bot
     /// </summary>
-    public interface IBotRegister
-    {
-        /// <summary>
-        /// Registers a bot
-        /// </summary>
-        /// <param name="game">The game</param>
-        /// <param name="bot">The bot</param>
-        void RegisterBot(IGame game, IBot bot);
-    }
+    /// <param name="game">The game</param>
+    /// <param name="bot">The bot</param>
+    void RegisterBot(IGame game, IBot bot);
 }

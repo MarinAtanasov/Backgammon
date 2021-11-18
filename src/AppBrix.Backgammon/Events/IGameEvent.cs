@@ -4,16 +4,15 @@
 using AppBrix.Backgammon.Game;
 using AppBrix.Events;
 
-namespace AppBrix.Backgammon.Events
+namespace AppBrix.Backgammon.Events;
+
+/// <summary>
+/// A base interface for game related events.
+/// </summary>
+public interface IGameEvent : IEvent
 {
     /// <summary>
-    /// A base interface for game related events.
+    /// Gets the current game.
     /// </summary>
-    public interface IGameEvent : IEvent
-    {
-        /// <summary>
-        /// Gets the current game.
-        /// </summary>
-        IGame Game { get; }
-    }
+    IGame Game { get; }
 }

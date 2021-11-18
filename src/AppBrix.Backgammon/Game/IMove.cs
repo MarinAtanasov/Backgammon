@@ -3,26 +3,25 @@
 //
 using AppBrix.Backgammon.Board;
 
-namespace AppBrix.Backgammon.Game
+namespace AppBrix.Backgammon.Game;
+
+/// <summary>
+/// A move inside the Backgammon game.
+/// </summary>
+public interface IMove
 {
     /// <summary>
-    /// A move inside the Backgammon game.
+    /// Gets the lane containing the board piece to be moved.
     /// </summary>
-    public interface IMove
-    {
-        /// <summary>
-        /// Gets the lane containing the board piece to be moved.
-        /// </summary>
-        IBoardLane Lane { get; }
+    IBoardLane Lane { get; }
 
-        /// <summary>
-        /// Gets the lane index. Returns -1 for board bar.
-        /// </summary>
-        int LaneIndex { get; }
+    /// <summary>
+    /// Gets the lane index. Returns -1 for board bar.
+    /// </summary>
+    int LaneIndex { get; }
 
-        /// <summary>
-        /// Gets the die to be played.
-        /// </summary>
-        IDie Die { get; }
-    }
+    /// <summary>
+    /// Gets the die to be played.
+    /// </summary>
+    IDie Die { get; }
 }
