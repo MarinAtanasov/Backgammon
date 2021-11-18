@@ -23,25 +23,23 @@ internal class DefaultBotRegister : IBotRegister
     #region Public methods
     public void RegisterBot(IGame game, IBot bot)
     {
-        Action<ITurnChanged> onTurnChanged = x =>
+        void onTurnChanged(ITurnChanged x)
         {
             if (x.Game == game && !game.HasEnded && game.Turn.Player == bot.Player.Name)
                 bot.PlayTurn(game);
-        };
-        this.App.GetEventHub().Subscribe(onTurnChanged);
+        }
 
-    #nullable disable
-        Action<IGameEnded> onGameEnded = null;
-        onGameEnded = x =>
+        void onGameEnded(IGameEnded x)
         {
             if (game == x.Game)
             {
-                this.App.GetEventHub().Unsubscribe(onTurnChanged);
-                this.App.GetEventHub().Unsubscribe(onGameEnded);
+                this.App.GetEventHub().Unsubscribe((Action<ITurnChanged>)onTurnChanged);
+                this.App.GetEventHub().Unsubscribe((Action<IGameEnded>)onGameEnded);
             }
-        };
-    #nullable restore
-        this.App.GetEventHub().Subscribe(onGameEnded);
+        }
+
+        this.App.GetEventHub().Subscribe((Action<ITurnChanged>)onTurnChanged);
+        this.App.GetEventHub().Subscribe((Action<IGameEnded>)onGameEnded);
     }
     #endregion
 }

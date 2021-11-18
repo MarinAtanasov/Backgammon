@@ -23,11 +23,10 @@ internal class DefaultBoardLane : List<IPiece>, IGameBoardLane
     {
         if (target is null)
             throw new ArgumentNullException(nameof(target));
-        var targetLane = target as DefaultBoardLane;
-        if (targetLane is null)
-            throw new ArgumentException("This method requires a target lane of type: " + typeof(DefaultBoardLane).FullName);
+        if (target is not DefaultBoardLane targetLane)
+            throw new ArgumentException($"This method requires a target lane of type: {typeof(DefaultBoardLane).FullName}");
 
-        targetLane.Add(this[this.Count - 1]);
+        targetLane.Add(this[^1]);
         this.RemoveAt(this.Count - 1);
     }
     #endregion

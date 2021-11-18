@@ -25,22 +25,10 @@ internal class DefaultDie : IDie
     #endregion
 
     #region Public and overriden methods
-    public override bool Equals(object obj)
-    {
-        var other = obj as DefaultDie;
-        if (other != null)
-            return this.IsUsed == other.IsUsed && this.Value == other.Value;
-        return base.Equals(obj);
-    }
+    public override bool Equals(object? obj) => obj is DefaultDie die && this.IsUsed == die.IsUsed && this.Value == die.Value;
 
-    public override int GetHashCode()
-    {
-        return this.Value.GetHashCode();
-    }
+    public override int GetHashCode() => this.Value.GetHashCode();
 
-    public override string ToString()
-    {
-        return this.Value.ToString();
-    }
+    public override string ToString() => this.Value.ToString();
     #endregion
 }

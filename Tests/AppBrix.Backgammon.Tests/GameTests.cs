@@ -25,6 +25,7 @@ public class GameTests : IDisposable
     public void Dispose()
     {
         this.app.Stop();
+        GC.SuppressFinalize(this);
     }
     #endregion
 

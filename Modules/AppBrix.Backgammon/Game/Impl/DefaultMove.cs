@@ -34,18 +34,8 @@ internal class DefaultMove : IGameMove
     #endregion
 
     #region Public and overriden methods
-    public override bool Equals(object obj)
-    {
-        var other = obj as IGameMove;
-        if (other != null)
-            return this.LaneIndex == other.LaneIndex && this.Die.Equals(other.Die);
+    public override bool Equals(object? obj) => obj is IGameMove move && this.LaneIndex == move.LaneIndex && this.Die.Equals(move.Die);
 
-        return base.Equals(obj);
-    }
-
-    public override int GetHashCode()
-    {
-        return this.Die.GetHashCode() + this.LaneIndex.GetHashCode();
-    }
+    public override int GetHashCode() => this.Die.GetHashCode() + this.LaneIndex.GetHashCode();
     #endregion
 }

@@ -185,7 +185,7 @@ internal class DefaultGame : IGame
 
     private ITurn CreateNewTurn(IPlayer player)
     {
-        return new DefaultTurn(player, new IDie[0]);
+        return new DefaultTurn(player, Array.Empty<IDie>());
     }
 
     private ITurn RollDice()

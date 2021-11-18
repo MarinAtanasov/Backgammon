@@ -3,8 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Globals", ".Globals", "{87A60EF2-877C-4CAD-9752-C15858425A70}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Global", ".Global", "{87A60EF2-877C-4CAD-9752-C15858425A70}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		NuGet.Config = NuGet.Config
 		Test.ps1 = Test.ps1
