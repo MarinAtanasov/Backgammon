@@ -34,7 +34,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AppBrix.Backgammon\AppBrix.Backgammon.csproj" />
+    <ProjectReference Include="..\..\Modules\AppBrix.Backgammon\AppBrix.Backgammon.csproj" />
   </ItemGroup>
 
   <ItemGroup>

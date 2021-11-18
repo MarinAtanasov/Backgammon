@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AppBrix.Backgammon\AppBrix.Backgammon.csproj" />
-    <ProjectReference Include="..\AppBrix.Backgammon.Bots\AppBrix.Backgammon.Bots.csproj" />
+    <ProjectReference Include="..\..\Modules\AppBrix.Backgammon\AppBrix.Backgammon.csproj" />
+    <ProjectReference Include="..\..\Modules\AppBrix.Backgammon.Bots\AppBrix.Backgammon.Bots.csproj" />
   </ItemGroup>
 
   <ItemGroup>
