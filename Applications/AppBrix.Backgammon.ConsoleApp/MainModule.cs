@@ -9,10 +9,9 @@ using System.Collections.Generic;
 namespace AppBrix.Backgammon.ConsoleApp;
 
 /// <summary>
-/// Initializes application configuration.
-/// This module should be first on the list in order to configure the application's configuration.
+/// Main module for the application.
 /// </summary>
-public class ConfigInitializerModule : MainModuleBase
+public class MainModule : MainModuleBase
 {
     public override IEnumerable<Type> Dependencies => new[] { typeof(BackgammonModule), typeof(BotsModule) };
 }

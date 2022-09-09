@@ -10,12 +10,12 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.ConsoleApp;
 
-public class Program
+public static class Program
 {
     public static void Main(string[] _)
     {
         var stopwatch = Stopwatch.StartNew();
-        var app = App.Start<ConfigInitializerModule>(new MemoryConfigService());
+        var app = App.Start<MainModule>(new MemoryConfigService());
         try
         {
             Program.Run(app);
