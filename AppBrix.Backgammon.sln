@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Global", ".Global", "{87A6
 		.gitignore = .gitignore
 		NuGet.Config = NuGet.Config
 		Test.ps1 = Test.ps1
+		Clean.ps1 = Clean.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{4366E805-FA17-41DB-86DB-9614C41D99ED}"
