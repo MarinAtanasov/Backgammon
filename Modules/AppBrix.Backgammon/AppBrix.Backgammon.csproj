@@ -4,7 +4,7 @@
     <AssemblyName>AppBrix.Backgammon</AssemblyName>
     <AssemblyTitle>AppBrix.Backgammon</AssemblyTitle>
     <Authors>Marin Atanasov</Authors>
-    <Copyright>Copyright 2016-2020</Copyright>
+    <Copyright>Copyright 2016-2023</Copyright>
     <Description>Contains core functionality for the backgammon libraries.</Description>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
@@ -27,9 +27,9 @@
 
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Events" Version="0.36.0" />
-    <PackageReference Include="AppBrix.Factory" Version="0.36.0" />
-    <PackageReference Include="AppBrix.Random" Version="0.36.0" />
+    <PackageReference Include="AppBrix.Events" Version="0.37.0" />
+    <PackageReference Include="AppBrix.Factory" Version="0.37.0" />
+    <PackageReference Include="AppBrix.Random" Version="0.37.0" />
   </ItemGroup>
 
 </Project>

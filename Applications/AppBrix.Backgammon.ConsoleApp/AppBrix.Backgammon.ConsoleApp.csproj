@@ -4,7 +4,7 @@
     <AssemblyName>AppBrix.Backgammon.ConsoleApp</AssemblyName>
     <AssemblyTitle>AppBrix.Backgammon.ConsoleApp</AssemblyTitle>
     <Authors>Marin Atanasov</Authors>
-    <Copyright>Copyright 2016-2020</Copyright>
+    <Copyright>Copyright 2016-2023</Copyright>
     <Description>A console app which can be used to play Backgammon.</Description>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.All" Version="0.36.0" />
+    <PackageReference Include="AppBrix.All" Version="0.37.0" />
   </ItemGroup>
 
 </Project>

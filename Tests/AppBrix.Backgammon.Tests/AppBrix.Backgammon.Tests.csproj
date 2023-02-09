@@ -4,7 +4,7 @@
     <AssemblyName>AppBrix.Backgammon.Tests</AssemblyName>
     <AssemblyTitle>AppBrix.Backgammon.Tests</AssemblyTitle>
     <Authors>Marin Atanasov</Authors>
-    <Copyright>Copyright 2016-2020</Copyright>
+    <Copyright>Copyright 2016-2023</Copyright>
     <Description>Contains test for AppBrix.Backgammon library.</Description>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -38,8 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.36.0" />
-    <PackageReference Include="FluentAssertions" Version="6.8.0" />
+    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.37.0" />
+    <PackageReference Include="FluentAssertions" Version="6.9.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">

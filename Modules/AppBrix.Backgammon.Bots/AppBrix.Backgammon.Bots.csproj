@@ -4,7 +4,7 @@
     <AssemblyName>AppBrix.Backgammon.Bots</AssemblyName>
     <AssemblyTitle>AppBrix.Backgammon.Bots</AssemblyTitle>
     <Authors>Marin Atanasov</Authors>
-    <Copyright>Copyright 2016-2020</Copyright>
+    <Copyright>Copyright 2016-2023</Copyright>
     <Description>Contains core functionality for the backgammon bots libraries.</Description>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
