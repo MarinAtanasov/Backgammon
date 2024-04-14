@@ -29,10 +29,10 @@ internal class DefaultGame : IGame
                 $"{nameof(player1)}.{nameof(player1.Name)} == {nameof(player2)}.{nameof(player2.Name)}");
 
         this.App = app;
-        this.Players = new[] { player1, player2 };
+        this.Players = [player1, player2];
 
         var reversedBoard = new DefaultBoard(new ReversedLanes(board.Lanes), board.Bar, board.BearedOff);
-        this.Boards = new[] { board, reversedBoard };
+        this.Boards = [board, reversedBoard];
 
         this.Rules = gameRules;
         this.Turn = null!;
@@ -184,7 +184,7 @@ internal class DefaultGame : IGame
 
     private ITurn CreateNewTurn(IPlayer player)
     {
-        return new DefaultTurn(player, Array.Empty<IDie>());
+        return new DefaultTurn(player, []);
     }
 
     private ITurn RollDice()

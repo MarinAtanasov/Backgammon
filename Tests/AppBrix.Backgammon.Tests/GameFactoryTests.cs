@@ -72,7 +72,7 @@ public class GameFactoryTests : IDisposable
     {
         var player1 = this.app.GetGameFactory().CreatePlayer("Player 1");
         var player2 = this.app.GetGameFactory().CreatePlayer("Player 2");
-        var game = this.app.GetGameFactory().CreateGame(new[] { player1, player2 });
+        var game = this.app.GetGameFactory().CreateGame([player1, player2]);
         game.App.Should().Be(this.app, "the app should be the same as the one used when creating the game");
         game.HasEnded.Should().BeFalse("the game has not ended");
         game.HasStarted.Should().BeFalse("the game has not been started");
@@ -93,7 +93,7 @@ public class GameFactoryTests : IDisposable
     public void TestCreateGameWithOnePlayer()
     {
         var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        Action action = () => this.app.GetGameFactory().CreateGame(new[] { player });
+        Action action = () => this.app.GetGameFactory().CreateGame([player]);
         action.Should().Throw<ArgumentException>("passing only one player is not allowed");
     }
 
@@ -103,7 +103,7 @@ public class GameFactoryTests : IDisposable
         var player1 = this.app.GetGameFactory().CreatePlayer("Player 1");
         var player2 = this.app.GetGameFactory().CreatePlayer("Player 2");
         var player3 = this.app.GetGameFactory().CreatePlayer("Player 3");
-        Action action = () => this.app.GetGameFactory().CreateGame(new[] { player1, player2, player3 });
+        Action action = () => this.app.GetGameFactory().CreateGame([player1, player2, player3]);
         action.Should().Throw<ArgumentException>("passing more than 2 players is not allowed");
     }
     #endregion

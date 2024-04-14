@@ -19,7 +19,7 @@ namespace AppBrix.Backgammon;
 public class BackgammonModule : ModuleBase
 {
     #region Properties
-    public override IEnumerable<Type> Dependencies => new[] { typeof(EventsModule), typeof(FactoryModule), typeof(RandomModule) };
+    public override IEnumerable<Type> Dependencies => [typeof(EventsModule), typeof(FactoryModule), typeof(RandomModule)];
     #endregion
 
     #region ModuleBase implementation

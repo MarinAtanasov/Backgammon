@@ -14,7 +14,7 @@ namespace AppBrix.Backgammon.Bots;
 public class BotsModule : ModuleBase
 {
     #region Properties
-    public override IEnumerable<Type> Dependencies => new[] { typeof(BackgammonModule) };
+    public override IEnumerable<Type> Dependencies => [typeof(BackgammonModule)];
     #endregion
 
     #region ModuleBase implementation
