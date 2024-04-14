@@ -66,8 +66,6 @@ internal abstract class GameRuleStrategyBase
     #endregion
 
     #region Private fields and constants
-    #nullable disable
-    private GameRuleStrategyBase next;
-    #nullable restore
+    private GameRuleStrategyBase next = null!;
     #endregion
 }

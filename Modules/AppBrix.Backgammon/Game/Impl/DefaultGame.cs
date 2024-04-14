@@ -35,6 +35,7 @@ internal class DefaultGame : IGame
         this.Boards = new[] { board, reversedBoard };
 
         this.Rules = gameRules;
+        this.Turn = null!;
         this.Winner = string.Empty;
     }
     #endregion
@@ -52,9 +53,7 @@ internal class DefaultGame : IGame
 
     public IGameRules Rules { get; }
 
-    #nullable disable
     public ITurn Turn { get; private set; }
-    #nullable restore
 
     public string Winner { get; private set; }
     #endregion

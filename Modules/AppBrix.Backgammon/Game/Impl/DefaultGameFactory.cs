@@ -21,8 +21,8 @@ internal class DefaultGameFactory : IGameFactory, IApplicationLifecycle
 
     public void Uninitialize()
     {
-        this.app = null;
-        this.gameRules = null;
+        this.app = null!;
+        this.gameRules = null!;
     }
 
     public IPlayer CreatePlayer(string name, Guid id)
@@ -77,9 +77,7 @@ internal class DefaultGameFactory : IGameFactory, IApplicationLifecycle
     #endregion
 
     #region Private fields and constants
-    #nullable disable
-    private IApp app;
-    private IGameRules gameRules;
-    #nullable restore
+    private IApp app = null!;
+    private IGameRules gameRules = null!;
     #endregion
 }

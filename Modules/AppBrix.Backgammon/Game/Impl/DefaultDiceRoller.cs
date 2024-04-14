@@ -15,15 +15,13 @@ internal class DefaultDiceRoller : IDiceRoller, IApplicationLifecycle
 
     public void Uninitialize()
     {
-        this.app = null;
+        this.app = null!;
     }
 
     public int RollDie() => this.app.GetRandomService().GetRandom().Next(1, 7);
     #endregion
 
     #region Private fields and constants
-    #nullable disable
-    private IApp app;
-    #nullable restore
+    private IApp app = null!;
     #endregion
 }
