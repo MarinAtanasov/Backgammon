@@ -19,7 +19,7 @@ public static class TestUtils
     /// <summary>
     /// Creates an app with an in-memory configuration using the provided module and its dependencies.
     /// </summary>
-    /// <param name="module">The module to load inside the application.</param>
+    /// <param name="modules">The modules to load inside the application.</param>
     /// <returns>The created application.</returns>
     public static IApp CreateTestApp(params Type[] modules)
     {
