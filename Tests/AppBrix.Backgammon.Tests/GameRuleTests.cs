@@ -5,36 +5,25 @@ using AppBrix.Backgammon.Board.Impl;
 using AppBrix.Backgammon.Game;
 using AppBrix.Backgammon.Game.Impl;
 using AppBrix.Backgammon.Rules.Strategies;
-using FluentAssertions;
-using System;
+using AppBrix.Testing;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
 namespace AppBrix.Backgammon.Tests;
 
-public class GameRuleTests : IDisposable
+public class GameRuleTests : TestsBase<BackgammonModule>
 {
-    #region Setup and cleanup
-    public GameRuleTests()
-    {
-        this.app = TestUtils.CreateTestApp(typeof(BackgammonModule));
-        this.app.Start();
-    }
-
-    public void Dispose()
-    {
-        this.app.Stop();
-        GC.SuppressFinalize(this);
-    }
+    #region Test lifecycle
+    protected override void Initialize() => this.App.Start();
     #endregion
 
     #region Tests
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestEnterPieceStrategyZeroDice()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
+        var enemy = this.App.GetGameFactory().CreatePlayer("Player 2");
         var dice = new[] { new DefaultDie(false, 6), new DefaultDie(true, 5) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -45,14 +34,14 @@ public class GameRuleTests : IDisposable
         var strategy = new EnterPieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeTrue("the strategy should short-circuit the chain if there are pieces to enter");
-        moves.Should().BeEmpty("there should be no available moves because one dice is used and other position is taken");
+        this.Assert(context.IsDone, "the strategy should short-circuit the chain if there are pieces to enter");
+        this.Assert(moves.Count == 0, "there should be no available moves because one dice is used and other position is taken");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestEnterPieceStrategyOneDie()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
         var dice = new[] { new DefaultDie(false, 6), new DefaultDie(true, 5) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -61,24 +50,24 @@ public class GameRuleTests : IDisposable
         var strategy = new EnterPieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeTrue("the strategy should short-circuit the chain if there are pieces to enter");
-        moves.Should().ContainSingle("there should be one available move because only one dice is unused");
-        moves[0].Die.Should().BeSameAs(dice[0], "die with value 6 is unused");
-        moves[0].Lane.Should().BeSameAs(board.Bar, "the piece on the bar needs to be entered");
-        moves[0].LaneIndex.Should().Be(-1, "the bar's index should be -1");
+        this.Assert(context.IsDone, "the strategy should short-circuit the chain if there are pieces to enter");
+        this.Assert(moves.Count == 1, "there should be one available move because only one dice is unused");
+        this.Assert(object.ReferenceEquals(moves[0].Die, dice[0]), "die with value 6 is unused");
+        this.Assert(moves[0].Lane == board.Bar, "the piece on the bar needs to be entered");
+        this.Assert(moves[0].LaneIndex == -1, "the bar's index should be -1");
 
         var piece = board.Bar[0];
         strategy.MovePiece(player, board, moves[0]);
-        board.Bar.Should().BeEmpty("the piece should have been moved from the bar");
-        board.Lanes[5].Should().ContainSingle("the piece should have been moved to lane 5");
-        board.Lanes[5][0].Should().BeSameAs(piece, "the moved piece should be the same as the removed one");
+        this.Assert(board.Bar.Count == 0, "the piece should have been moved from the bar");
+        this.Assert(board.Lanes[5].Count == 1, "the piece should have been moved to lane 5");
+        this.Assert(board.Lanes[5][0] == piece, "the moved piece should be the same as the removed one");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestEnterPieceStrategyTwoDice()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
+        var enemy = this.App.GetGameFactory().CreatePlayer("Player 2");
         var dice = new[] { new DefaultDie(false, 6), new DefaultDie(false, 5), new DefaultDie(false, 4), new DefaultDie(true, 3) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -90,29 +79,29 @@ public class GameRuleTests : IDisposable
         var strategy = new EnterPieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeTrue("the strategy should short-circuit the chain if there are pieces to enter");
-        moves.Count.Should().Be(2, "there should be two available moves");
-        moves[0].Die.Should().BeSameAs(dice[0], "die with value 6 is unused");
-        moves[0].Lane.Should().BeSameAs(board.Bar, "the piece on the bar needs to be entered");
-        moves[0].LaneIndex.Should().Be(-1, "the bar's index should be -1");
-        moves[1].Die.Should().BeSameAs(dice[1], "die with value 5 is unused and the target has only 1 enemy piece");
-        moves[1].Lane.Should().BeSameAs(board.Bar, "the piece on the bar needs to be entered");
-        moves[1].LaneIndex.Should().Be(-1, "the bar's index should be -1");
+        this.Assert(context.IsDone, "the strategy should short-circuit the chain if there are pieces to enter");
+        this.Assert(moves.Count == 2, "there should be two available moves");
+        this.Assert(object.ReferenceEquals(moves[0].Die, dice[0]), "die with value 6 is unused");
+        this.Assert(moves[0].Lane == board.Bar, "the piece on the bar needs to be entered");
+        this.Assert(moves[0].LaneIndex == -1, "the bar's index should be -1");
+        this.Assert(object.ReferenceEquals(moves[1].Die, dice[1]), "die with value 5 is unused and the target has only 1 enemy piece");
+        this.Assert(moves[1].Lane == board.Bar, "the piece on the bar needs to be entered");
+        this.Assert(moves[1].LaneIndex == -1, "the bar's index should be -1");
 
         var piece = board.Bar[0];
         var enemyPiece = board.Lanes[4][0];
         strategy.MovePiece(player, board, moves[1]);
-        board.Bar.Should().ContainSingle("the enemy piece should have been moved to the bar");
-        board.Bar[0].Should().BeSameAs(enemyPiece, "the enemy piece should be the same as the moved one");
-        board.Lanes[4].Should().ContainSingle("the piece should have been moved to lane 5");
-        board.Lanes[4][0].Should().BeSameAs(piece, "the moved piece should be the same as the removed one");
+        this.Assert(board.Bar.Count == 1, "the enemy piece should have been moved to the bar");
+        this.Assert(board.Bar[0] == enemyPiece, "the enemy piece should be the same as the moved one");
+        this.Assert(board.Lanes[4].Count == 1, "the piece should have been moved to lane 5");
+        this.Assert(board.Lanes[4][0] == piece, "the moved piece should be the same as the removed one");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestEnterPieceStrategyNoBarredPieces()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
+        var enemy = this.App.GetGameFactory().CreatePlayer("Player 2");
         var dice = new[] { new DefaultDie(false, 6), new DefaultDie(true, 5) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -122,15 +111,15 @@ public class GameRuleTests : IDisposable
         var strategy = new EnterPieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeFalse("the strategy should not short-circuit the chain if there are no pieces to enter");
-        moves.Should().BeEmpty("there should be no available moves yet because no pieces need to enter");
+        this.Assert(context.IsDone == false, "the strategy should not short-circuit the chain if there are no pieces to enter");
+        this.Assert(moves.Count == 0, "there should be no available moves yet because no pieces need to enter");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestMovePieceStrategyZeroDice()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
+        var enemy = this.App.GetGameFactory().CreatePlayer("Player 2");
         var dice = new[] { new DefaultDie(true, 2), new DefaultDie(false, 1) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -142,15 +131,15 @@ public class GameRuleTests : IDisposable
         var strategy = new MovePieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeFalse("the strategy should never short-circuit");
-        moves.Should().BeEmpty("there should be no moves available");
+        this.Assert(context.IsDone == false, "the strategy should never short-circuit");
+        this.Assert(moves.Count == 0, "there should be no moves available");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestMovePieceStrategyOneDie()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
+        var enemy = this.App.GetGameFactory().CreatePlayer("Player 2");
         var dice = new[] { new DefaultDie(false, 2), new DefaultDie(false, 1) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -162,24 +151,24 @@ public class GameRuleTests : IDisposable
         var strategy = new MovePieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeFalse("the strategy should never short-circuit");
-        moves.Should().ContainSingle("there should be one available move because only one dice is unused");
-        moves[0].Die.Should().BeSameAs(dice[0], "only die with value 2 is usable");
-        moves[0].Lane.Should().BeSameAs(board.Lanes[0], "there is only one piece for this player");
-        moves[0].LaneIndex.Should().Be(0, "the player's only piece is on that lane");
+        this.Assert(context.IsDone == false, "the strategy should never short-circuit");
+        this.Assert(moves.Count == 1, "there should be one available move because only one dice is unused");
+        this.Assert(object.ReferenceEquals(moves[0].Die, dice[0]), "only die with value 2 is usable");
+        this.Assert(moves[0].Lane == board.Lanes[0], "there is only one piece for this player");
+        this.Assert(moves[0].LaneIndex == 0, "the player's only piece is on that lane");
 
         var piece = board.Lanes[0][1];
         strategy.MovePiece(player, board, moves[0]);
-        board.Lanes[0].Should().ContainSingle("the other piece should not have been moved");
-        board.Lanes[2].Should().ContainSingle("the piece should have been moved to this lane");
-        board.Lanes[2][0].Should().BeSameAs(piece, "the moved piece should be the same as the selected one");
+        this.Assert(board.Lanes[0].Count == 1, "the other piece should not have been moved");
+        this.Assert(board.Lanes[2].Count == 1, "the piece should have been moved to this lane");
+        this.Assert(board.Lanes[2][0] == piece, "the moved piece should be the same as the selected one");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestMovePieceStrategyTwoDice()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
+        var enemy = this.App.GetGameFactory().CreatePlayer("Player 2");
         var dice = new[] { new DefaultDie(false, 4), new DefaultDie(true, 3), new DefaultDie(false, 2), new DefaultDie(false, 1) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -189,29 +178,29 @@ public class GameRuleTests : IDisposable
         var strategy = new MovePieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeFalse("the strategy should never short-circuit");
-        moves.Count.Should().Be(2, "there should be two available moves");
-        moves[0].Die.Should().BeSameAs(dice[2], "die with value 2 is unused");
-        moves[0].Lane.Should().BeSameAs(board.Lanes[20], "there is only one piece for this player");
-        moves[0].LaneIndex.Should().Be(20, "the player's only piece is on that lane");
-        moves[1].Die.Should().BeSameAs(dice[3], "die with value 1 is unused and the target has only 1 enemy piece");
-        moves[1].Lane.Should().BeSameAs(board.Lanes[20], "there is only one piece for this player");
-        moves[1].LaneIndex.Should().Be(20, "the player's only piece is on that lane");
+        this.Assert(context.IsDone == false, "the strategy should never short-circuit");
+        this.Assert(moves.Count == 2, "there should be two available moves");
+        this.Assert(object.ReferenceEquals(moves[0].Die, dice[2]), "die with value 2 is unused");
+        this.Assert(moves[0].Lane == board.Lanes[20], "there is only one piece for this player");
+        this.Assert(moves[0].LaneIndex == 20, "the player's only piece is on that lane");
+        this.Assert(object.ReferenceEquals(moves[1].Die, dice[3]), "die with value 1 is unused and the target has only 1 enemy piece");
+        this.Assert(moves[1].Lane == board.Lanes[20], "there is only one piece for this player");
+        this.Assert(moves[1].LaneIndex == 20, "the player's only piece is on that lane");
 
         var piece = board.Lanes[20][0];
         var enemyPiece = board.Lanes[21][0];
         strategy.MovePiece(player, board, moves[1]);
-        board.Bar.Should().ContainSingle("the enemy piece should have been moved to the bar");
-        board.Bar[0].Should().BeSameAs(enemyPiece, "the enemy piece should be the same as the removed one");
-        board.Lanes[21].Should().ContainSingle("the piece should have been moved to this lane");
-        board.Lanes[21][0].Should().BeSameAs(piece, "the moved piece should be the same as the selected one");
+        this.Assert(board.Bar.Count == 1, "the enemy piece should have been moved to the bar");
+        this.Assert(board.Bar[0] == enemyPiece, "the enemy piece should be the same as the removed one");
+        this.Assert(board.Lanes[21].Count == 1, "the piece should have been moved to this lane");
+        this.Assert(board.Lanes[21][0] == piece, "the moved piece should be the same as the selected one");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestBearOffPieceStrategyZeroDice()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
+        var enemy = this.App.GetGameFactory().CreatePlayer("Player 2");
         var dice = new[] { new DefaultDie(false, 6), new DefaultDie(false, 5) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -222,15 +211,15 @@ public class GameRuleTests : IDisposable
         var strategy = new BearOffPieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeFalse("the strategy should never short-circuit");
-        moves.Should().BeEmpty("there should be no moves available");
+        this.Assert(context.IsDone == false, "the strategy should never short-circuit");
+        this.Assert(moves.Count == 0, "there should be no moves available");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestBearOffPieceStrategyOneDie()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
+        var enemy = this.App.GetGameFactory().CreatePlayer("Player 2");
         var dice = new[] { new DefaultDie(true, 6), new DefaultDie(false, 5), new DefaultDie(false, 4), new DefaultDie(false, 3) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -240,24 +229,24 @@ public class GameRuleTests : IDisposable
         var strategy = new BearOffPieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeFalse("the strategy should never short-circuit");
-        moves.Should().ContainSingle("there should be only one move available");
-        moves[0].Die.Should().Be(dice[1], "this is the only available die which can be used to exit");
-        moves[0].Lane.Should().BeSameAs(board.Lanes[19], "this lane contains the only piece for the player");
-        moves[0].LaneIndex.Should().Be(19, "this lane contains the only piece for the player");
+        this.Assert(context.IsDone == false, "the strategy should never short-circuit");
+        this.Assert(moves.Count == 1, "there should be only one move available");
+        this.Assert(object.ReferenceEquals(moves[0].Die, dice[1]), "this is the only available die which can be used to exit");
+        this.Assert(moves[0].Lane == board.Lanes[19], "this lane contains the only piece for the player");
+        this.Assert(moves[0].LaneIndex == 19, "this lane contains the only piece for the player");
 
         var piece = board.Lanes[19][0];
         strategy.MovePiece(player, board, moves[0]);
-        board.Lanes[19].Should().BeEmpty("the piece should have been beared off");
-        board.BearedOff.Should().ContainSingle("the piece should have been moved to this lane");
-        board.BearedOff[0].Should().BeSameAs(piece, "the beared off piece should be the same as the selected one");
+        this.Assert(board.Lanes[19].Count == 0, "the piece should have been beared off");
+        this.Assert(board.BearedOff.Count == 1, "the piece should have been moved to this lane");
+        this.Assert(board.BearedOff[0] == piece, "the beared off piece should be the same as the selected one");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
     public void TestBearOffPieceStrategyTwoDice()
     {
-        var player = this.app.GetGameFactory().CreatePlayer("Player 1");
-        var enemy = this.app.GetGameFactory().CreatePlayer("Player 2");
+        var player = this.App.GetGameFactory().CreatePlayer("Player 1");
+        var enemy = this.App.GetGameFactory().CreatePlayer("Player 2");
         var dice = new[] { new DefaultDie(false, 6), new DefaultDie(false, 5), new DefaultDie(false, 4), new DefaultDie(false, 3) };
         var turn = new DefaultTurn(player, dice);
         var context = new DefaultGameRuleStrategyContext();
@@ -268,22 +257,22 @@ public class GameRuleTests : IDisposable
         var strategy = new BearOffPieceStrategy();
 
         var moves = this.CallGetStrategyValidMoves(strategy, board, turn, context);
-        context.IsDone.Should().BeFalse("the strategy should never short-circuit");
-        moves.Count.Should().Be(2, "there should be two move available");
-        moves[0].Die.Should().Be(dice[0], "a larger move can be used when there is no piece before ours");
-        moves[0].Lane.Should().BeSameAs(board.Lanes[19], "this lane contains the only piece for the player");
-        moves[0].LaneIndex.Should().Be(19, "this lane contains the only piece for the player");
-        moves[1].Die.Should().Be(dice[1], "an exact die can be used to bear off the piece");
-        moves[1].Lane.Should().BeSameAs(board.Lanes[19], "this lane contains the only piece for the player");
-        moves[1].LaneIndex.Should().Be(19, "this lane contains the only piece for the player");
+        this.Assert(context.IsDone == false, "the strategy should never short-circuit");
+        this.Assert(moves.Count == 2, "there should be two move available");
+        this.Assert(object.ReferenceEquals(moves[0].Die, dice[0]), "a larger move can be used when there is no piece before ours");
+        this.Assert(moves[0].Lane == board.Lanes[19], "this lane contains the only piece for the player");
+        this.Assert(moves[0].LaneIndex == 19, "this lane contains the only piece for the player");
+        this.Assert(object.ReferenceEquals(moves[1].Die, dice[1]), "an exact die can be used to bear off the piece");
+        this.Assert(moves[1].Lane == board.Lanes[19], "this lane contains the only piece for the player");
+        this.Assert(moves[1].LaneIndex == 19, "this lane contains the only piece for the player");
 
         var unmovedPiece = board.Lanes[19][0];
         var piece = board.Lanes[19][1];
         strategy.MovePiece(player, board, moves[0]);
-        board.Lanes[19].Should().ContainSingle("only one piece should be beared off");
-        board.Lanes[19][0].Should().BeSameAs(unmovedPiece, "the remaining piece should not be changed");
-        board.BearedOff.Should().ContainSingle("the piece should have been moved to this lane");
-        board.BearedOff[0].Should().BeSameAs(piece, "the beared off piece should be the same as the selected one");
+        this.Assert(board.Lanes[19].Count == 1, "only one piece should be beared off");
+        this.Assert(board.Lanes[19][0] == unmovedPiece, "the remaining piece should not be changed");
+        this.Assert(board.BearedOff.Count == 1, "the piece should have been moved to this lane");
+        this.Assert(board.BearedOff[0] == piece, "the beared off piece should be the same as the selected one");
     }
     #endregion
 
@@ -299,9 +288,5 @@ public class GameRuleTests : IDisposable
     {
         return new DefaultBoard();
     }
-    #endregion
-
-    #region Private fields and constants
-    private readonly IApp app;
     #endregion
 }

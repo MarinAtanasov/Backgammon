@@ -3,7 +3,7 @@
 //
 using AppBrix.Backgammon.Events;
 using AppBrix.Backgammon.Game;
-using FluentAssertions;
+using AppBrix.Testing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,20 +13,10 @@ using Xunit;
 
 namespace AppBrix.Backgammon.Tests;
 
-public class GameTests : IDisposable
+public class GameTests : TestsBase<BackgammonModule>
 {
-    #region Setup and cleanup
-    public GameTests()
-    {
-        this.app = TestUtils.CreateTestApp(typeof(BackgammonModule));
-        this.app.Start();
-    }
-
-    public void Dispose()
-    {
-        this.app.Stop();
-        GC.SuppressFinalize(this);
-    }
+    #region Test lifecycle
+    protected override void Initialize() => this.App.Start();
     #endregion
 
     #region Tests
@@ -38,7 +28,7 @@ public class GameTests : IDisposable
 
         var stopwatch = Stopwatch.StartNew();
         var times = new List<double>();
-        app.GetEventHub().Subscribe<IGameEnded>(x =>
+        this.App.GetEventHub().Subscribe<IGameEnded>(x =>
         {
             times.Add(stopwatch.Elapsed.TotalMilliseconds);
             stopwatch.Restart();
@@ -50,7 +40,7 @@ public class GameTests : IDisposable
         }
 
         stopwatch.Reset();
-        times.Average().Should().BeLessThan(3, "this tests the average performange per game");
+        this.Assert(times.Average() < 3, "this tests the average performance per game");
     }
 
     [Fact, Trait(TestCategories.Category, TestCategories.Performance)]
@@ -63,8 +53,8 @@ public class GameTests : IDisposable
         var expectedGain = 0.25;
         double gamesOneCore = this.PlayGamesAsync(1, duration);
         double gamesTwoCores = this.PlayGamesAsync(2, duration);
-        gamesTwoCores.Should().BeGreaterThan(gamesOneCore, "games should run asynchronously on two cores");
-        gamesTwoCores.Should().BeGreaterThan(gamesOneCore * (1 + expectedGain), $"performance gain should be at least {expectedGain * 100}% for the second core");
+        this.Assert(gamesTwoCores > gamesOneCore, "games should run asynchronously on two cores");
+        this.Assert(gamesTwoCores > gamesOneCore * (1 + expectedGain), $"performance gain should be at least {expectedGain * 100}% for the second core");
     }
     #endregion
 
@@ -95,10 +85,10 @@ public class GameTests : IDisposable
         var player2Name = "Player 2";
         var players = new Dictionary<string, IPlayer>
             {
-                { player1Name, app.Get<IGameFactory>().CreatePlayer(player1Name) },
-                { player2Name, app.Get<IGameFactory>().CreatePlayer(player2Name) }
+                { player1Name, this.App.Get<IGameFactory>().CreatePlayer(player1Name) },
+                { player2Name, this.App.Get<IGameFactory>().CreatePlayer(player2Name) }
             };
-        var game = app.Get<IGameFactory>().CreateGame(players.Values.ToList());
+        var game = this.App.Get<IGameFactory>().CreateGame(players.Values.ToList());
         game.Start(players.Values.First());
 
         while (!game.HasEnded)
@@ -113,7 +103,7 @@ public class GameTests : IDisposable
             var moves = game.GetAvailableMoves(player).ToList();
             if (moves.Count > 0)
             {
-                game.PlayMove(player, moves[this.app.GetRandomService().GetRandom().Next(moves.Count)]);
+                game.PlayMove(player, moves[this.App.GetRandomService().GetRandom().Next(moves.Count)]);
             }
             else
             {
@@ -121,9 +111,5 @@ public class GameTests : IDisposable
             }
         }
     }
-    #endregion
-
-    #region Private fields and constants
-    private readonly IApp app;
     #endregion
 }
