@@ -9,10 +9,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace AppBrix.Backgammon.Tests;
 
+[TestClass]
 public class GameTests : TestsBase<BackgammonModule>
 {
     #region Test lifecycle
@@ -20,7 +20,7 @@ public class GameTests : TestsBase<BackgammonModule>
     #endregion
 
     #region Tests
-    [Fact, Trait(TestCategories.Category, TestCategories.Performance)]
+    [Test, Performance]
     public void TestPerformanceGame()
     {
         // The first game can skew the results because the assemblies are lazily loaded.
@@ -43,7 +43,7 @@ public class GameTests : TestsBase<BackgammonModule>
         this.Assert(times.Average() < 3, "this tests the average performance per game");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Performance)]
+    [Test, Performance]
     public void TestPerformanceGameMultithreading()
     {
         // The first game can skew the results because the assemblies are lazily loaded.

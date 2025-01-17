@@ -6,10 +6,10 @@ using AppBrix.Backgammon.Game;
 using AppBrix.Testing;
 using System;
 using System.Linq;
-using Xunit;
 
 namespace AppBrix.Backgammon.Tests;
 
+[TestClass]
 public class GameFactoryTests : TestsBase<BackgammonModule>
 {
     #region Test lifecycle
@@ -17,7 +17,7 @@ public class GameFactoryTests : TestsBase<BackgammonModule>
     #endregion
 
     #region Tests
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestCreatePlayers()
     {
         var player1Name = "Player 1";
@@ -31,7 +31,7 @@ public class GameFactoryTests : TestsBase<BackgammonModule>
         this.Assert(player1.Id != player2.Id, "created players should have different ids");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestCreatePlayerWithId()
     {
         var playerName = "Player 1";
@@ -41,7 +41,7 @@ public class GameFactoryTests : TestsBase<BackgammonModule>
         this.Assert(player.Id == playerId, "the created player should have the same id as provided");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestRecreatedPlayer()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -50,14 +50,14 @@ public class GameFactoryTests : TestsBase<BackgammonModule>
         this.Assert(recreated.Equals(player), "recreated player should be equal to the original");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestCreatingPlayerWithNullName()
     {
         Action action = () => this.App.GetGameFactory().CreatePlayer(null!);
         this.AssertThrows<ArgumentNullException>(action, "passing a null player name is not allowed");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestCreatingGame()
     {
         var player1 = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -72,14 +72,14 @@ public class GameFactoryTests : TestsBase<BackgammonModule>
         this.AssertIsInInitialState(game.GetBoard(player2), player2);
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestCreateGameWithNullPlayers()
     {
         Action action = () => this.App.GetGameFactory().CreateGame(null!);
         this.AssertThrows<ArgumentNullException>(action, "passing a null players is not allowed");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestCreateGameWithOnePlayer()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -87,7 +87,7 @@ public class GameFactoryTests : TestsBase<BackgammonModule>
         this.AssertThrows<ArgumentException>(action, "passing only one player is not allowed");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestCreateGameWithThreePlayers()
     {
         var player1 = this.App.GetGameFactory().CreatePlayer("Player 1");

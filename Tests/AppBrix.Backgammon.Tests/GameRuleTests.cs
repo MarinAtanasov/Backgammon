@@ -8,10 +8,10 @@ using AppBrix.Backgammon.Rules.Strategies;
 using AppBrix.Testing;
 using System.Collections.Generic;
 using System.Linq;
-using Xunit;
 
 namespace AppBrix.Backgammon.Tests;
 
+[TestClass]
 public class GameRuleTests : TestsBase<BackgammonModule>
 {
     #region Test lifecycle
@@ -19,7 +19,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
     #endregion
 
     #region Tests
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestEnterPieceStrategyZeroDice()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -38,7 +38,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
         this.Assert(moves.Count == 0, "there should be no available moves because one dice is used and other position is taken");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestEnterPieceStrategyOneDie()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -63,7 +63,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
         this.Assert(board.Lanes[5][0] == piece, "the moved piece should be the same as the removed one");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestEnterPieceStrategyTwoDice()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -97,7 +97,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
         this.Assert(board.Lanes[4][0] == piece, "the moved piece should be the same as the removed one");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestEnterPieceStrategyNoBarredPieces()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -115,7 +115,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
         this.Assert(moves.Count == 0, "there should be no available moves yet because no pieces need to enter");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestMovePieceStrategyZeroDice()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -135,7 +135,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
         this.Assert(moves.Count == 0, "there should be no moves available");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestMovePieceStrategyOneDie()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -164,7 +164,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
         this.Assert(board.Lanes[2][0] == piece, "the moved piece should be the same as the selected one");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestMovePieceStrategyTwoDice()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -196,7 +196,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
         this.Assert(board.Lanes[21][0] == piece, "the moved piece should be the same as the selected one");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestBearOffPieceStrategyZeroDice()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -215,7 +215,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
         this.Assert(moves.Count == 0, "there should be no moves available");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestBearOffPieceStrategyOneDie()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
@@ -242,7 +242,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
         this.Assert(board.BearedOff[0] == piece, "the beared off piece should be the same as the selected one");
     }
 
-    [Fact, Trait(TestCategories.Category, TestCategories.Functional)]
+    [Test, Functional]
     public void TestBearOffPieceStrategyTwoDice()
     {
         var player = this.App.GetGameFactory().CreatePlayer("Player 1");
