@@ -1,0 +1,19 @@
+﻿<Solution>
+  <Folder Name="/.Global/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Clean.ps1" />
+    <File Path="NuGet.Config" />
+    <File Path="Test.ps1" />
+  </Folder>
+  <Folder Name="/Applications/">
+    <Project Path="Applications\AppBrix.Backgammon.ConsoleApp\AppBrix.Backgammon.ConsoleApp.csproj" />
+  </Folder>
+  <Folder Name="/Modules/">
+    <Project Path="Modules\AppBrix.Backgammon\AppBrix.Backgammon.csproj" />
+    <Project Path="Modules\AppBrix.Backgammon.Bots\AppBrix.Backgammon.Bots.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests\AppBrix.Backgammon.Tests\AppBrix.Backgammon.Tests.csproj" />
+  </Folder>
+</Solution>
