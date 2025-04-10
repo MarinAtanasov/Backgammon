@@ -32,15 +32,19 @@
     <None Include="..\..\icon-64x64.png" Pack="true" PackagePath="" Visible="false" />
   </ItemGroup>
 
-
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\AppBrix.Backgammon\AppBrix.Backgammon.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.55.0" />
-    <PackageReference Include="AppBrix.Testing.Xunit" Version="0.55.0" />
+    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.56.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AppBrix.Testing.MSTest" Version="0.56.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.8.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.8.3" />
   </ItemGroup>
 
 </Project>

@@ -25,11 +25,10 @@
     <None Include="..\..\icon-64x64.png" Pack="true" PackagePath="" Visible="false" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <PackageReference Include="AppBrix.Events" Version="0.55.0" />
-    <PackageReference Include="AppBrix.Factory" Version="0.55.0" />
-    <PackageReference Include="AppBrix.Random" Version="0.55.0" />
+    <PackageReference Include="AppBrix.Events" Version="0.56.0" />
+    <PackageReference Include="AppBrix.Factory" Version="0.56.0" />
+    <PackageReference Include="AppBrix.Random" Version="0.56.0" />
   </ItemGroup>
 
 </Project>

@@ -25,7 +25,6 @@
     <None Include="..\..\icon-64x64.png" Pack="true" PackagePath="" Visible="false" />
   </ItemGroup>
 
-
   <ItemGroup>
     <ProjectReference Include="..\AppBrix.Backgammon\AppBrix.Backgammon.csproj" />
   </ItemGroup>
