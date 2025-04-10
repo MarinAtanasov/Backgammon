@@ -25,7 +25,6 @@ public class BackgammonModule : ModuleBase
     #region ModuleBase implementation
     protected override void Initialize(IInitializeContext context)
     {
-        this.App.Container.Register(this);
         this.factory.Value.Initialize(context);
         this.App.Container.Register(this.factory.Value);
         this.diceRoller.Value.Initialize(context);

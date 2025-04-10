@@ -20,7 +20,6 @@ public class BotsModule : ModuleBase
     #region ModuleBase implementation
     protected override void Initialize(IInitializeContext context)
     {
-        this.App.Container.Register(this);
         this.App.Container.Register(new DefaultBotRegister(this.App));
     }
     #endregion
