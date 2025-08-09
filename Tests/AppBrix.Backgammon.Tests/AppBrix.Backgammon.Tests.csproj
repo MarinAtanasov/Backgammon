@@ -37,14 +37,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.59.0" />
+    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.60.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Testing.MSTest" Version="0.59.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.9.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.9.3" />
+    <PackageReference Include="AppBrix.Testing.MSTest" Version="0.60.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.10.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.10.1" />
   </ItemGroup>
 
 </Project>
