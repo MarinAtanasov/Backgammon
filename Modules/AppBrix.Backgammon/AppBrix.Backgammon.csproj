@@ -26,9 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Events" Version="0.60.0" />
-    <PackageReference Include="AppBrix.Factory" Version="0.60.0" />
-    <PackageReference Include="AppBrix.Random" Version="0.60.0" />
+    <PackageReference Include="AppBrix.Events" Version="0.61.0" />
+    <PackageReference Include="AppBrix.Factory" Version="0.61.0" />
+    <PackageReference Include="AppBrix.Random" Version="0.61.0" />
   </ItemGroup>
 
 </Project>
