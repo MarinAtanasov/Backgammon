@@ -4,7 +4,7 @@
     <AssemblyName>AppBrix.Backgammon.Tests</AssemblyName>
     <AssemblyTitle>AppBrix.Backgammon.Tests</AssemblyTitle>
     <Authors>Marin Atanasov</Authors>
-    <Copyright>Copyright 2016-2023</Copyright>
+    <Copyright>Copyright 2016-2025</Copyright>
     <Description>Contains test for AppBrix.Backgammon library.</Description>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -24,7 +24,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
     <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Version>0.1.0</Version>
   </PropertyGroup>
 
@@ -37,14 +37,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.62.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
+    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.63.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Testing.MSTest" Version="0.62.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="4.0.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="4.0.1" />
+    <PackageReference Include="AppBrix.Testing.MSTest" Version="0.63.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.0.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.0.2" />
   </ItemGroup>
 
 </Project>

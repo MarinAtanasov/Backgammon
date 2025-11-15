@@ -4,7 +4,7 @@
     <AssemblyName>AppBrix.Backgammon</AssemblyName>
     <AssemblyTitle>AppBrix.Backgammon</AssemblyTitle>
     <Authors>Marin Atanasov</Authors>
-    <Copyright>Copyright 2016-2023</Copyright>
+    <Copyright>Copyright 2016-2025</Copyright>
     <Description>Contains core functionality for the backgammon libraries.</Description>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
@@ -17,7 +17,7 @@
     <PackageTags>AppBrix Module Backgammon</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Version>0.1.0</Version>
   </PropertyGroup>
 
@@ -26,9 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Events" Version="0.62.0" />
-    <PackageReference Include="AppBrix.Factory" Version="0.62.0" />
-    <PackageReference Include="AppBrix.Random" Version="0.62.0" />
+    <PackageReference Include="AppBrix.Events" Version="0.63.0" />
+    <PackageReference Include="AppBrix.Factory" Version="0.63.0" />
+    <PackageReference Include="AppBrix.Random" Version="0.63.0" />
   </ItemGroup>
 
 </Project>

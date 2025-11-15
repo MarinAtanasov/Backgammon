@@ -4,7 +4,7 @@
     <AssemblyName>AppBrix.Backgammon.ConsoleApp</AssemblyName>
     <AssemblyTitle>AppBrix.Backgammon.ConsoleApp</AssemblyTitle>
     <Authors>Marin Atanasov</Authors>
-    <Copyright>Copyright 2016-2023</Copyright>
+    <Copyright>Copyright 2016-2025</Copyright>
     <Description>A console app which can be used to play Backgammon.</Description>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
@@ -18,7 +18,7 @@
     <PackageTags>AppBrix Backgammon Console</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Version>0.1.0</Version>
   </PropertyGroup>
 
@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.All" Version="0.62.0" />
+    <PackageReference Include="AppBrix.All" Version="0.63.0" />
   </ItemGroup>
 
 </Project>
