@@ -7,5 +7,5 @@ namespace AppBrix.Backgammon.Game;
 
 internal interface IGameMove : IMove
 {
-    new IGameBoardLane Lane { get; }
+	new IGameBoardLane Lane { get; }
 }

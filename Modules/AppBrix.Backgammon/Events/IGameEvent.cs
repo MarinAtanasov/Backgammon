@@ -11,8 +11,8 @@ namespace AppBrix.Backgammon.Events;
 /// </summary>
 public interface IGameEvent : IEvent
 {
-    /// <summary>
-    /// Gets the current game.
-    /// </summary>
-    IGame Game { get; }
+	/// <summary>
+	/// Gets the current game.
+	/// </summary>
+	IGame Game { get; }
 }

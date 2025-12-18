@@ -9,10 +9,10 @@ namespace AppBrix.Backgammon.Game;
 /// </summary>
 public interface IDiceRoller
 {
-    /// <summary>
-    /// Rolls a die and returns its value.
-    /// Value is between 1 and 6.
-    /// </summary>
-    /// <returns>The rolled value.</returns>
-    int RollDie();
+	/// <summary>
+	/// Rolls a die and returns its value.
+	/// Value is between 1 and 6.
+	/// </summary>
+	/// <returns>The rolled value.</returns>
+	int RollDie();
 }

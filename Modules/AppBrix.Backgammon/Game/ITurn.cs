@@ -11,20 +11,20 @@ namespace AppBrix.Backgammon.Game;
 /// </summary>
 public interface ITurn
 {
-    #region Properties
-    /// <summary>
-    /// Gets whether the dice should be rolled.
-    /// </summary>
-    bool AreDiceRolled { get; }
+	#region Properties
+	/// <summary>
+	/// Gets whether the dice should be rolled.
+	/// </summary>
+	bool AreDiceRolled { get; }
 
-    /// <summary>
-    /// Gets the rolled dice.
-    /// </summary>
-    IReadOnlyList<IDie> Dice { get; }
+	/// <summary>
+	/// Gets the rolled dice.
+	/// </summary>
+	IReadOnlyList<IDie> Dice { get; }
 
-    /// <summary>
-    /// Gets the name of the player who will play this turn.
-    /// </summary>
-    string Player { get; }
-    #endregion
+	/// <summary>
+	/// Gets the name of the player who will play this turn.
+	/// </summary>
+	string Player { get; }
+	#endregion
 }

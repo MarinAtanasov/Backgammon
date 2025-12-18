@@ -7,14 +7,14 @@ namespace AppBrix.Backgammon.Events.Impl;
 
 internal class DefaultTurnChanged : ITurnChanged
 {
-    #region Construction
-    public DefaultTurnChanged(IGame game)
-    {
-        this.Game = game;
-    }
-    #endregion
+	#region Construction
+	public DefaultTurnChanged(IGame game)
+	{
+		this.Game = game;
+	}
+	#endregion
 
-    #region Properties
-    public IGame Game { get; }
-    #endregion
+	#region Properties
+	public IGame Game { get; }
+	#endregion
 }

@@ -9,8 +9,8 @@ namespace AppBrix.Backgammon.Rules.Strategies;
 /// </summary>
 internal interface IGameRuleStrategyContext
 {
-    /// <summary>
-    /// Gets or sets whether the strategy has found all available moves.
-    /// </summary>
-    bool IsDone { get; set; }
+	/// <summary>
+	/// Gets or sets whether the strategy has found all available moves.
+	/// </summary>
+	bool IsDone { get; set; }
 }

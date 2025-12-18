@@ -7,30 +7,30 @@ namespace AppBrix.Backgammon.Game.Impl;
 
 internal class DefaultPlayer : IPlayer
 {
-    #region Construction
-    public DefaultPlayer(string name, Guid id)
-    {
-        if (string.IsNullOrEmpty(name))
-            throw new ArgumentNullException(nameof(name));
-        if (id == Guid.Empty)
-            throw new ArgumentException($"{nameof(id)} cannot be an empty GUID");
+	#region Construction
+	public DefaultPlayer(string name, Guid id)
+	{
+		if (string.IsNullOrEmpty(name))
+			throw new ArgumentNullException(nameof(name));
+		if (id == Guid.Empty)
+			throw new ArgumentException($"{nameof(id)} cannot be an empty GUID");
 
-        this.Id = id;
-        this.Name = name;
-    }
-    #endregion
+		this.Id = id;
+		this.Name = name;
+	}
+	#endregion
 
-    #region Properties
-    public Guid Id { get; }
+	#region Properties
+	public Guid Id { get; }
 
-    public string Name { get; }
-    #endregion
+	public string Name { get; }
+	#endregion
 
-    #region Public and overriden methods
-    public override bool Equals(object? obj) => obj is DefaultPlayer player && this.Id == player.Id && this.Name == player.Name;
+	#region Public and overriden methods
+	public override bool Equals(object? obj) => obj is DefaultPlayer player && this.Id == player.Id && this.Name == player.Name;
 
-    public override int GetHashCode() => this.Id.GetHashCode();
+	public override int GetHashCode() => this.Id.GetHashCode();
 
-    public override string ToString() => string.Format("{0} ({1})", this.Name, this.Id);
-    #endregion
+	public override string ToString() => string.Format("{0} ({1})", this.Name, this.Id);
+	#endregion
 }

@@ -10,10 +10,10 @@ namespace AppBrix.Backgammon.Bots;
 /// </summary>
 public interface IBotRegister
 {
-    /// <summary>
-    /// Registers a bot
-    /// </summary>
-    /// <param name="game">The game</param>
-    /// <param name="bot">The bot</param>
-    void RegisterBot(IGame game, IBot bot);
+	/// <summary>
+	/// Registers a bot
+	/// </summary>
+	/// <param name="game">The game</param>
+	/// <param name="bot">The bot</param>
+	void RegisterBot(IGame game, IBot bot);
 }

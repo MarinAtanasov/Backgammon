@@ -9,10 +9,10 @@ namespace AppBrix.Backgammon.Board;
 /// </summary>
 public interface IPiece
 {
-    #region Properties
-    /// <summary>
-    /// Gets the player who owns the piece.
-    /// </summary>
-    string Player { get; }
-    #endregion
+	#region Properties
+	/// <summary>
+	/// Gets the player who owns the piece.
+	/// </summary>
+	string Player { get; }
+	#endregion
 }

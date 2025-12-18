@@ -10,15 +10,15 @@ namespace AppBrix.Backgammon.Game;
 /// </summary>
 public interface IPlayer
 {
-    #region Properties
-    /// <summary>
-    /// Gets the id of the player.
-    /// </summary>
-    Guid Id { get; }
+	#region Properties
+	/// <summary>
+	/// Gets the id of the player.
+	/// </summary>
+	Guid Id { get; }
 
-    /// <summary>
-    /// Gets the name of the player.
-    /// </summary>
-    string Name { get; }
-    #endregion
+	/// <summary>
+	/// Gets the name of the player.
+	/// </summary>
+	string Name { get; }
+	#endregion
 }

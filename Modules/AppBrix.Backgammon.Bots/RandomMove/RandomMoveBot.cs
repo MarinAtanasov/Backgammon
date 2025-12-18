@@ -8,16 +8,16 @@ namespace AppBrix.Backgammon.Bots.RandomMove;
 
 public class RandomMoveBot : BotBase
 {
-    public RandomMoveBot(IApp app, IPlayer player)
-        : base(player)
-    {
-        this.app = app;
-    }
+	public RandomMoveBot(IApp app, IPlayer player)
+		: base(player)
+	{
+		this.app = app;
+	}
 
-    protected override void MakeMove(IGame game, IReadOnlyList<IMove> moves) =>
-        game.PlayMove(this.Player, moves[this.app.GetRandomService().GetRandom().Next(moves.Count)]);
+	protected override void MakeMove(IGame game, IReadOnlyList<IMove> moves) =>
+		game.PlayMove(this.Player, moves[this.app.GetRandomService().GetRandom().Next(moves.Count)]);
 
-    #region Private fields and constants
-    private readonly IApp app;
-    #endregion
+	#region Private fields and constants
+	private readonly IApp app;
+	#endregion
 }

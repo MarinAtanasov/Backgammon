@@ -9,15 +9,15 @@ namespace AppBrix.Backgammon.Board;
 /// </summary>
 public interface IDie
 {
-    #region Properties
-    /// <summary>
-    /// Gets whether the die has been used.
-    /// </summary>
-    bool IsUsed { get; }
+	#region Properties
+	/// <summary>
+	/// Gets whether the die has been used.
+	/// </summary>
+	bool IsUsed { get; }
 
-    /// <summary>
-    /// Gets the value of the die. Value is between 1 and 6.
-    /// </summary>
-    int Value { get; }
-    #endregion
+	/// <summary>
+	/// Gets the value of the die. Value is between 1 and 6.
+	/// </summary>
+	int Value { get; }
+	#endregion
 }

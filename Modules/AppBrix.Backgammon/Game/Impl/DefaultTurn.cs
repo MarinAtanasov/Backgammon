@@ -9,24 +9,24 @@ namespace AppBrix.Backgammon.Game.Impl;
 
 internal class DefaultTurn : ITurn
 {
-    #region Construction
-    public DefaultTurn(IPlayer player, IReadOnlyList<IDie> dice)
-    {
-        if (player is null)
-            throw new ArgumentNullException(nameof(player));
-        if (dice is null)
-            throw new ArgumentNullException(nameof(dice));
+	#region Construction
+	public DefaultTurn(IPlayer player, IReadOnlyList<IDie> dice)
+	{
+		if (player is null)
+			throw new ArgumentNullException(nameof(player));
+		if (dice is null)
+			throw new ArgumentNullException(nameof(dice));
 
-        this.Player = player.Name;
-        this.Dice = dice;
-    }
-    #endregion
+		this.Player = player.Name;
+		this.Dice = dice;
+	}
+	#endregion
 
-    #region Properties
-    public bool AreDiceRolled => this.Dice.Count > 0;
+	#region Properties
+	public bool AreDiceRolled => this.Dice.Count > 0;
 
-    public IReadOnlyList<IDie> Dice { get; }
+	public IReadOnlyList<IDie> Dice { get; }
 
-    public string Player { get; }
-    #endregion
+	public string Player { get; }
+	#endregion
 }

@@ -8,26 +8,26 @@ namespace AppBrix.Backgammon.Board.Impl;
 
 internal class ReversedLanes : IReadOnlyList<IGameBoardLane>
 {
-    #region Construction
-    public ReversedLanes(IReadOnlyList<IGameBoardLane> original)
-    {
-        this.original = original;
-    }
-    #endregion
+	#region Construction
+	public ReversedLanes(IReadOnlyList<IGameBoardLane> original)
+	{
+		this.original = original;
+	}
+	#endregion
 
-    #region Properties
-    public int Count => this.original.Count;
+	#region Properties
+	public int Count => this.original.Count;
 
-    public IGameBoardLane this[int index] => this.original[this.original.Count - 1 - index];
-    #endregion
+	public IGameBoardLane this[int index] => this.original[this.original.Count - 1 - index];
+	#endregion
 
-    #region Public and overriden methods
-    public IEnumerator<IGameBoardLane> GetEnumerator() => this.original.GetEnumerator();
+	#region Public and overriden methods
+	public IEnumerator<IGameBoardLane> GetEnumerator() => this.original.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
-    #endregion
+	IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+	#endregion
 
-    #region Private fields and constants
-    private readonly IReadOnlyList<IGameBoardLane> original;
-    #endregion
+	#region Private fields and constants
+	private readonly IReadOnlyList<IGameBoardLane> original;
+	#endregion
 }

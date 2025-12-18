@@ -7,21 +7,21 @@ namespace AppBrix.Backgammon.Game.Impl;
 
 internal class DefaultDiceRoller : IDiceRoller, IApplicationLifecycle
 {
-    #region Public and overriden metheods
-    public void Initialize(IInitializeContext context)
-    {
-        this.app = context.App;
-    }
+	#region Public and overriden metheods
+	public void Initialize(IInitializeContext context)
+	{
+		this.app = context.App;
+	}
 
-    public void Uninitialize()
-    {
-        this.app = null!;
-    }
+	public void Uninitialize()
+	{
+		this.app = null!;
+	}
 
-    public int RollDie() => this.app.GetRandomService().GetRandom().Next(1, 7);
-    #endregion
+	public int RollDie() => this.app.GetRandomService().GetRandom().Next(1, 7);
+	#endregion
 
-    #region Private fields and constants
-    private IApp app = null!;
-    #endregion
+	#region Private fields and constants
+	private IApp app = null!;
+	#endregion
 }

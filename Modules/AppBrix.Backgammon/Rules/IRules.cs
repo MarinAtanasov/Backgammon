@@ -9,5 +9,5 @@ namespace AppBrix.Backgammon.Rules;
 
 public interface IRules
 {
-    IEnumerable<IMove> GetAvailableMoves(IBoard board, ITurn turn);
+	IEnumerable<IMove> GetAvailableMoves(IBoard board, ITurn turn);
 }

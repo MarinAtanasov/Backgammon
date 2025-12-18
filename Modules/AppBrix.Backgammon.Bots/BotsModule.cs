@@ -13,14 +13,14 @@ namespace AppBrix.Backgammon.Bots;
 /// </summary>
 public class BotsModule : ModuleBase
 {
-    #region Properties
-    public override IEnumerable<Type> Dependencies => [typeof(BackgammonModule)];
-    #endregion
+	#region Properties
+	public override IEnumerable<Type> Dependencies => [typeof(BackgammonModule)];
+	#endregion
 
-    #region ModuleBase implementation
-    protected override void Initialize(IInitializeContext context)
-    {
-        this.App.Container.Register(new DefaultBotRegister(this.App));
-    }
-    #endregion
+	#region ModuleBase implementation
+	protected override void Initialize(IInitializeContext context)
+	{
+		this.App.Container.Register(new DefaultBotRegister(this.App));
+	}
+	#endregion
 }
