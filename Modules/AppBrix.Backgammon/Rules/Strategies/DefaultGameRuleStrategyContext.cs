@@ -10,10 +10,7 @@ internal class DefaultGameRuleStrategyContext : IGameRuleStrategyContext
 	#region Properties
 	public bool IsDone
 	{
-		get
-		{
-			return this.isDone;
-		}
+		get;
 		set
 		{
 			if (this.IsDone != value)
@@ -21,13 +18,9 @@ internal class DefaultGameRuleStrategyContext : IGameRuleStrategyContext
 				if (this.IsDone)
 					throw new InvalidOperationException("Once the context is finished, it cannot be resumed.");
 
-				this.isDone = value;
+				field = value;
 			}
 		}
 	}
-	#endregion
-
-	#region Private fields and constants
-	private bool isDone;
 	#endregion
 }
