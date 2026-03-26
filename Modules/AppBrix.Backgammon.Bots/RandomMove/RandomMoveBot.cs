@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace AppBrix.Backgammon.Bots.RandomMove;
 
-public class RandomMoveBot : BotBase
+public class RandomMoveBot : Bot
 {
 	public RandomMoveBot(IApp app, IPlayer player)
 		: base(player)

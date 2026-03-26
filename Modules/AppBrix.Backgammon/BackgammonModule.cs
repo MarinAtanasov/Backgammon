@@ -22,7 +22,7 @@ public class BackgammonModule : ModuleBase
 	public override IEnumerable<Type> Dependencies => [typeof(EventsModule), typeof(FactoryModule), typeof(RandomModule)];
 	#endregion
 
-	#region ModuleBase implementation
+	#region Module implementation
 	protected override void Initialize(IInitializeContext context)
 	{
 		this.factory.Value.Initialize(context);

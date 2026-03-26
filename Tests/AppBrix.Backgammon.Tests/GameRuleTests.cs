@@ -277,7 +277,7 @@ public class GameRuleTests : TestsBase<BackgammonModule>
 	#endregion
 
 	#region Private methods
-	private IList<IGameMove> CallGetStrategyValidMoves(GameRuleStrategyBase strategy, IGameBoard board, ITurn turn, IGameRuleStrategyContext context)
+	private IList<IGameMove> CallGetStrategyValidMoves(GameRuleStrategy strategy, IGameBoard board, ITurn turn, IGameRuleStrategyContext context)
 	{
 		return strategy.GetStrategyAvailableMoves(board, turn, context)
 			.Cast<IGameMove>()

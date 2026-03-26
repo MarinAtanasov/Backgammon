@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Rules.Strategies;
 
-internal class BearOffPieceStrategy : GameRuleStrategyBase
+internal class BearOffPieceStrategy : GameRuleStrategy
 {
 	#region Public and overriden methods
 	protected internal override IEnumerable<IMove> GetStrategyAvailableMoves(IBoard board, ITurn turn, IGameRuleStrategyContext context)

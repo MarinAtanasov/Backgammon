@@ -9,10 +9,10 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Rules.Strategies;
 
-internal abstract class GameRuleStrategyBase
+internal abstract class GameRuleStrategy
 {
 	#region Public and abstract methods
-	public GameRuleStrategyBase SetNext(GameRuleStrategyBase rule)
+	public GameRuleStrategy SetNext(GameRuleStrategy rule)
 	{
 		this.next = rule;
 		return rule;
@@ -66,6 +66,6 @@ internal abstract class GameRuleStrategyBase
 	#endregion
 
 	#region Private fields and constants
-	private GameRuleStrategyBase next = null!;
+	private GameRuleStrategy next = null!;
 	#endregion
 }

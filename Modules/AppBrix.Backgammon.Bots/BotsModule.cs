@@ -17,7 +17,7 @@ public class BotsModule : ModuleBase
 	public override IEnumerable<Type> Dependencies => [typeof(BackgammonModule)];
 	#endregion
 
-	#region ModuleBase implementation
+	#region Module implementation
 	protected override void Initialize(IInitializeContext context)
 	{
 		this.App.Container.Register(new DefaultBotRegister(this.App));

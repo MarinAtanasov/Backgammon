@@ -7,14 +7,14 @@ using System.Linq;
 
 namespace AppBrix.Backgammon.Bots;
 
-public abstract class BotBase : IBot
+public abstract class Bot : IBot
 {
 	#region Construction
 	/// <summary>
-	/// Creates a new instance of <see cref="BotBase"/>.
+	/// Creates a new instance of <see cref="Bot"/>.
 	/// </summary>
 	/// <param name="player">The player whose turn the bot will control.</param>
-	protected BotBase(IPlayer player)
+	protected Bot(IPlayer player)
 	{
 		this.Player = player;
 	}

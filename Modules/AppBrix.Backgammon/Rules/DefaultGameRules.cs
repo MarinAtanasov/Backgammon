@@ -48,6 +48,6 @@ internal sealed class DefaultGameRules : IGameRules
 
 	#region Private fields and constants
 	private const int PiecesPerPlayer = 15;
-	private readonly GameRuleStrategyBase strategy;
+	private readonly GameRuleStrategy strategy;
 	#endregion
 }
