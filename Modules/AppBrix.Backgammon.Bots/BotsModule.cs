@@ -11,7 +11,7 @@ namespace AppBrix.Backgammon.Bots;
 /// <summary>
 /// A module used for registering Backgammon bots.
 /// </summary>
-public class BotsModule : ModuleBase
+public class BotsModule : Module
 {
 	#region Properties
 	public override IEnumerable<Type> Dependencies => [typeof(BackgammonModule)];

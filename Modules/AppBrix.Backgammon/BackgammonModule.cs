@@ -16,7 +16,7 @@ namespace AppBrix.Backgammon;
 /// A module used for registering commonly used Backgammon functionality.
 /// Registers <see cref="Game.IGameFactory"/> and <see cref="Game.IDiceRoller"/>.
 /// </summary>
-public class BackgammonModule : ModuleBase
+public class BackgammonModule : Module
 {
 	#region Properties
 	public override IEnumerable<Type> Dependencies => [typeof(EventsModule), typeof(FactoryModule), typeof(RandomModule)];

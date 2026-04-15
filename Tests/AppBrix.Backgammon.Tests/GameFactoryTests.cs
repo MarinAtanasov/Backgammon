@@ -10,7 +10,7 @@ using System.Linq;
 namespace AppBrix.Backgammon.Tests;
 
 [TestClass]
-public class GameFactoryTests : TestsBase<BackgammonModule>
+public class GameFactoryTests : Tests<BackgammonModule>
 {
 	#region Test lifecycle
 	protected override void Initialize() => this.App.Start();

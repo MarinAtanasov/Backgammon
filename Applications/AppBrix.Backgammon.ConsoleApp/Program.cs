@@ -15,7 +15,7 @@ public static class Program
 	public static void Main(string[] _)
 	{
 		var stopwatch = Stopwatch.StartNew();
-		var app = App.Start<MainModule>(new MemoryConfigService());
+		var app = App.Start<ConsoleAppMainModule>(new MemoryConfigService());
 		try
 		{
 			Program.Run(app);

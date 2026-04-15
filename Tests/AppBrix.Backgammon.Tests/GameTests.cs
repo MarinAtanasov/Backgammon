@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace AppBrix.Backgammon.Tests;
 
 [TestClass]
-public class GameTests : TestsBase<BackgammonModule>
+public class GameTests : Tests<BackgammonModule>
 {
 	#region Test lifecycle
 	protected override void Initialize() => this.App.Start();

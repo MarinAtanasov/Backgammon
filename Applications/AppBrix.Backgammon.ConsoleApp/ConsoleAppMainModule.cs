@@ -11,7 +11,7 @@ namespace AppBrix.Backgammon.ConsoleApp;
 /// <summary>
 /// Main module for the application.
 /// </summary>
-public class MainModule : MainModuleBase
+public class ConsoleAppMainModule : MainModule
 {
 	public override IEnumerable<Type> Dependencies => [typeof(BackgammonModule), typeof(BotsModule)];
 }
