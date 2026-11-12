@@ -1,0 +1,31 @@
+<Project>
+
+  <PropertyGroup>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <Authors>Marin Atanasov</Authors>
+    <Copyright>Copyright 2016-2026</Copyright>
+    <Deterministic>true</Deterministic>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Features>strict</Features>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GenerateTestingPlatformEntryPoint>false</GenerateTestingPlatformEntryPoint>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IsTestProject>false</IsTestProject>
+    <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
+    <IsTrimmable>false</IsTrimmable>
+    <Nullable>enable</Nullable>
+    <PackageIcon>icon-64x64.png</PackageIcon>
+    <PackageIconUrl>https://raw.githubusercontent.com/MarinAtanasov/Backgammon/master/icon-64x64.png</PackageIconUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/MarinAtanasov/Backgammon</PackageProjectUrl>
+    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon.git</RepositoryUrl>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <TargetFramework>net11.0</TargetFramework>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+</Project>

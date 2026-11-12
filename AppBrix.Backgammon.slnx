@@ -3,6 +3,7 @@
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
     <File Path="Clean.ps1" />
+    <File Path="Directory.Build.props" />
     <File Path="NuGet.Config" />
     <File Path="Test.ps1" />
   </Folder>

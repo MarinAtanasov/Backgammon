@@ -3,45 +3,25 @@
   <PropertyGroup>
     <AssemblyName>AppBrix.Backgammon.Tests</AssemblyName>
     <AssemblyTitle>AppBrix.Backgammon.Tests</AssemblyTitle>
-    <Authors>Marin Atanasov</Authors>
-    <Copyright>Copyright 2016-2025</Copyright>
     <Description>Contains test for AppBrix.Backgammon library.</Description>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <PackageIcon>icon-64x64.png</PackageIcon>
-    <PackageIconUrl>https://raw.githubusercontent.com/MarinAtanasov/Backgammon/master/icon-64x64.png</PackageIconUrl>
     <PackageId>AppBrix.Backgammon.Tests</PackageId>
-    <PackageId>AppBrix.Backgammon.Tests</PackageId>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/MarinAtanasov/Backgammon</PackageProjectUrl>
-    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
     <PackageTags>AppBrix Module Backgammon Tests</PackageTags>
-    <PackageProjectUrl>https://github.com/MarinAtanasov/Backgammon</PackageProjectUrl>
-    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
-    <PackageTags>AppBrix Module Backgammon Tests</PackageTags>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
-    <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
-    <TargetFramework>net10.0</TargetFramework>
-    <Version>0.1.0</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\icon-64x64.png" Pack="true" PackagePath="" Visible="false" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\AppBrix.Backgammon\AppBrix.Backgammon.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.75.0" />
-    <PackageReference Include="AppBrix.Testing.MSTest" Version="0.75.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="4.5.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="4.5.2" />
+    <PackageReference Include="AppBrix.Configuration.Memory" Version="0.76.0" />
+    <PackageReference Include="AppBrix.Testing.MSTest" Version="0.76.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.5.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.5.3" />
   </ItemGroup>
 
 </Project>

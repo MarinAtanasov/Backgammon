@@ -3,32 +3,15 @@
   <PropertyGroup>
     <AssemblyName>AppBrix.Backgammon</AssemblyName>
     <AssemblyTitle>AppBrix.Backgammon</AssemblyTitle>
-    <Authors>Marin Atanasov</Authors>
-    <Copyright>Copyright 2016-2025</Copyright>
     <Description>Contains core functionality for the backgammon libraries.</Description>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <Nullable>enable</Nullable>
-    <PackageIcon>icon-64x64.png</PackageIcon>
-    <PackageIconUrl>https://raw.githubusercontent.com/MarinAtanasov/Backgammon/master/icon-64x64.png</PackageIconUrl>
     <PackageId>AppBrix.Backgammon</PackageId>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/MarinAtanasov/Backgammon</PackageProjectUrl>
-    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
     <PackageTags>AppBrix Module Backgammon</PackageTags>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/MarinAtanasov/Backgammon</RepositoryUrl>
-    <TargetFramework>net10.0</TargetFramework>
-    <Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\icon-64x64.png" Pack="true" PackagePath="" Visible="false" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AppBrix.Events" Version="0.75.0" />
-    <PackageReference Include="AppBrix.Factory" Version="0.75.0" />
-    <PackageReference Include="AppBrix.Random" Version="0.75.0" />
+    <PackageReference Include="AppBrix.Events" Version="0.76.0" />
+    <PackageReference Include="AppBrix.Factory" Version="0.76.0" />
+    <PackageReference Include="AppBrix.Random" Version="0.76.0" />
   </ItemGroup>
 
 </Project>
